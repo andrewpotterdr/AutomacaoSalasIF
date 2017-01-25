@@ -1,11 +1,10 @@
 package Clientes;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.Scanner;
  
 public class Cliente
 {
@@ -13,9 +12,11 @@ public class Cliente
 	public static void main(String[] args) throws UnknownHostException, IOException
 	{
 		Socket cliente = new Socket("127.0.0.1", 12345);
+		DataOutputStream saida = new DataOutputStream(cliente.getOutputStream());
+		saida.writeChars("Máquina1");
 		DataInputStream entrada = new DataInputStream(cliente.getInputStream());
-		int stat = entrada.readInt();
-		if(stat == 1)
+		boolean stat = entrada.readBoolean();
+		if(stat)
 		{
 			if (isWindows())
 			{
