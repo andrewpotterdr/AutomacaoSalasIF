@@ -2,11 +2,11 @@ package Servidores;
 
 import java.util.ArrayList;
 
-public class ColeçãoDispositivos
+public class ColecaoDispositivos
 {
 	private ArrayList<Dispositivo> dispositivos;
 	
-	public ColeçãoDispositivos()
+	public ColecaoDispositivos()
 	{
 		dispositivos = new ArrayList<Dispositivo> ();
 	}
