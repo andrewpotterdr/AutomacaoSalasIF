@@ -2,31 +2,13 @@ package Servidores;
 
 public class Dispositivo
 {
-	private String ID;
 	private String IP;
 	private boolean status;
-	
-	public Dispositivo(String ID, String IP, boolean status)
-	{
-		this.ID = ID;
-		this.IP = IP;
-		this.status = status;
-	}
 	
 	public Dispositivo(String IP, boolean status)
 	{
 		this.IP = IP;
 		this.status = status;
-	}
-	
-	public Dispositivo(String IP)
-	{
-		this.IP = IP;
-	}
-	
-	public String getID()
-	{
-		return this.ID;
 	}
 	
 	public String getIP()
@@ -37,11 +19,6 @@ public class Dispositivo
 	public boolean getStatus()
 	{
 		return this.status;
-	}
-	
-	public void setID(String ID)
-	{
-		this.ID = ID;
 	}
 	
 	public void setIP(String IP)
@@ -56,12 +33,12 @@ public class Dispositivo
 	
 	public String toString()
 	{
-		return "Dispositivo:\nID: " + ID + "\nIP: " + IP;
+		return "Dispositivo:\nIP: " + IP;
 	}
 	
 	public boolean equals(Dispositivo dispositivo)
 	{
-		if(this.ID.equals(dispositivo.getID()) || this.IP.equals(dispositivo.getIP()))
+		if(this.IP.equals(dispositivo.getIP()))
 		{
 			return true;
 		}

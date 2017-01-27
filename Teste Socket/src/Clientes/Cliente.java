@@ -11,11 +11,8 @@ public class Cliente
 	private static String OS = System.getProperty("os.name").toLowerCase();
 	public static void main(String[] args) throws UnknownHostException, IOException
 	{
-		DataOutputStream saida = null;
 		Socket cliente = new Socket("127.0.0.1", 12345);
 		DataInputStream entrada = new DataInputStream(cliente.getInputStream());
-		saida = new DataOutputStream(cliente.getOutputStream());
-		saida.writeUTF("PC01");
 		boolean stat = entrada.readBoolean();
 		if(stat)
 		{
@@ -39,6 +36,7 @@ public class Cliente
 	    	}
 		}
 		entrada.close();
+		cliente.close();
 	}
 	
 	public static boolean isWindows()

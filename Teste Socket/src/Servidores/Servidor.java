@@ -1,5 +1,6 @@
 package Servidores;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -10,17 +11,16 @@ public class Servidor
 {
 	public static void main(String[] args) throws IOException
 	{
+		ColecaoDispositivos coldis = new ColecaoDispositivos ();
 		Scanner input = new Scanner(System.in);
 		DataOutputStream saida = null;
 		boolean desligar = true;
-		ServerSocket servidor = new ServerSocket(12500);
-		System.out.println("Porta 12345 aberta!");
-		int i = 0;
+		ServerSocket servidor = new ServerSocket(60050);
+		System.out.println("Porta 60050 aberta!");
 		while(true)
 		{
 			Socket cliente = servidor.accept();
-			String ID = cliente.getInputStream().toString();
-			System.out.println(ID);
+			DataInputStream entrada = new DataInputStream(cliente.getInputStream());
 			String IP = cliente.getInetAddress().toString();
 			System.out.println(IP);
 			if(lerOpcao(input,0,1) == 0)
@@ -28,9 +28,10 @@ public class Servidor
 				desligar = false;
 			}
 			boolean status = desligar;
+			Dispositivo dispositivo = new Dispositivo(IP, desligar);
+			coldis.adicionaDispositivo(dispositivo);
 			saida = new DataOutputStream(cliente.getOutputStream());
 			saida.writeBoolean(desligar);
-			i++;
 		}
 	}
 	
