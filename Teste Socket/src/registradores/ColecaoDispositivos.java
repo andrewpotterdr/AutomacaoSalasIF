@@ -1,4 +1,4 @@
-package Servidores;
+package registradores;
 
 import java.util.ArrayList;
 
@@ -45,5 +45,10 @@ public class ColecaoDispositivos
 		}
 		dispositivos.remove(dispositivo);
 		return true;
+	}
+	
+	public int size()
+	{
+		return dispositivos.size();
 	}
 }

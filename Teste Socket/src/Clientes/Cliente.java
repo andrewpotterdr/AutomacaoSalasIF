@@ -1,8 +1,9 @@
-package Clientes;
+package clientes;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.NetworkInterface;
 import java.net.Socket;
 import java.net.UnknownHostException;
  
@@ -13,6 +14,9 @@ public class Cliente
 	{
 		Socket cliente = new Socket("127.0.0.1", 12345);
 		DataInputStream entrada = new DataInputStream(cliente.getInputStream());
+		DataOutputStream saida = new DataOutputStream(cliente.getOutputStream());
+		String MAC = GetNetworkAddress.GetAddress("mac");
+		saida.writeUTF(MAC);
 		boolean stat = entrada.readBoolean();
 		if(stat)
 		{
