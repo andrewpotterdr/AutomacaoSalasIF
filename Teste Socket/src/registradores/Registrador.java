@@ -14,7 +14,14 @@ public class Registrador
 	{
 		Scanner input = new Scanner(System.in);
 		Instituicao inst;
-		while(menu(input,inst) != 1);
+		try
+		{
+			while(menu(input,inst) != 1);
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	public static int menu(Scanner input, Instituicao inst)

@@ -1,6 +1,6 @@
 package registradores;
 
-public class Dispositivo
+public abstract class Dispositivo
 {
 	private String nome;
 	private String MAC;
