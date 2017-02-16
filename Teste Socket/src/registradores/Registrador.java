@@ -13,7 +13,7 @@ public class Registrador
 	public static void main(String[] args) throws IOException
 	{
 		Scanner input = new Scanner(System.in);
-		Instituicao inst;
+		Instituicao inst = null;
 		try
 		{
 			while(menu(input,inst) != 1);
@@ -24,7 +24,7 @@ public class Registrador
 		}
 	}
 	
-	public static int menu(Scanner input, Instituicao inst)
+	public static int menu(Scanner input, Instituicao inst) throws Exception
 	{
 		int res;
 		System.out.println("Escolha uma das opções abaixo: \n"
@@ -36,38 +36,126 @@ public class Registrador
 		switch(lerOpcao(input,1,5))
 		{
 			case 1:
-				res = menuInstituicoes(input,inst);
-				while(res != 2)
+				try
 				{
 					res = menuInstituicoes(input,inst);
 				}
+				catch(Exception e)
+				{
+					if(e instanceof ReturnException)
+					{
+						res = ((ReturnException) e).getReturn();
+					}
+					throw new Exception(e.getMessage());
+				}
+				while(res != 2)
+				{
+					try
+					{
+						res = menuInstituicoes(input,inst);
+					}
+					catch(Exception e)
+					{
+						if(e instanceof ReturnException)
+						{
+							res = ((ReturnException) e).getReturn();
+						}
+						throw new Exception(e.getMessage());
+					}
+				}
 			return 0;
 			case 2:
-				res = menuBlocos(input,inst);
-				while(res != 2)
+				try
 				{
 					res = menuBlocos(input,inst);
 				}
+				catch(Exception e)
+				{
+					if(e instanceof ReturnException)
+					{
+						res = ((ReturnException) e).getReturn();
+					}
+					throw new Exception(e.getMessage());
+				}
+				while(res != 2)
+				{
+					try
+					{
+						res = menuBlocos(input,inst);
+					}
+					catch(Exception e)
+					{
+						if(e instanceof ReturnException)
+						{
+							res = ((ReturnException) e).getReturn();
+						}
+						throw new Exception(e.getMessage());
+					}
+				}
 			return 0;
 			case 3:
-				res = menuSalas(input,inst);
-				while(res != 2)
+				try
 				{
 					res = menuSalas(input,inst);
 				}
-			return 0;
-			case 4:
-				res = menuDispositivos(input,inst);
+				catch(Exception e)
+				{
+					if(e instanceof ReturnException)
+					{
+						res = ((ReturnException) e).getReturn();
+					}
+					throw new Exception(e.getMessage());
+				}
 				while(res != 2)
 				{
+					try
+					{
+						res = menuSalas(input,inst);
+					}
+					catch(Exception e)
+					{
+						if(e instanceof ReturnException)
+						{
+							res = ((ReturnException) e).getReturn();
+						}
+						throw new Exception(e.getMessage());
+					}
+				}
+			return 0;
+			case 4:
+				try
+				{
 					res = menuDispositivos(input,inst);
+				}
+				catch(Exception e)
+				{
+					if(e instanceof ReturnException)
+					{
+						res = ((ReturnException) e).getReturn();
+					}
+					throw new Exception(e.getMessage());
+				}
+				while(res != 2)
+				{
+					try
+					{
+						res = menuDispositivos(input,inst);
+					}
+					catch(Exception e)
+					{
+						if(e instanceof ReturnException)
+						{
+							res = ((ReturnException) e).getReturn();
+						}
+						throw new Exception(e.getMessage());
+					}
 				}
 			return 0;
 		}
 		return 1;
 	}
 	
-	public static int menuInstituicoes(Scanner input, Instituicao inst)
+	public static int menuInstituicoes(Scanner input, Instituicao inst) throws Exception
 	{
 		String nome;
 		String cidade;
@@ -83,8 +171,7 @@ public class Registrador
 			case 1:
 				if(inst != null)
 				{	
-					System.out.println("A instituição já foi cadastrada!\nSe deseja cadastrar outra institução, você precisa desvincular a atualmente cadastrada.");
-					return 0;
+					throw new Exception("A instituição já foi cadastrada!\nSe deseja cadastrar outra institução, você precisa desvincular a atualmente cadastrada.");
 				}
 				System.out.println("Digite o nome da instituição: ");
 				nome = input.nextLine();
@@ -98,8 +185,7 @@ public class Registrador
 			case 2:
 				if(inst != null)
 				{
-					System.out.println("A instituição já foi cadastrada!\nSe deseja cadastrar outra institução, você precisa desvincular a atualmente cadastrada.");
-					return 0;
+					throw new Exception("A instituição já foi cadastrada!\nSe deseja cadastrar outra institução, você precisa desvincular a atualmente cadastrada.");
 				}
 				System.out.println("Digite o nome da instituição: ");
 				nome = input.nextLine();
@@ -113,8 +199,7 @@ public class Registrador
 			case 3:
 				if(inst == null)
 				{
-					System.out.println("A instituição ainda não foi cadastrada!");
-					return 0;
+					throw new Exception("A instituição ainda não foi cadastrada!");
 				}
 				System.out.println("Digite o nome para qual vai ser modificado a instituição: ");
 				nome = input.nextLine();
@@ -133,20 +218,18 @@ public class Registrador
 				}
 				else
 				{
-					System.out.println("Ainda não há uma instituição cadastrada!");
-					return 0;
+					throw new Exception("Ainda não há uma instituição cadastrada!");
 				}
 			return 1;
 		}
 		return 2;
 	}
 	
-	public static int menuBlocos(Scanner input, Instituicao inst)
+	public static int menuBlocos(Scanner input, Instituicao inst) throws Exception
 	{
 		if(inst == null)
 		{
-			System.out.println("Ainda não há uma instituição cadastrada!");
-			return 2;
+			throw new ReturnException("Ainda não há uma instituição cadastrada!",2);
 		}
 		String nome;
 		Bloco bloco = null;
@@ -164,16 +247,14 @@ public class Registrador
 				bloco = new Bloco(nome);
 				if(!inst.getColBlo().adicionabloco(bloco))
 				{
-					System.out.println("Este bloco já foi adicionado!");
-					return 0;
+					throw new Exception("Este bloco já foi adicionado!");
 				}
 				System.out.println("Bloco adicionado com sucesso!");
 			return 1;
 			case 2:
 				if(inst.getColBlo().size() == 0)
 				{
-					System.out.println("Ainda não há nenhum bloco cadastrado na instituição!");
-					return 0;
+					throw new Exception("Ainda não há nenhum bloco cadastrado na instituição!");
 				}
 				else
 				{
@@ -186,8 +267,7 @@ public class Registrador
 				bloco = inst.getColBlo().pesquisaPeloNome(nome);
 				if(bloco == null)
 				{
-					System.out.println("Não há nenhum bloco cadastrado com esse nome!");
-					return 0;
+					throw new Exception("Não há nenhum bloco cadastrado com esse nome!");
 				}
 				else
 				{
@@ -204,19 +284,17 @@ public class Registrador
 		return 2;
 	}
 	
-	public static int menuSalas(Scanner input, Instituicao inst)
+	public static int menuSalas(Scanner input, Instituicao inst) throws Exception
 	{
 		if(inst == null)
 		{
-			System.out.println("Ainda não há uma instituição cadastrada!");
-			return 2;
+			throw new ReturnException("Ainda não há uma instituição cadastrada!",2);
 		}
 		else
 		{
 			if(inst.getColBlo().size() == 0)
 			{
-				System.out.println("Ainda não há nenhum bloco cadastrado!");
-				return 2;
+				throw new ReturnException("Ainda não há nenhum bloco cadastrado!",2);
 			}
 		}
 		String nome;
@@ -236,8 +314,7 @@ public class Registrador
 				bloco = inst.getColBlo().pesquisaPeloNome(nome);
 				if(bloco == null)
 				{
-					System.out.println("Não há bloco cadastrado com esse nome!");
-					return 0;
+					throw new Exception("Não há bloco cadastrado com esse nome!");
 				}
 				else
 				{
@@ -246,8 +323,7 @@ public class Registrador
 					sala = new Sala(nome);
 					if(!bloco.getColSal().adicionaSala(sala))
 					{
-						System.out.println("Esta sala já foi cadastrada neste bloco: ");
-						return 0;
+						throw new Exception("Esta sala já foi cadastrada neste bloco: ");
 					}
 				}
 				System.out.println("Sala cadastrada com sucesso!");
@@ -258,15 +334,13 @@ public class Registrador
 				bloco = inst.getColBlo().pesquisaPeloNome(nome);
 				if(bloco == null)
 				{
-					System.out.println("Não há bloco cadastrado com esse nome!");
-					return 0;
+					throw new Exception("Não há bloco cadastrado com esse nome!");
 				}
 				else
 				{
 					if(bloco.getColSal().size() == 0)
 					{
-						System.out.println("Ainda não há salas cadastradas nesse bloco!");
-						return 0;
+						throw new Exception("Ainda não há salas cadastradas nesse bloco!");
 					}
 					else
 					{
@@ -280,8 +354,7 @@ public class Registrador
 				bloco = inst.getColBlo().pesquisaPeloNome(nome);
 				if(bloco == null)
 				{
-					System.out.println("Não há bloco cadastrado com esse nome!");
-					return 0;
+					throw new Exception("Não há bloco cadastrado com esse nome!");
 				}
 				else
 				{
@@ -290,8 +363,7 @@ public class Registrador
 					sala = bloco.getColSal().pesquisaPeloNome(nome);
 					if(bloco.getColSal().removeSala(sala))
 					{
-						System.out.println("Ainda não há uma sala cadastrada com esse nome!");
-						return 0;
+						throw new Exception("Ainda não há uma sala cadastrada com esse nome!");
 					}
 				}
 				System.out.println("Sala desvinculada com sucesso!");
@@ -302,8 +374,7 @@ public class Registrador
 				bloco = inst.getColBlo().pesquisaPeloNome(nome);
 				if(bloco == null)
 				{
-					System.out.println("Não há bloco cadastrado com esse nome!");
-					return 0;
+					throw new Exception("Não há bloco cadastrado com esse nome!");
 				}
 				else
 				{
@@ -314,58 +385,142 @@ public class Registrador
 		return 2;
 	}
 	
-	public static int menuDispositivos(Scanner input, Instituicao inst) throws IOException
+	public static int menuDispositivos(Scanner input, Instituicao inst) throws Exception
 	{
+		Sala sala = null, salaAux = null;
+		Bloco bloco = null;
+		String nome;
 		if(inst == null)
 		{
-			System.out.println("Ainda não há uma instituição cadastrada!");
-			return 2;
+			throw new ReturnException("Ainda não há uma instituição cadastrada!",2);
 		}
 		else
 		{
 			if(inst.getColBlo().size() == 0)
 			{
-				System.out.println("Ainda não há nenhum bloco cadastrado!");
-				return 2;
-			}
-		}
-		System.out.println("Escolha uma das opções abaixo\n"
-		 		 		 + "1 - Registrar Dispositivos de uma Sala\n"
-		 		 		 + "2 - Registrar Dispositivos de Todas as Salas\n"
-		 		 		 + "3 - Atualizar Dispositivos de uma Sala\n"
-		 		 		 + "4 - Atualizar Dispositivos de Todas as Salas\n"
-		 		 		 + "5 - Retornar ao Menu Anterior");
-		/*ColecaoDispositivos coldis = new ColecaoDispositivos();
-		DataOutputStream saida = null;
-		boolean desligar = true;
-		ServerSocket servidor = new ServerSocket(60050);
-		System.out.println("Porta 60050 aberta!");
-		while(true)
-		{
-			Socket cliente = servidor.accept();
-			DataInputStream entrada = new DataInputStream(cliente.getInputStream());
-			String MAC = entrada.readUTF();
-			String IP = cliente.getInetAddress().toString().replace("/", "");
-			String nome = InetAddress.getByName(IP).getCanonicalHostName().replaceAll("/", "");
-			if(nome.equals(IP))
-			{
-				Dispositivo dispositivo = new Dispositivo(MAC, IP, desligar);
-				if(coldis.adicionaDispositivo(dispositivo))
-				{
-					System.out.println("Dispositivo já foi registrado");
-				}
+				throw new ReturnException("Ainda não há nenhum bloco cadastrado!",2);
 			}
 			else
 			{
-				Dispositivo dispositivo = new Dispositivo(MAC, nome, IP, desligar);
-				if(coldis.adicionaDispositivo(dispositivo))
+				System.out.println("Digite o nome do bloco da sala: ");
+				nome = input.nextLine();
+				bloco = inst.getColBlo().pesquisaPeloNome(nome);
+				if(bloco == null)
 				{
-					System.out.println("Dispositivo já foi registrado");
+					throw new Exception("Não há bloco cadastrado com esse nome!");
 				}
 			}
-			saida = new DataOutputStream(cliente.getOutputStream());
-			saida.writeBoolean(!desligar);
-		}*/
+		}
+		int qtdarc;
+		int qtdpro;
+		System.out.println("Escolha uma das opções abaixo\n"
+		 		 		 + "1 - Registrar Dispositivos de uma Sala\n"
+		 		 		 + "2 - Registrar Máquinas de Todas as Salas\n"
+		 		 		 + "3 - Remover todas as Máquinas de uma Sala\n"
+		 		 		 + "4 - Remover todos os Arcondicionados de uma Sala\n"
+		 		 		 + "5 - Remover todos os Projetores de uma Sala\n"
+		 		 		 + "6 - Retornar ao Menu Anterior");
+		switch(lerOpcao(input,1,5))
+		{
+			case 1:
+				System.out.println("Digite o nome da sala onde se encontram os dispositivos a serem registrados: ");
+				nome = input.nextLine();
+				sala = bloco.getColSal().pesquisaPeloNome(nome);
+				if(sala == null)
+				{
+					throw new Exception("Sala não cadastrada!");
+				}
+				System.out.println("Registrar Máquinas.");
+				System.out.println("Iniciado processo de registro de máquinas: ");
+				try
+				{
+					RegistraMaquinas regmaq = new RegistraMaquinas();
+					regmaq.run(sala.getColDis());
+					(regmaq).start();
+				}
+				catch(Exception e)
+				{
+					throw new Exception(e.getMessage());
+				}
+				System.out.println("Registrar Arcondicionados.");
+				System.out.println("Digite a quantidade de arcondicionados da sala: ");
+				qtdarc = lerOpcao(input,0,1000);
+				for(int i = 0; i < qtdarc; i++)
+				{
+					nome = "ARC" + sala.getNome() + ":" + i;
+					boolean status = false;
+					Dispositivo arc = new Arcondicionado(nome,status);
+					sala.getColDis().adicionaDispositivo(arc);
+				}
+				System.out.println("Registrar Projetores.");
+				System.out.println("Digite a quantidade de projetores da sala: ");
+				qtdpro = lerOpcao(input,0,1000);
+				for(int i = 0; i < qtdpro; i++)
+				{
+					nome = "PRO" + sala.getNome() + ":" + i;
+					boolean status = false;
+					Dispositivo pro = new Datashow(nome,status);
+				}
+				System.out.println("Dispositivos em Registro.");
+			return 1;
+			case 2:
+				System.out.println("Registrar todas as Máquinas.");
+				System.out.println("Iniciado processo de registro de todas as máquinas: ");
+				try
+				{
+					int tamcolsal = bloco.getColSal().size();
+					for(int i = 0; i < tamcolsal; i++)
+					{
+						salaAux = bloco.getColSal().getSala(i);
+						RegistraMaquinas regmaq = new RegistraMaquinas();
+						regmaq.run(salaAux.getColDis());
+						regmaq.start();
+					}
+				}
+				catch(Exception e)
+				{
+					throw new Exception(e.getMessage());
+				}
+			return 1;
+			case 3:
+				System.out.println("Digite o nome da sala onde se encontram as máquinas a serem removidas do sistema: ");
+				nome = input.nextLine();
+				sala = bloco.getColSal().pesquisaPeloNome(nome);
+				if(sala == null)
+				{
+					throw new Exception("Sala não cadastrada!");
+				}
+				System.out.println("Apagando os registros de máquinas da sala " + sala.getNome() + "...");
+				sala.getColDis().excluirMaquinas();
+				System.out.println("Registros apagados com sucesso!");
+			return 1;
+			case 4:
+				System.out.println("Digite o nome da sala onde se encontram os arcondicionados a serem removidos do sistema: ");
+				nome = input.nextLine();
+				sala = bloco.getColSal().pesquisaPeloNome(nome);
+				if(sala == null)
+				{
+					throw new Exception("Sala não cadastrada!");
+				}
+				System.out.println("Apagando os registros de arcondicionados da sala " + sala.getNome() + "...");
+				sala.getColDis().excluirArcondicionados();
+				System.out.println("Registros apagados com sucesso!");
+			return 1;
+			case 5:
+				System.out.println("Digite o nome da sala onde se encontram os projetores a serem removidos do sistema: ");
+				nome = input.nextLine();
+				sala = bloco.getColSal().pesquisaPeloNome(nome);
+				if(sala == null)
+				{
+					throw new Exception("Sala não cadastrada!");
+				}
+				sala.getColDis().excluirDatashows();
+				System.out.println("Registros apagados com sucesso!");
+			return 1;
+			case 6:
+				return 2;
+		}
+		return 1;
 	}
 	
 	private static int lerOpcao(Scanner input, int iniciall, int finall)
@@ -387,35 +542,3 @@ public class Registrador
 		return opcao;
 	}
 }
-
-/*ColecaoDispositivos coldis = new ColecaoDispositivos();
-DataOutputStream saida = null;
-boolean desligar = true;
-ServerSocket servidor = new ServerSocket(60050);
-System.out.println("Porta 60050 aberta!");
-while(true)
-{
-	Socket cliente = servidor.accept();
-	DataInputStream entrada = new DataInputStream(cliente.getInputStream());
-	String MAC = entrada.readUTF();
-	String IP = cliente.getInetAddress().toString().replace("/", "");
-	String nome = InetAddress.getByName(IP).getCanonicalHostName().replaceAll("/", "");
-	if(nome.equals(IP))
-	{
-		Dispositivo dispositivo = new Dispositivo(MAC, IP, desligar);
-		if(coldis.adicionaDispositivo(dispositivo))
-		{
-			System.out.println("Dispositivo já foi registrado");
-		}
-	}
-	else
-	{
-		Dispositivo dispositivo = new Dispositivo(MAC, nome, IP, desligar);
-		if(coldis.adicionaDispositivo(dispositivo))
-		{
-			System.out.println("Dispositivo já foi registrado");
-		}
-	}
-	saida = new DataOutputStream(cliente.getOutputStream());
-	saida.writeBoolean(!desligar);
-}*/

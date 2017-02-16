@@ -1,6 +1,6 @@
 package registradores;
 
-public class ReturnException
+public class ReturnException extends Exception
 {
 	private String msg;
 	private int ret;

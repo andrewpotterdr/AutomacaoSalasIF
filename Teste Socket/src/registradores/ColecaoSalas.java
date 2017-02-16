@@ -24,6 +24,16 @@ public class ColecaoSalas
 		return true;
 	}
 	
+	public Sala getSala(int i)
+	{
+		return salas.get(i);
+	}
+	
+	public void limparColecao()
+	{
+		salas = null;
+	}
+	
 	public int listagemSalas()
 	{
 		int i;

@@ -3,22 +3,20 @@ package clientes;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.NetworkInterface;
 import java.net.Socket;
 import java.net.UnknownHostException;
  
 public class Cliente
 {
-	private static String OS = System.getProperty("os.name").toLowerCase();
+	//private static String OS = System.getProperty("os.name").toLowerCase();
 	public static void main(String[] args) throws UnknownHostException, IOException
 	{
-		Socket cliente = new Socket("127.0.0.1", 12345);
+		Socket cliente = new Socket("10.0.4.191", 60050);
 		DataInputStream entrada = new DataInputStream(cliente.getInputStream());
 		DataOutputStream saida = new DataOutputStream(cliente.getOutputStream());
 		String MAC = GetNetworkAddress.GetAddress("mac");
 		saida.writeUTF(MAC);
-		boolean stat = entrada.readBoolean();
-		if(stat)
+		/*if(stat)
 		{
 			if (isWindows())
 			{
@@ -38,12 +36,12 @@ public class Cliente
 				String commandLin = "poweroff";
 				Runtime.getRuntime().exec (commandLin);
 	    	}
-		}
+		}*/
 		entrada.close();
 		cliente.close();
 	}
 	
-	public static boolean isWindows()
+	/*public static boolean isWindows()
 	{
 		return (OS.indexOf("win") >= 0);
 	}
@@ -54,5 +52,5 @@ public class Cliente
 	public static boolean isUnix()
 	{
     	return (OS.indexOf("nix") >= 0 || OS.indexOf("nux") >= 0 || OS.indexOf("aix") > 0 );
-	}
+	}*/
 }

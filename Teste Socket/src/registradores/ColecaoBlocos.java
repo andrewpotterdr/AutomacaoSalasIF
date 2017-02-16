@@ -24,6 +24,16 @@ public class ColecaoBlocos
 		return true;
 	}
 	
+	public Bloco getBloco(int i)
+	{
+		return blocos.get(i);
+	}
+	
+	public void limparColecao()
+	{
+		blocos = null;
+	}
+	
 	public int listagemblocos()
 	{
 		int i;
