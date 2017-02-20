@@ -18,11 +18,6 @@ public class Instituicao
 		return this.nome;
 	}
 	
-	public ColecaoBlocos getColBlo()
-	{
-		return this.colblo;
-	}
-	
 	public void setNome(String nome)
 	{
 		this.nome = nome;
@@ -31,6 +26,11 @@ public class Instituicao
 	public String getCidade()
 	{
 		return this.cidade;
+	}
+	
+	public ColecaoBlocos getColBlo()
+	{
+		return this.colblo;
 	}
 	
 	public int qtdBlocos()

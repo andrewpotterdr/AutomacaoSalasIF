@@ -1,21 +1,21 @@
 package registradores;
 
-import java.util.ArrayList;
+import java.util.Vector;
 
 public class ColecaoDispositivos
 {
-	private ArrayList<Dispositivo> dispositivos;
+	private Vector<Dispositivo> dispositivos;
 	
 	public ColecaoDispositivos()
 	{
-		dispositivos = new ArrayList<Dispositivo> ();
+		dispositivos = new Vector<Dispositivo> ();
 	}
 	
 	public boolean adicionaDispositivo(Dispositivo dispositivo)
 	{
 		for(int i = 0; i < dispositivos.size(); i++)
 		{
-			if(!dispositivos.get(i).equals(dispositivo))
+			if(dispositivos.get(i).equals(dispositivo))
 			{
 				return false;
 			}
@@ -81,13 +81,13 @@ public class ColecaoDispositivos
 	{
 		for(int i = 0; i < dispositivos.size(); i++)
 		{
-			if(!dispositivos.get(i).equals(dispositivo))
+			if(dispositivos.get(i).equals(dispositivo))
 			{
-				return false;
+				dispositivos.remove(dispositivo);
+				return true;
 			}
 		}
-		dispositivos.remove(dispositivo);
-		return true;
+		return false;
 	}
 	
 	public int size()

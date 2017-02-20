@@ -1,21 +1,21 @@
 package registradores;
 
-import java.util.ArrayList;
+import java.util.Vector;
 
 public class ColecaoBlocos
 {
-	private ArrayList<Bloco> blocos;
+	private Vector<Bloco> blocos;
 	
 	public ColecaoBlocos()
 	{
-		blocos = new ArrayList<Bloco>();
+		blocos = new Vector<Bloco>();
 	}
 	
 	public boolean adicionabloco(Bloco bloco)
 	{
 		for(int i = 0; i < blocos.size(); i++)
 		{
-			if(!blocos.get(i).equals(bloco))
+			if(blocos.get(i).equals(bloco))
 			{
 				return false;
 			}
@@ -49,13 +49,13 @@ public class ColecaoBlocos
 	{
 		for(int i = 0; i < blocos.size(); i++)
 		{
-			if(!blocos.get(i).equals(bloco))
+			if(blocos.get(i).equals(bloco))
 			{
-				return false;
+				blocos.remove(bloco);
+				return true;
 			}
 		}
-		blocos.remove(bloco);
-		return true;
+		return false;
 	}
 
 	public int size()

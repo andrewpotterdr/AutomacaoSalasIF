@@ -1,21 +1,21 @@
 package registradores;
 
-import java.util.ArrayList;
+import java.util.Vector;
 
 public class ColecaoSalas
 {
-	private ArrayList<Sala> salas;
+	private Vector<Sala> salas;
 	
 	public ColecaoSalas()
 	{
-		salas = new ArrayList<Sala>();
+		salas = new Vector<Sala>();
 	}
 	
 	public boolean adicionaSala(Sala sala)
 	{
 		for(int i = 0; i < salas.size(); i++)
 		{
-			if(!salas.get(i).equals(sala))
+			if(salas.get(i).equals(sala))
 			{
 				return false;
 			}
@@ -50,11 +50,11 @@ public class ColecaoSalas
 		{
 			if(!salas.get(i).equals(sala))
 			{
-				return false;
+				salas.remove(sala);
+				return true;
 			}
 		}
-		salas.remove(sala);
-		return true;
+		return false;
 	}
 
 	public int size()
