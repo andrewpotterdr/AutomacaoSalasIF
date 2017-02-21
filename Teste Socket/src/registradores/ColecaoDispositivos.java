@@ -90,6 +90,22 @@ public class ColecaoDispositivos
 		return false;
 	}
 	
+	public Maquina pesquisaMaquina(String MAC)
+	{
+		for(int i = 0; i < dispositivos.size(); i++)
+		{
+			if(dispositivos.get(i) instanceof Maquina)
+			{
+				Maquina dispTemp = (Maquina)dispositivos.get(i);
+				if(dispTemp.getMAC().equals(MAC))
+				{
+					return dispTemp;
+				}
+			}
+		}
+		return null;
+	}
+	
 	public int size()
 	{
 		return dispositivos.size();

@@ -3,13 +3,10 @@ package servidores;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
-
-import registradores.ColecaoDispositivos;
-import registradores.Dispositivo;
+import registradores.*;
  
 public class Servidor
 {
@@ -19,22 +16,21 @@ public class Servidor
 		Scanner input = new Scanner(System.in);
 		DataOutputStream saida = null;
 		boolean desligar = true;
-		ServerSocket servidor = new ServerSocket(60050);
-		System.out.println("Porta 60050 aberta!");
+		ServerSocket servidor = new ServerSocket(60100);
+		System.out.println("Porta 60100 aberta!");
 		while(true)
 		{
 			Socket cliente = servidor.accept();
 			DataInputStream entrada = new DataInputStream(cliente.getInputStream());
-			String MAC = entrada.readUTF();
-			String IP = cliente.getInetAddress().toString().replace("/", "");
-			System.out.println(IP);
-			String nome = InetAddress.getByName(IP).getCanonicalHostName().replaceAll("/", "");
-			System.out.println(nome);
+			String conteudoMaquina = entrada.readUTF();
+			String partes[] = conteudoMaquina.split("\n");
+			String MAC = partes[1];
+			Maquina maquina = coldis.pesquisaMaquina(MAC);
 			if(lerOpcao(input,0,1) == 0)
 			{
 				desligar = false;
 			}
-			boolean status = desligar;
+			maquina.setStatus(false);
 			saida = new DataOutputStream(cliente.getOutputStream());
 			saida.writeBoolean(desligar);
 		}
