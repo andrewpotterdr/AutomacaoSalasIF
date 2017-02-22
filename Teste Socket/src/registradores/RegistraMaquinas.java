@@ -7,12 +7,12 @@ import java.net.Socket;
 
 public class RegistraMaquinas extends Thread
 {	
-	public void run(ColecaoDispositivos coldis) throws IOException, Exception
+	public void run(ColecaoInstituicoes colinst, ColecaoDispositivos coldis) throws IOException, Exception
 	{
 		ServerSocket servidor = new ServerSocket(60050);
+		Socket cliente;
 		while(true)
 		{
-			Socket cliente;
 			try
 			{
 				cliente = servidor.accept();
@@ -37,6 +37,7 @@ public class RegistraMaquinas extends Thread
 					
 				}
 			}
+			
 			servidor.close();
 		}
 	}

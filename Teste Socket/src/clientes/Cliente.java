@@ -31,18 +31,18 @@ public class Cliente
 		String conteudoInterno = "";
 		Socket cliente = null;
 		DataOutputStream saida = null;
-		saida = new DataOutputStream(cliente.getOutputStream());
 		File file = new File("D:/Pen-Card Amway/IFPB/Projeto Automação das Salas/AutomacaoSalasIF/Exemplo Dados Salvos em Texto/conteudo.txt");
 		FileReader reader = null;
 		FileWriter writer = null;
-		/*try
+		try
 		{
-			cliente = new Socket("10.0.45.164", 60050);
+			cliente = new Socket("10.0.4.179", 60050);
 		}
 		catch(Exception e)
 		{
 			System.err.println("Erro ao tentar conectar ao registrador!");
-		}*/
+		}
+		saida = new DataOutputStream(cliente.getOutputStream());
 		try
 		{
 			file.createNewFile();

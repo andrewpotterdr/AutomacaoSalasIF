@@ -672,7 +672,7 @@ public class Registrador
 				try
 				{
 					RegistraMaquinas regmaq = new RegistraMaquinas();
-					regmaq.run(sala.getColDis());
+					regmaq.run(colinst,sala.getColDis());
 					(regmaq).start();
 				}
 				catch(Exception e)
@@ -740,7 +740,7 @@ public class Registrador
 					{
 						salaAux = bloco.getColSal().getSala(i);
 						RegistraMaquinas regmaq = new RegistraMaquinas();
-						regmaq.run(salaAux.getColDis());
+						regmaq.run(colinst, salaAux.getColDis());
 						regmaq.start();
 					}
 				}
