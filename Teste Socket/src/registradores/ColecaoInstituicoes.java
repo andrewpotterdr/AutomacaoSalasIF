@@ -94,7 +94,7 @@ public class ColecaoInstituicoes
 		
 		String conteudo = toConteudo();
 		String conteudoInterno = "";
-		File file = new File("D:/Pen-Card 1Amway/IFPB/Projeto Automação das Salas/AutomacaoSalasIF/Exemplo Dados Salvos em Texto/conteudo.txt");
+		File file = new File("D:/Pen-Card Amway/IFPB/Projeto Automação das Salas/AutomacaoSalasIF/Exemplo Dados Salvos em Texto/conteudo.txt");
 		FileReader reader = null;
 		FileWriter writer = null;
 		try

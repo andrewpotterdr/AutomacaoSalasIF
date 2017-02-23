@@ -71,7 +71,7 @@ public class Maquina implements Dispositivo
 	
 	public String toConteudo()
 	{
-		return "MAQUINA\r\n" + this.nome + "\r\n" + this.MAC + "\r\n" + this.IP + "\r\n" + status + "\r\n";
+		return "MAQUINA\r\n\t" + this.nome + "\r\n\t" + this.MAC + "\r\n\t" + this.IP + "\r\n\t" + status + "\r\n";
 	}
 
 }

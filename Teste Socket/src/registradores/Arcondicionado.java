@@ -47,6 +47,6 @@ public class Arcondicionado implements Dispositivo
 	
 	public String toConteudo()
 	{
-		return "ARCONDICIONADO\r\n" + nome + "\r\n" + status + "\r\n";
+		return "ARCONDICIONADO\r\n\t" + nome + "\r\n\t" + status + "\r\n";
 	}
 }

@@ -36,7 +36,7 @@ public class Cliente
 		FileWriter writer = null;
 		try
 		{
-			cliente = new Socket("10.0.4.179", 60050);
+			cliente = new Socket("10.0.43.102", 60050);
 		}
 		catch(Exception e)
 		{

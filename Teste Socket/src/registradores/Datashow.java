@@ -47,6 +47,6 @@ public class Datashow implements Dispositivo
 	
 	public String toConteudo()
 	{
-		return "DATASHOW\r\n" + nome + "\r\n" + status + "\r\n";
+		return "DATASHOW\r\n\t" + nome + "\r\n\t" + status + "\r\n";
 	}
 }

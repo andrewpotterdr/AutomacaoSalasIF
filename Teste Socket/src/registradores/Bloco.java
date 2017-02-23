@@ -42,7 +42,7 @@ public class Bloco
 	
 	public String toConteudo()
 	{
-		String conteudo = "BLOCO " + this.nome + "\r\n<\r\n";
+		String conteudo = "BLOCO " + this.nome + "\r\n<\r\n\t";
 		for(int i = 0; i < colsal.size(); i++)
 		{
 			conteudo += colsal.getSala(i).toConteudo();

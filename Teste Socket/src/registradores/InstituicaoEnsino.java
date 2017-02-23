@@ -31,7 +31,7 @@ public class InstituicaoEnsino extends Instituicao
 	
 	public String toConteudo()
 	{
-		String conteudo = "INSTITUIÇÃO\r\n<<\r\nINSTITUIÇÃO DE ENSINO\r\n" + this.getNome() + "\r\n" + this.getCidade() + "\r\n" + this.getCampus() + "\r\n<\r\n";
+		String conteudo = "INSTITUIÇÃO\r\n<<\r\n\tINSTITUIÇÃO DE ENSINO\r\n\t" + this.getNome() + "\r\n\t" + this.getCidade() + "\r\n\t" + this.getCampus() + "\r\n<\r\n\t";
 		for(int i = 0; i < super.getColBlo().size(); i++)
 		{
 			conteudo += super.getColBlo().getBloco(i).toConteudo();
