@@ -83,6 +83,7 @@ public class Cliente
 		{
 			System.err.println("Erro na escrita de arquivo!");
 		}
+		cliente.close();
 	}
 	
 	public static void desligar(Boolean stat) throws IOException

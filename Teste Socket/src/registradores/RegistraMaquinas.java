@@ -9,7 +9,7 @@ public class RegistraMaquinas extends Thread
 {	
 	public void run(ColecaoInstituicoes colinst, ColecaoDispositivos coldis) throws IOException, Exception
 	{
-		ServerSocket servidor = new ServerSocket(60050);
+		ServerSocket servidor = new ServerSocket(60051);
 		Socket cliente;
 		while(true)
 		{
@@ -22,22 +22,41 @@ public class RegistraMaquinas extends Thread
 				throw new IOException("Conexão Interrompida!");
 			}
 			DataInputStream entrada = new DataInputStream(cliente.getInputStream());
-			if(entrada.readBoolean())
+			try
 			{
-				String conteudoMaquina = entrada.readUTF();
-				String partes[] = conteudoMaquina.split("\r\n");
-				String nome = partes[0];
-				String MAC = partes[1];
-				String IP = partes[2];
-				Dispositivo dispositivo = new Maquina(nome, MAC, IP, true);
-				if(!coldis.adicionaDispositivo(dispositivo))
+				if(entrada.readBoolean())
 				{
-					coldis.removeDispositivo(dispositivo);
-					coldis.adicionaDispositivo(dispositivo);
-					
+					System.out.println("AQUI");
+					String conteudoMaquina = entrada.readUTF();
+					System.out.println("AQUI1");
+					String partes[] = conteudoMaquina.split("\r\n");
+					String nome = partes[0];
+					String MAC = partes[1];
+					String IP = partes[2];
+					Dispositivo dispositivo = new Maquina(nome, MAC, IP, true);
+					System.out.println("AQUI2");
+					if(!coldis.adicionaDispositivo(dispositivo))
+					{
+						coldis.removeDispositivo(dispositivo);
+						coldis.adicionaDispositivo(dispositivo);
+					}
+					System.out.println("AQUI3");
+					try
+					{
+						colinst.gravaArquivo();
+					}
+					catch(Exception e)
+					{
+						throw new Exception(e.getMessage());
+					}
+					System.out.println("AQUI4");
+					System.out.println(coldis.getDispositivo(0).toString());
 				}
 			}
-			
+			catch(Exception e)
+			{
+				throw new Exception(e.getMessage());
+			}
 			servidor.close();
 		}
 	}
