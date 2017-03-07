@@ -31,12 +31,12 @@ public class InstituicaoEnsino extends Instituicao
 	
 	public String toConteudo()
 	{
-		String conteudo = "INSTITUIÇÃO\r\n<<\r\n\tINSTITUIÇÃO DE ENSINO\r\n\t" + this.getNome() + "\r\n\t" + this.getCidade() + "\r\n\t" + this.getCampus() + "\r\n<\r\n\t";
+		String conteudo = "INSTITUIÇÃO\r\n<<\r\n\tINSTITUIÇÃO DE ENSINO\r\n\t" + this.getNome() + "\r\n\t" + this.getCidade() + "\r\n\t" + this.getCampus() + "\r\n\t<\r\n\t";
 		for(int i = 0; i < super.getColBlo().size(); i++)
 		{
 			conteudo += super.getColBlo().getBloco(i).toConteudo();
 		}
-		conteudo += ">\r\n";
+		conteudo += "\t>\r\n";
 		return conteudo;
 	}
 }
