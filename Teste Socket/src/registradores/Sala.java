@@ -42,7 +42,7 @@ public class Sala
 	
 	public String toConteudo()
 	{
-		String conteudo = "SALA " + this.nome + "\r\n<\r\n\t";
+		String conteudo = "SALA " + this.nome + "\r\n<\r\n";
 		for(int i = 0; i < coldis.size(); i++)
 		{
 			conteudo += coldis.getDispositivo(i).toConteudo();

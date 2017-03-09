@@ -31,12 +31,12 @@ public class Empresa extends Instituicao
 	
 	public String toConteudo()
 	{
-		String conteudo = "INSTITUIÇÃO\r\n<<\r\nEMPRESA\r\n" + this.getNome() + "\r\n" + this.getCidade() + "\r\n" + this.getCNPJ() + "\r\n\t<\r\n";
+		String conteudo = "INSTITUIÇÃO\r\n<<\r\nEMPRESA\r\n" + this.getNome() + "\r\n" + this.getCidade() + "\r\n" + this.getCNPJ() + "\r\n<\r\n";
 		for(int i = 0; i < super.getColBlo().size(); i++)
 		{
 			conteudo += super.getColBlo().getBloco(i).toConteudo();
 		}
-		conteudo += "\t>\r\n";
+		conteudo += ">\r\n";
 		return conteudo;
 	}
 }

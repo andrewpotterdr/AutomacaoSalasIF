@@ -80,7 +80,7 @@ public class ColecaoInstituicoes
 	
 	public String toConteudo()
 	{
-		String conteudo = "|<\r\n\t";
+		String conteudo = "|<\r\n";
 		for(int i = 0; i < instituicoes.size(); i++)
 		{
 			conteudo += instituicoes.get(i).toConteudo();

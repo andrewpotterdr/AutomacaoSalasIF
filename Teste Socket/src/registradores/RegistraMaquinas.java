@@ -7,10 +7,26 @@ import java.net.Socket;
 
 public class RegistraMaquinas extends Thread
 {	
-	public void run(ColecaoInstituicoes colinst, ColecaoDispositivos coldis) throws IOException, Exception
+	
+	ColecaoInstituicoes colinst;
+	ColecaoDispositivos coldis;
+	
+	public RegistraMaquinas(ColecaoInstituicoes colinst, ColecaoDispositivos coldis)
 	{
-		ServerSocket servidor = new ServerSocket(60050);
-		Socket cliente;
+		this.colinst = colinst;
+		this.coldis = coldis;
+	}
+	
+	public void run()
+	{
+		ServerSocket servidor = null;
+		try
+		{
+			servidor = new ServerSocket(60050);
+		} catch (IOException e)
+		{
+		}
+		Socket cliente = null;
 		while(true)
 		{
 			try
@@ -19,9 +35,14 @@ public class RegistraMaquinas extends Thread
 			}
 			catch(IOException e)
 			{
-				throw new IOException("Conexão Interrompida!");
 			}
-			DataInputStream entrada = new DataInputStream(cliente.getInputStream());
+			DataInputStream entrada = null;
+			try
+			{
+				entrada = new DataInputStream(cliente.getInputStream());
+			} catch (IOException e)
+			{
+			}
 			try
 			{
 				if(entrada.readBoolean())
@@ -49,9 +70,8 @@ public class RegistraMaquinas extends Thread
 			}
 			catch(Exception e)
 			{
-				throw new Exception(e.getMessage());
 			}
-			servidor.close();
+			//servidor.close();
 		}
 	}
 }

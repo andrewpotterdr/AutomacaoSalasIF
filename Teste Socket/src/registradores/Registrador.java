@@ -671,8 +671,7 @@ public class Registrador
 				System.out.println("Iniciado processo de registro de máquinas: ");
 				try
 				{
-					RegistraMaquinas regmaq = new RegistraMaquinas();
-					regmaq.run(colinst,sala.getColDis());
+					RegistraMaquinas regmaq = new RegistraMaquinas(colinst,sala.getColDis());
 					regmaq.start();
 				}
 				catch(Exception e)
@@ -739,8 +738,7 @@ public class Registrador
 					for(int i = 0; i < tamcolsal; i++)
 					{
 						salaAux = bloco.getColSal().getSala(i);
-						RegistraMaquinas regmaq = new RegistraMaquinas();
-						regmaq.run(colinst, salaAux.getColDis());
+						RegistraMaquinas regmaq = new RegistraMaquinas(colinst, salaAux.getColDis());
 						regmaq.start();
 					}
 				}
