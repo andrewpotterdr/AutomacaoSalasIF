@@ -1,4 +1,4 @@
-package registradores;
+package clientes;
 
 import java.io.Serializable;
 

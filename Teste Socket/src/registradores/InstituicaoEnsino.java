@@ -1,8 +1,13 @@
 package registradores;
+
 import java.io.Serializable;
 
 public class InstituicaoEnsino extends Instituicao implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 49349387951519319L;
 	private String campus;
 	
 	public InstituicaoEnsino(String nome, String cidade, String campus)

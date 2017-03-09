@@ -1,32 +1,37 @@
 package registradores;
-import java.io.Serializable;
 
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class RegistraMaquinas extends Thread implements Serializable
+public class RegistraMaquinas extends Thread
 {	
 	
 	ColecaoInstituicoes colinst;
 	ColecaoDispositivos coldis;
+	int porta;
 	
-	public RegistraMaquinas(ColecaoInstituicoes colinst, ColecaoDispositivos coldis)
+	public RegistraMaquinas(ColecaoInstituicoes colinst, ColecaoDispositivos coldis, int porta)
 	{
 		this.colinst = colinst;
 		this.coldis = coldis;
+		this.porta = porta;
 	}
 	
+	@SuppressWarnings("resource")
 	public void run()
 	{
+		Maquina maquina = null;
 		ServerSocket servidor = null;
 		try
 		{
-			servidor = new ServerSocket(60048);
+			servidor = new ServerSocket(porta);
 		}
 		catch (IOException e)
 		{
+			System.err.println(e.getMessage());
 		}
 		Socket cliente = null;
 		while(true)
@@ -37,44 +42,32 @@ public class RegistraMaquinas extends Thread implements Serializable
 			}
 			catch(IOException e)
 			{
+				System.err.println(e.getMessage());
 			}
-			DataInputStream entrada = null;
+			DataInputStream entradaBool = null;
+			ObjectInputStream entradaObj = null;
 			try
 			{
-				entrada = new DataInputStream(cliente.getInputStream());
+				entradaBool = new DataInputStream(cliente.getInputStream());
 			}
 			catch (IOException e)
 			{
+				System.err.println(e.getMessage());
 			}
 			try
 			{
-				if(entrada.readBoolean())
+				if(entradaBool.readBoolean())
 				{
-					String conteudoMaquina = entrada.readUTF();
-					String partes[] = conteudoMaquina.split("\r\n");
-					String nome = partes[0];
-					String MAC = partes[1];
-					String IP = partes[2];
-					Dispositivo dispositivo = new Maquina(nome, MAC, IP, true);
-					if(!coldis.adicionaDispositivo(dispositivo))
-					{
-						coldis.removeDispositivo(dispositivo);
-						coldis.adicionaDispositivo(dispositivo);
-					}
-					try
-					{
-						colinst.gravaArquivo();
-					}
-					catch(Exception e)
-					{
-						throw new Exception(e.getMessage());
-					}
+					entradaObj = new ObjectInputStream(cliente.getInputStream());
+					maquina = (Maquina) entradaObj.readObject();
+					coldis.adicionaDispositivo(maquina);
+					colinst.gravaArquivo();
 				}
 			}
 			catch(Exception e)
 			{
+				System.err.println(e.getMessage());
 			}
-			//servidor.close();
 		}
 	}
 }

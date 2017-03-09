@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class Arcondicionado implements Dispositivo, Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -597941876618328951L;
 	private String nome;
 	private boolean status;
 	

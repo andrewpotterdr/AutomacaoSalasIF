@@ -1,11 +1,12 @@
 package clientes;
 
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -17,7 +18,8 @@ public class Cliente
 	{
 		String MAC = GetNetworkAddress.GetAddress("mac");
 		String IP = GetNetworkAddress.GetAddress("ip");
-		String nome = "";
+		String nome = null;
+		Maquina maquina = null, maquinaArq = null;
 		try
 		{
 			nome = InetAddress.getByName(IP).getCanonicalHostName();
@@ -27,13 +29,26 @@ public class Cliente
 			System.err.println("Erro ao tentar encontrar o nome referente ao IP fornecido!");
 		}
 		boolean desligar = true;
-		String conteudo = nome + "\r\n" + MAC +"\r\n" + IP + "\r\n" + desligar;
-		String conteudoInterno = "";
+		maquina = new Maquina(nome, MAC, IP, desligar);
 		Socket cliente = null;
-		DataOutputStream saida = null;
-		File file = new File("D:/Pen-Card Amway/IFPB/Projeto Automação das Salas/AutomacaoSalasIF/Exemplo Dados Salvos em Texto/conteudo.txt");
-		FileReader reader = null;
-		FileWriter writer = null;
+		DataOutputStream saidaBool = null;
+		File file = null;
+		FileInputStream fin = null;
+		ObjectInputStream oin = null;
+		FileOutputStream fout = null;
+		ObjectOutputStream saidaObj = null, oout = null;
+		try
+		{
+			file = new File("D:/Pen-Card Amway/IFPB/Projeto Automação das Salas/AutomacaoSalasIF/Exemplo Dados Salvos em Texto/conteudo.txt");
+			fin = new FileInputStream(file);
+			oin = new ObjectInputStream(fin);
+			fout = new FileOutputStream(file);
+			oout = new ObjectOutputStream(fout);
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getMessage());
+		}
 		try
 		{
 			cliente = new Socket("10.0.43.102", 60050);
@@ -42,48 +57,49 @@ public class Cliente
 		{
 			System.err.println("Erro ao tentar conectar ao registrador!");
 		}
-		saida = new DataOutputStream(cliente.getOutputStream());
+		try
+		{
+			saidaBool = new DataOutputStream(cliente.getOutputStream());
+			saidaObj = new ObjectOutputStream(cliente.getOutputStream());
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getMessage());
+		}
 		try
 		{
 			file.createNewFile();
 		}
 		catch(Exception e)
 		{
-			System.err.println("Erro na criação de arquivo!");
+			System.err.println(e.getMessage());
 		}
 		try
 		{
-			reader = new FileReader(file);
-			while(reader.ready())
+			maquinaArq = (Maquina) oin.readObject();
+			if(maquina.equals(maquinaArq))
 			{
-				conteudoInterno += (char)reader.read();
-			}
-			reader.close();
-		}
-		catch(Exception e)
-		{
-			System.err.println("Erro na leitura de arquivo!");
-		}
-		try
-		{
-			if(!conteudoInterno.equals(conteudo))
-			{
-				writer = new FileWriter(file);
-				writer.write(conteudo);
-				writer.close();
-				saida.writeBoolean(true);
-				saida.writeUTF(conteudo);
+				saidaBool.writeBoolean(false);
 			}
 			else
 			{
-				saida.writeBoolean(false);
+				saidaBool.writeBoolean(true);
+				saidaObj.writeObject(maquina);
+				oout.writeObject(maquina);
 			}
 		}
 		catch(Exception e)
 		{
-			System.err.println("Erro na escrita de arquivo!");
+			System.err.println(e.getMessage());
 		}
-		cliente.close();
+		try
+		{
+			cliente.close();
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getMessage());
+		}
 	}
 	
 	public static void desligar(Boolean stat) throws IOException

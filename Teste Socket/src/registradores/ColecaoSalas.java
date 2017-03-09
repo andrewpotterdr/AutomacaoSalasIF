@@ -64,22 +64,30 @@ public class ColecaoSalas
 	
 	public Sala pesquisaPeloNome(String nome)
 	{
-		int i, flag = -1;
+		int flag = pesquisaIndicePeloNome(nome);
+		if(flag >= 0)
+		{
+			return getSala(flag);
+		}
+		return null;
+	}
+	
+	public int pesquisaIndicePeloNome(String nome)
+	{
+		int i;
 		for(i = 0; i < salas.size(); i++)
 		{
 			if(salas.get(i).getNome().equals(nome))
 			{
-				flag = i;
-				break;
+				return i;
 			}
 		}
-		if(flag != -1)
-		{
-			return salas.get(flag);
-		}
-		else
-		{
-			return null;
-		}
+		return -1;
+	}
+	
+	public int atribuirPorta(Sala sala)
+	{
+		int i = pesquisaIndicePeloNome(sala.getNome());
+		return 60000 + i;
 	}
 }

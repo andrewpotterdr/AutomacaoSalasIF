@@ -1,8 +1,13 @@
 package registradores;
+
 import java.io.Serializable;
 
 public class Bloco implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4066449166305726761L;
 	private String nome;
 	private ColecaoSalas colsal = null;
 	

@@ -12,6 +12,14 @@ public class Registrador
 		colinst = new ColecaoInstituicoes();
 		try
 		{
+			colinst.recuperaArquivo();
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getMessage());
+		}
+		try
+		{
 			while(menu(input,colinst) != 1);
 		}
 		catch(Exception e)
@@ -607,7 +615,7 @@ public class Registrador
 	
 	public static int menuDispositivos(Scanner input, ColecaoInstituicoes colinst) throws Exception
 	{
-		Sala sala = null, salaAux = null;
+		Sala sala = null;
 		Bloco bloco = null;
 		String nome;
 		String cidade;
@@ -623,11 +631,10 @@ public class Registrador
 		int qtdpro;
 		System.out.println("Escolha uma das opções abaixo\n"
 		 		 		 + "1 - Registrar Dispositivos de uma Sala\n"
-		 		 		 + "2 - Registrar Máquinas de Todas as Salas\n"
-		 		 		 + "3 - Remover todas as Máquinas de uma Sala\n"
-		 		 		 + "4 - Remover todos os Arcondicionados de uma Sala\n"
-		 		 		 + "5 - Remover todos os Projetores de uma Sala\n"
-		 		 		 + "6 - Retornar ao Menu Anterior");
+		 		 		 + "2 - Remover todas as Máquinas de uma Sala\n"
+		 		 		 + "3 - Remover todos os Arcondicionados de uma Sala\n"
+		 		 		 + "4 - Remover todos os Projetores de uma Sala\n"
+		 		 		 + "5 - Retornar ao Menu Anterior");
 		switch(lerOpcao(input,1,5))
 		{
 			case 1:
@@ -667,11 +674,12 @@ public class Registrador
 				{
 					throw new Exception("Sala não cadastrada!");
 				}
+				int porta = bloco.getColSal().atribuirPorta(sala);
 				System.out.println("Registrar Máquinas.");
 				System.out.println("Iniciado processo de registro de máquinas: ");
 				try
 				{
-					RegistraMaquinas regmaq = new RegistraMaquinas(colinst,sala.getColDis());
+					RegistraMaquinas regmaq = new RegistraMaquinas(colinst,sala.getColDis(), porta);
 					regmaq.start();
 				}
 				catch(Exception e)
@@ -730,53 +738,6 @@ public class Registrador
 				{
 					throw new Exception("Não há bloco cadastrado com esse nome!");
 				}
-				System.out.println("Registrar todas as Máquinas.");
-				System.out.println("Iniciado processo de registro de todas as máquinas: ");
-				try
-				{
-					int tamcolsal = bloco.getColSal().size();
-					for(int i = 0; i < tamcolsal; i++)
-					{
-						salaAux = bloco.getColSal().getSala(i);
-						RegistraMaquinas regmaq = new RegistraMaquinas(colinst, salaAux.getColDis());
-						regmaq.start();
-					}
-				}
-				catch(Exception e)
-				{
-					throw new Exception(e.getMessage());
-				}
-			return 1;
-			case 3:
-				System.out.println("Digite o nome da Instituição a ser cadastrado o bloco: ");
-				nome = input.nextLine();
-				System.out.println("Digite a cidade onde a Instituição se encontra: ");
-				cidade = input.nextLine();
-				System.out.println("A instituição é uma Instituição de Ensino (0) ou uma Empresa (1)? (0 - Insituição de Ensino | 1 - Empresa)");
-				opcao = lerOpcao(input,0,1);
-				if(opcao == 0)
-				{
-					System.out.println("Digite o campus da instituição: ");
-					campus = input.nextLine();
-					inst = colinst.procuraInst(new InstituicaoEnsino(nome,cidade,campus));
-				}
-				else
-				{
-					System.out.println("Digite o CNPJ da empresa: ");
-					CNPJ = input.nextLine();
-					inst = colinst.procuraInst(new Empresa(nome,cidade,CNPJ));
-				}
-				if(inst == null)
-				{
-					throw new Exception("Esta instituição não foi cadastrada!");
-				}
-				System.out.println("Digite o nome do bloco da sala: ");
-				nome = input.nextLine();
-				bloco = inst.getColBlo().pesquisaPeloNome(nome);
-				if(bloco == null)
-				{
-					throw new Exception("Não há bloco cadastrado com esse nome!");
-				}
 				System.out.println("Digite o nome da sala onde se encontram as máquinas a serem removidas do sistema: ");
 				nome = input.nextLine();
 				sala = bloco.getColSal().pesquisaPeloNome(nome);
@@ -788,7 +749,7 @@ public class Registrador
 				sala.getColDis().excluirMaquinas();
 				System.out.println("Registros apagados com sucesso!");
 			return 1;
-			case 4:
+			case 3:
 				System.out.println("Digite o nome da Instituição a ser cadastrado o bloco: ");
 				nome = input.nextLine();
 				System.out.println("Digite a cidade onde a Instituição se encontra: ");
@@ -829,7 +790,7 @@ public class Registrador
 				sala.getColDis().excluirArcondicionados();
 				System.out.println("Registros apagados com sucesso!");
 			return 1;
-			case 5:
+			case 4:
 				System.out.println("Digite o nome da Instituição a ser cadastrado o bloco: ");
 				nome = input.nextLine();
 				System.out.println("Digite a cidade onde a Instituição se encontra: ");

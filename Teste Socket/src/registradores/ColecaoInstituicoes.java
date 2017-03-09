@@ -2,14 +2,9 @@ package registradores;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.Vector;
 
 public class ColecaoInstituicoes 
@@ -96,6 +91,7 @@ public class ColecaoInstituicoes
 		return conteudo;
 	}
 	
+	@SuppressWarnings({ "unchecked", "resource" })
 	public void recuperaArquivo() throws Exception
 	{
 		File file;
@@ -113,7 +109,23 @@ public class ColecaoInstituicoes
 		}
 		try
 		{
+			file.createNewFile();
+		}
+		catch(Exception e)
+		{
+			throw new Exception(e.getMessage());
+		}
+		try
+		{
 			instituicoes = (Vector<Instituicao>) oin.readObject();
+		}
+		catch(Exception e)
+		{
+			throw new Exception(e.getMessage());
+		}
+		try
+		{
+			oin.close();
 		}
 		catch(Exception e)
 		{
@@ -121,6 +133,7 @@ public class ColecaoInstituicoes
 		}
 	}
 	
+	@SuppressWarnings("resource")
 	public void gravaArquivo() throws Exception
 	{
 		File file;
@@ -147,6 +160,14 @@ public class ColecaoInstituicoes
 		try
 		{
 			oout.writeObject(instituicoes);
+		}
+		catch(Exception e)
+		{
+			throw new Exception(e.getMessage());
+		}
+		try
+		{
+			oout.close();
 		}
 		catch(Exception e)
 		{

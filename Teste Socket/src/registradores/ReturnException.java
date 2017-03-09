@@ -1,8 +1,11 @@
 package registradores;
 
-
 public class ReturnException extends Exception 
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6548203327430221985L;
 	private String msg;
 	private int ret;
 	

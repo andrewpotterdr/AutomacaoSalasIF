@@ -16,6 +16,7 @@ public class Servidor
 		Scanner input = new Scanner(System.in);
 		DataOutputStream saida = null;
 		boolean desligar = true;
+		@SuppressWarnings("resource")
 		ServerSocket servidor = new ServerSocket(60100);
 		System.out.println("Porta 60100 aberta!");
 		while(true)
