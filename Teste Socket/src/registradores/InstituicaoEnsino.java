@@ -1,6 +1,7 @@
 package registradores;
+import java.io.Serializable;
 
-public class InstituicaoEnsino extends Instituicao
+public class InstituicaoEnsino extends Instituicao implements Serializable
 {
 	private String campus;
 	

@@ -2,7 +2,7 @@ package registradores;
 
 import java.util.Vector;
 
-public class ColecaoBlocos
+public class ColecaoBlocos 
 {
 	private Vector<Bloco> blocos;
 	

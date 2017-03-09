@@ -1,6 +1,7 @@
 package registradores;
+import java.io.Serializable;
 
-public class Datashow implements Dispositivo
+public class Datashow implements Dispositivo, Serializable
 {
 	private String nome;
 	private boolean status;

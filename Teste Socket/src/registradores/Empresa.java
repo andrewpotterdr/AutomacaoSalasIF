@@ -1,6 +1,7 @@
-package registradores;
+package registradores; 
+import java.io.Serializable;
 
-public class Empresa extends Instituicao
+public class Empresa extends Instituicao implements Serializable
 {
 	private String CNPJ;
 	

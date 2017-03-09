@@ -1,6 +1,7 @@
 package registradores;
+import java.io.Serializable;
 
-public class Sala
+public class Sala implements Serializable
 {
 	private String nome;
 	private ColecaoDispositivos coldis = null;

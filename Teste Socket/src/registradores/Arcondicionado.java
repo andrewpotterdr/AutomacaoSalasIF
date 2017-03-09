@@ -1,6 +1,8 @@
 package registradores;
 
-public class Arcondicionado implements Dispositivo
+import java.io.Serializable;
+
+public class Arcondicionado implements Dispositivo, Serializable
 {
 	private String nome;
 	private boolean status;

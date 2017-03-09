@@ -1,6 +1,7 @@
 package registradores;
+import java.io.Serializable;
 
-public class Bloco
+public class Bloco implements Serializable
 {
 	private String nome;
 	private ColecaoSalas colsal = null;

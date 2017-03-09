@@ -1,11 +1,12 @@
 package registradores;
+import java.io.Serializable;
 
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class RegistraMaquinas extends Thread
+public class RegistraMaquinas extends Thread implements Serializable
 {	
 	
 	ColecaoInstituicoes colinst;
@@ -22,8 +23,9 @@ public class RegistraMaquinas extends Thread
 		ServerSocket servidor = null;
 		try
 		{
-			servidor = new ServerSocket(60050);
-		} catch (IOException e)
+			servidor = new ServerSocket(60048);
+		}
+		catch (IOException e)
 		{
 		}
 		Socket cliente = null;
@@ -40,7 +42,8 @@ public class RegistraMaquinas extends Thread
 			try
 			{
 				entrada = new DataInputStream(cliente.getInputStream());
-			} catch (IOException e)
+			}
+			catch (IOException e)
 			{
 			}
 			try

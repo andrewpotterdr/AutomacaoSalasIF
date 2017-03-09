@@ -1,11 +1,18 @@
 package registradores;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Vector;
 
-public class ColecaoInstituicoes
+public class ColecaoInstituicoes 
 {
 	private Vector<Instituicao> instituicoes;
 	
@@ -89,48 +96,61 @@ public class ColecaoInstituicoes
 		return conteudo;
 	}
 	
-	public boolean gravaArquivo() throws Exception
+	public void recuperaArquivo() throws Exception
 	{
-		
-		String conteudo = toConteudo();
-		String conteudoInterno = "";
-		File file = new File("D:/Pen-Card Amway/IFPB/Projeto Automação das Salas/AutomacaoSalasIF/Exemplo Dados Salvos em Texto/conteudo.txt");
-		FileReader reader = null;
-		FileWriter writer = null;
+		File file;
+		FileInputStream fin;
+		ObjectInputStream oin;
+		try
+		{
+			file = new File("D:/Pen-Card Amway/IFPB/Projeto Automação das Salas/AutomacaoSalasIF/Exemplo Dados Salvos em Texto/conteudo.txt");
+			fin = new FileInputStream(file);
+			oin = new ObjectInputStream(fin);
+		}
+		catch(Exception e)
+		{
+			throw new Exception(e.getMessage());
+		}
+		try
+		{
+			instituicoes = (Vector<Instituicao>) oin.readObject();
+		}
+		catch(Exception e)
+		{
+			throw new Exception(e.getMessage());
+		}
+	}
+	
+	public void gravaArquivo() throws Exception
+	{
+		File file;
+		FileOutputStream fout;
+		ObjectOutputStream oout;
+		try
+		{
+			file = new File("D:/Pen-Card Amway/IFPB/Projeto Automação das Salas/AutomacaoSalasIF/Exemplo Dados Salvos em Texto/conteudo.txt");
+			fout = new FileOutputStream(file);
+			oout = new ObjectOutputStream(fout);
+		}
+		catch(Exception e)
+		{
+			throw new Exception(e.getMessage());
+		}
 		try
 		{
 			file.createNewFile();
 		}
 		catch(Exception e)
 		{
-			throw new Exception("Erro na criação de arquivo!");
+			throw new Exception(e.getMessage());
 		}
 		try
 		{
-			reader = new FileReader(file);
-			while(reader.ready())
-			{
-				conteudoInterno += (char)reader.read();
-			}
-			reader.close();
+			oout.writeObject(instituicoes);
 		}
 		catch(Exception e)
 		{
-			throw new Exception("Erro na leitura de arquivo!");
+			throw new Exception(e.getMessage());
 		}
-		try
-		{
-			if(!conteudoInterno.equals(conteudo))
-			{
-				writer = new FileWriter(file);
-				writer.write(conteudo);
-				writer.close();
-			}
-		}
-		catch(Exception e)
-		{
-			throw new Exception("Erro na escrita de arquivo!");
-		}
-		return true;
 	}
 }

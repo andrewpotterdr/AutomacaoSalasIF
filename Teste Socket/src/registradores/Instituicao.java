@@ -1,6 +1,7 @@
 package registradores;
+import java.io.Serializable;
 
-public abstract class Instituicao
+public abstract class Instituicao implements Serializable
 {
 	private String nome;
 	private String cidade;

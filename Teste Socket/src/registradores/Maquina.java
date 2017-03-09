@@ -1,6 +1,7 @@
 package registradores;
+import java.io.Serializable;
 
-public class Maquina implements Dispositivo 
+public class Maquina implements Dispositivo, Serializable
 {
 	private String nome;
 	private String MAC;
