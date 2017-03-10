@@ -9,10 +9,20 @@ public class Registrador
 	{
 		Scanner input = new Scanner(System.in);
 		ColecaoInstituicoes colinst;
+		Atualiza update = null;
 		colinst = new ColecaoInstituicoes();
 		try
 		{
 			colinst.recuperaArquivo();
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getMessage());
+		}
+		try
+		{
+			update = new Atualiza(colinst);
+			update.start();
 		}
 		catch(Exception e)
 		{

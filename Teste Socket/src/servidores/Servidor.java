@@ -1,9 +1,7 @@
 package servidores;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.ServerSocket;
+import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.util.Scanner;
 import registradores.*;
@@ -12,28 +10,42 @@ public class Servidor
 {
 	public static void main(String[] args) throws IOException
 	{
-		ColecaoDispositivos coldis = new ColecaoDispositivos();
+		ColecaoInstituicoes colinst = null;
+		Instituicao instituicaoLocal = new InstituicaoEnsino("ifpb","jp","jp"), instituicaoReg = null;
+		Bloco blocoLocal = new Bloco("info"), blocoReg = null;
+		Sala salaLocal = new Sala("info01"), salaReg = null;
 		Scanner input = new Scanner(System.in);
-		DataOutputStream saida = null;
-		boolean desligar = true;
-		@SuppressWarnings("resource")
-		ServerSocket servidor = new ServerSocket(60100);
-		System.out.println("Porta 60100 aberta!");
-		while(true)
+		Socket servidor;
+		ObjectInputStream oin = null;
+		try
 		{
-			Socket cliente = servidor.accept();
-			DataInputStream entrada = new DataInputStream(cliente.getInputStream());
-			String conteudoMaquina = entrada.readUTF();
-			String partes[] = conteudoMaquina.split("\n");
-			String MAC = partes[1];
-			Maquina maquina = coldis.pesquisaMaquina(MAC);
-			if(lerOpcao(input,0,1) == 0)
+			servidor = new Socket("192.0.23.234", 51998);
+			oin = new ObjectInputStream(servidor.getInputStream());
+			while(true)
 			{
-				desligar = false;
+				colinst = (ColecaoInstituicoes) oin.readObject();
+				instituicaoReg = colinst.procuraInst(instituicaoLocal);
+				blocoReg = instituicaoReg.getColBlo().pesquisaPeloNome(blocoLocal.getNome());
+				salaReg = blocoReg.getColSal().pesquisaPeloNome(salaLocal.getNome());
+				menuDisp(salaReg.getColDis(), input);
 			}
-			maquina.setStatus(false);
-			saida = new DataOutputStream(cliente.getOutputStream());
-			saida.writeBoolean(desligar);
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getMessage());
+		}
+	}
+	
+	private static void menuDisp(ColecaoDispositivos coldis, Scanner input)
+	{
+		Maquina maq = null;
+		ColecaoDispositivos maquinas = new ColecaoDispositivos();
+		for(int i = 0; i < coldis.sizeMaquina(); i++)
+		{
+			if(coldis.isMaquina(i))
+			{
+				maquinas.adicionaDispositivo((Maquina) coldis.getDispositivo(i));
+			}	
 		}
 	}
 	
@@ -55,4 +67,5 @@ public class Servidor
 		}
 		return opcao;
 	}
+
 }

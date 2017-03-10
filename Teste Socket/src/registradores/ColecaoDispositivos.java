@@ -110,4 +110,26 @@ public class ColecaoDispositivos
 	{
 		return dispositivos.size();
 	}
+	
+	public boolean isMaquina(int i)
+	{
+		if(dispositivos.get(i) instanceof Maquina)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	public int sizeMaquina()
+	{
+		int i;
+		for(i = 0; i < dispositivos.size(); i++)
+		{
+			if(dispositivos.get(i) instanceof Maquina)
+			{
+				i++;
+			}
+		}
+		return i;
+	}
 }
