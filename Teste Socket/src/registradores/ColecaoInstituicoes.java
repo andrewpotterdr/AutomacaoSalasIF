@@ -5,10 +5,15 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Vector;
 
-public class ColecaoInstituicoes 
+public class ColecaoInstituicoes implements Serializable 
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7663710807871190013L;
 	private Vector<Instituicao> instituicoes;
 	
 	public ColecaoInstituicoes()
@@ -91,7 +96,7 @@ public class ColecaoInstituicoes
 		return conteudo;
 	}
 	
-	@SuppressWarnings({ "unchecked", "resource" })
+	@SuppressWarnings({ "unchecked" })
 	public void recuperaArquivo() throws Exception
 	{
 		File file;
@@ -99,12 +104,22 @@ public class ColecaoInstituicoes
 		ObjectInputStream oin;
 		try
 		{
-			file = new File("D:/Pen-Card Amway/IFPB/Projeto Automação das Salas/AutomacaoSalasIF/Exemplo Dados Salvos em Texto/conteudo.txt");
-			fin = new FileInputStream(file);
-			oin = new ObjectInputStream(fin);
-			file.createNewFile();
-			instituicoes = (Vector<Instituicao>) oin.readObject();
-			oin.close();
+			file = new File("D:/Pen-Card Amway/IFPB/Projeto Automação das Salas/AutomacaoSalasIF/Exemplo Dados Salvos em Texto/conteudo.dat");
+			if(file.exists())
+			{
+				fin = new FileInputStream(file);
+				oin = new ObjectInputStream(fin);
+				if(oin.readObject() != null)
+				{
+					instituicoes = (Vector<Instituicao>) oin.readObject();
+				}
+				else
+				{
+					instituicoes = new Vector<Instituicao>();
+				}
+				oin.close();
+				fin.close();
+			}
 		}
 		catch(Exception e)
 		{
@@ -112,7 +127,6 @@ public class ColecaoInstituicoes
 		}
 	}
 	
-	@SuppressWarnings("resource")
 	public void gravaArquivo() throws Exception
 	{
 		File file;
@@ -120,12 +134,13 @@ public class ColecaoInstituicoes
 		ObjectOutputStream oout;
 		try
 		{
-			file = new File("D:/Pen-Card Amway/IFPB/Projeto Automação das Salas/AutomacaoSalasIF/Exemplo Dados Salvos em Texto/conteudo.txt");
+			file = new File("D:/Pen-Card Amway/IFPB/Projeto Automação das Salas/AutomacaoSalasIF/Exemplo Dados Salvos em Texto/conteudo.dat");
 			fout = new FileOutputStream(file);
 			oout = new ObjectOutputStream(fout);
 			file.createNewFile();
 			oout.writeObject(instituicoes);
 			oout.close();
+			fout.close();
 		}
 		catch(Exception e)
 		{

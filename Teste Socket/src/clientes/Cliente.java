@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
 import registradores.Maquina;
 
 public class Cliente
@@ -40,12 +41,12 @@ public class Cliente
 		ObjectOutputStream saidaObj = null, oout = null, tempOout = null;
 		try
 		{
-			file = new File("D:/Pen-Card Amway/IFPB/Projeto Automação das Salas/AutomacaoSalasIF/Exemplo Dados Salvos em Texto/conteudo.dat");
-			fin = new FileInputStream(file);
-			oin = new ObjectInputStream(fin);
+			file = new File("D:/conteudo.dat");
 			fout = new FileOutputStream(file);
 			oout = new ObjectOutputStream(fout);
-			tempFile = new File("D:/Pen-Card Amway/IFPB/Projeto Automação das Salas/AutomacaoSalasIF/Exemplo Dados Salvos em Texto/tempConteudo.dat");
+			fin = new FileInputStream(file);
+			oin = new ObjectInputStream(fin);
+			tempFile = new File("D:/conteudoTemp.dat");
 			tempFout = new FileOutputStream(tempFile);
 			tempOout = new ObjectOutputStream(tempFout);
 			tempOout.writeObject(maquina);
@@ -56,7 +57,7 @@ public class Cliente
 		}
 		try
 		{
-			cliente = new Socket("10.0.43.102", 60050);
+			cliente = new Socket("10.0.13.108", 60067);
 		}
 		catch(Exception e)
 		{
@@ -65,8 +66,14 @@ public class Cliente
 		try
 		{
 			saidaBool = new DataOutputStream(cliente.getOutputStream());
-			saidaObj = new ObjectOutputStream(cliente.getOutputStream());
 			file.createNewFile();
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getMessage());
+		}
+		try
+		{
 			if(file.equals(tempFile))
 			{
 				saidaBool.writeBoolean(false);
@@ -74,18 +81,24 @@ public class Cliente
 			else
 			{
 				saidaBool.writeBoolean(true);
+				saidaObj = new ObjectOutputStream(cliente.getOutputStream());
 				saidaObj.writeObject(maquina);
 				oout.writeObject(maquina);
-				tempFile.delete();
-				fin.close();
-				fout.close();
-				oin.close();
-				oout.close();
-				tempFout.close();
-				tempOout.close();
-				saidaBool.close();
-				saidaObj.close();
 			}
+			fin.close();
+			oin.close();
+			fout.close();
+			oout.close();
+			tempFout.close();
+			tempOout.close();
+			tempFile.delete();
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getMessage());
+		}
+		try
+		{
 			cliente.close();
 		}
 		catch(Exception e)

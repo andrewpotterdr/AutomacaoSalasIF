@@ -9,7 +9,7 @@ public class Registrador
 	{
 		Scanner input = new Scanner(System.in);
 		ColecaoInstituicoes colinst;
-		Atualiza update = null;
+		//Atualiza update = null;
 		colinst = new ColecaoInstituicoes();
 		try
 		{
@@ -19,7 +19,7 @@ public class Registrador
 		{
 			System.err.println(e.getMessage());
 		}
-		try
+		/*try
 		{
 			update = new Atualiza(colinst);
 			update.start();
@@ -27,7 +27,7 @@ public class Registrador
 		catch(Exception e)
 		{
 			System.err.println(e.getMessage());
-		}
+		}*/
 		try
 		{
 			while(menu(input,colinst) != 1);
@@ -689,7 +689,7 @@ public class Registrador
 				System.out.println("Iniciado processo de registro de máquinas: ");
 				try
 				{
-					RegistraMaquinas regmaq = new RegistraMaquinas(colinst,sala.getColDis(), 60050);
+					RegistraMaquinas regmaq = new RegistraMaquinas(colinst,sala.getColDis(), 60067);
 					regmaq.start();
 				}
 				catch(Exception e)

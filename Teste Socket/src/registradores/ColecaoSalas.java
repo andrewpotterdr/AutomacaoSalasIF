@@ -1,9 +1,14 @@
 package registradores;
 
+import java.io.Serializable;
 import java.util.Vector;
 
-public class ColecaoSalas 
+public class ColecaoSalas implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1454612525743607061L;
 	private Vector<Sala> salas;
 	
 	public ColecaoSalas()

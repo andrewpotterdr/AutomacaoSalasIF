@@ -63,6 +63,7 @@ public class RegistraMaquinas extends Thread
 					coldis.adicionaDispositivo(maquina);
 					colinst.gravaArquivo();
 				}
+				entradaBool.close();
 			}
 			catch(Exception e)
 			{
