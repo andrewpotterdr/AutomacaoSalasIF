@@ -85,9 +85,9 @@ public class ColecaoSalas
 		return -1;
 	}
 	
-	public int atribuirPorta(Sala sala)
+	/*public int atribuirPorta(Sala sala)
 	{
 		int i = pesquisaIndicePeloNome(sala.getNome());
-		return 60000 + i;
-	}
+		return 60050 + i;
+	}*/
 }

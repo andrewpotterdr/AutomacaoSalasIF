@@ -20,7 +20,7 @@ public class Cliente
 		String MAC = GetNetworkAddress.GetAddress("mac");
 		String IP = GetNetworkAddress.GetAddress("ip");
 		String nome = null;
-		Maquina maquina = null, maquinaArq = null;
+		Maquina maquina = null;
 		try
 		{
 			nome = InetAddress.getByName(IP).getCanonicalHostName();
@@ -33,18 +33,22 @@ public class Cliente
 		maquina = new Maquina(nome, MAC, IP, desligar);
 		Socket cliente = null;
 		DataOutputStream saidaBool = null;
-		File file = null;
+		File file = null, tempFile = null;
 		FileInputStream fin = null;
 		ObjectInputStream oin = null;
-		FileOutputStream fout = null;
-		ObjectOutputStream saidaObj = null, oout = null;
+		FileOutputStream fout = null, tempFout = null;
+		ObjectOutputStream saidaObj = null, oout = null, tempOout = null;
 		try
 		{
-			file = new File("D:/Pen-Card Amway/IFPB/Projeto Automação das Salas/AutomacaoSalasIF/Exemplo Dados Salvos em Texto/conteudo.txt");
+			file = new File("D:/Pen-Card Amway/IFPB/Projeto Automação das Salas/AutomacaoSalasIF/Exemplo Dados Salvos em Texto/conteudo.dat");
 			fin = new FileInputStream(file);
 			oin = new ObjectInputStream(fin);
 			fout = new FileOutputStream(file);
 			oout = new ObjectOutputStream(fout);
+			tempFile = new File("D:/Pen-Card Amway/IFPB/Projeto Automação das Salas/AutomacaoSalasIF/Exemplo Dados Salvos em Texto/tempConteudo.dat");
+			tempFout = new FileOutputStream(tempFile);
+			tempOout = new ObjectOutputStream(tempFout);
+			tempOout.writeObject(maquina);
 		}
 		catch(Exception e)
 		{
@@ -62,23 +66,8 @@ public class Cliente
 		{
 			saidaBool = new DataOutputStream(cliente.getOutputStream());
 			saidaObj = new ObjectOutputStream(cliente.getOutputStream());
-		}
-		catch(Exception e)
-		{
-			System.err.println(e.getMessage());
-		}
-		try
-		{
 			file.createNewFile();
-		}
-		catch(Exception e)
-		{
-			System.err.println(e.getMessage());
-		}
-		try
-		{
-			maquinaArq = (Maquina) oin.readObject();
-			if(maquina.equals(maquinaArq))
+			if(file.equals(tempFile))
 			{
 				saidaBool.writeBoolean(false);
 			}
@@ -87,14 +76,16 @@ public class Cliente
 				saidaBool.writeBoolean(true);
 				saidaObj.writeObject(maquina);
 				oout.writeObject(maquina);
+				tempFile.delete();
+				fin.close();
+				fout.close();
+				oin.close();
+				oout.close();
+				tempFout.close();
+				tempOout.close();
+				saidaBool.close();
+				saidaObj.close();
 			}
-		}
-		catch(Exception e)
-		{
-			System.err.println(e.getMessage());
-		}
-		try
-		{
 			cliente.close();
 		}
 		catch(Exception e)

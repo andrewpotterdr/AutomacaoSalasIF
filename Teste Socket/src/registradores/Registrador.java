@@ -684,12 +684,12 @@ public class Registrador
 				{
 					throw new Exception("Sala não cadastrada!");
 				}
-				int porta = bloco.getColSal().atribuirPorta(sala);
+				//int porta = bloco.getColSal().atribuirPorta(sala);
 				System.out.println("Registrar Máquinas.");
 				System.out.println("Iniciado processo de registro de máquinas: ");
 				try
 				{
-					RegistraMaquinas regmaq = new RegistraMaquinas(colinst,sala.getColDis(), porta);
+					RegistraMaquinas regmaq = new RegistraMaquinas(colinst,sala.getColDis(), 60050);
 					regmaq.start();
 				}
 				catch(Exception e)

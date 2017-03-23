@@ -102,29 +102,8 @@ public class ColecaoInstituicoes
 			file = new File("D:/Pen-Card Amway/IFPB/Projeto Automação das Salas/AutomacaoSalasIF/Exemplo Dados Salvos em Texto/conteudo.txt");
 			fin = new FileInputStream(file);
 			oin = new ObjectInputStream(fin);
-		}
-		catch(Exception e)
-		{
-			throw new Exception(e.getMessage());
-		}
-		try
-		{
 			file.createNewFile();
-		}
-		catch(Exception e)
-		{
-			throw new Exception(e.getMessage());
-		}
-		try
-		{
 			instituicoes = (Vector<Instituicao>) oin.readObject();
-		}
-		catch(Exception e)
-		{
-			throw new Exception(e.getMessage());
-		}
-		try
-		{
 			oin.close();
 		}
 		catch(Exception e)
@@ -144,29 +123,8 @@ public class ColecaoInstituicoes
 			file = new File("D:/Pen-Card Amway/IFPB/Projeto Automação das Salas/AutomacaoSalasIF/Exemplo Dados Salvos em Texto/conteudo.txt");
 			fout = new FileOutputStream(file);
 			oout = new ObjectOutputStream(fout);
-		}
-		catch(Exception e)
-		{
-			throw new Exception(e.getMessage());
-		}
-		try
-		{
 			file.createNewFile();
-		}
-		catch(Exception e)
-		{
-			throw new Exception(e.getMessage());
-		}
-		try
-		{
 			oout.writeObject(instituicoes);
-		}
-		catch(Exception e)
-		{
-			throw new Exception(e.getMessage());
-		}
-		try
-		{
 			oout.close();
 		}
 		catch(Exception e)

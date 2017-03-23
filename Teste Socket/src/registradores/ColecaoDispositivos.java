@@ -17,7 +17,8 @@ public class ColecaoDispositivos
 		{
 			if(dispositivos.get(i).equals(dispositivo))
 			{
-				return false;
+				dispositivos.remove(i);
+				break;
 			}
 		}
 		dispositivos.add(dispositivo);
