@@ -34,15 +34,4 @@ public class Empresa extends Instituicao implements Serializable
 		}
 		return false;
 	}
-	
-	public String toConteudo()
-	{
-		String conteudo = "INSTITUIÇÃO\r\n<<\r\nEMPRESA\r\n" + this.getNome() + "\r\n" + this.getCidade() + "\r\n" + this.getCNPJ() + "\r\n<\r\n";
-		for(int i = 0; i < super.getColBlo().size(); i++)
-		{
-			conteudo += super.getColBlo().getBloco(i).toConteudo();
-		}
-		conteudo += ">\r\n";
-		return conteudo;
-	}
 }

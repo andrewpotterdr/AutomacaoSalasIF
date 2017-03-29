@@ -128,14 +128,43 @@ public class ColecaoDispositivos implements Serializable
 	
 	public int sizeMaquina()
 	{
-		int i;
-		for(i = 0; i < dispositivos.size(); i++)
+		int j = 0;
+		for(int i = 0; i < dispositivos.size(); i++)
 		{
-			if(dispositivos.get(i) instanceof Maquina)
+			if(isMaquina(i))
 			{
-				i++;
+				j++;
 			}
 		}
-		return i;
+		return j;
+	}
+	
+	public ColecaoDispositivos getColMaq()
+	{
+		ColecaoDispositivos colmaq = new ColecaoDispositivos();
+		for(int i = 0; i < dispositivos.size(); i++)
+		{
+			if(isMaquina(i))
+			{
+				colmaq.adicionaDispositivo(dispositivos.get(i));
+			}
+		}
+		if(colmaq.size() == 0)
+		{
+			return null;
+		}
+		return colmaq;
+	}
+	
+	public Dispositivo pesquisaPeloNome(String nome)
+	{
+		for(int i = 0; i < dispositivos.size(); i++)
+		{
+			if(dispositivos.get(i).getNome().equals(nome))
+			{
+				return dispositivos.get(i);
+			}
+		}
+		return null;
 	}
 }

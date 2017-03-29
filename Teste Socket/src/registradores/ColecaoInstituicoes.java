@@ -85,17 +85,6 @@ public class ColecaoInstituicoes implements Serializable
 		return null;
 	}
 	
-	public String toConteudo()
-	{
-		String conteudo = "|<\r\n";
-		for(int i = 0; i < instituicoes.size(); i++)
-		{
-			conteudo += instituicoes.get(i).toConteudo();
-		}
-		conteudo += ">|\r\n";
-		return conteudo;
-	}
-	
 	@SuppressWarnings({ "unchecked" })
 	public void recuperaArquivo() throws Exception
 	{

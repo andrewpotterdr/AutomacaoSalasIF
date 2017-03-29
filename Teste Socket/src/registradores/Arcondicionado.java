@@ -50,9 +50,4 @@ public class Arcondicionado implements Dispositivo, Serializable
 		}
 		return false;
 	}
-	
-	public String toConteudo()
-	{
-		return "ARCONDICIONADO\r\n" + nome + "\r\n" + status + "\r\n";
-	}
 }

@@ -45,15 +45,4 @@ public class Bloco implements Serializable
 		}
 		return false;
 	}
-	
-	public String toConteudo()
-	{
-		String conteudo = "BLOCO " + this.nome + "\r\n<\r\n";
-		for(int i = 0; i < colsal.size(); i++)
-		{
-			conteudo += colsal.getSala(i).toConteudo();
-		}
-		conteudo += ">\r\n";
-		return conteudo;
-	}
 }

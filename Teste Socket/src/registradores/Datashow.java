@@ -50,9 +50,4 @@ public class Datashow implements Dispositivo, Serializable
 		}
 		return false;
 	}
-	
-	public String toConteudo()
-	{
-		return "DATASHOW\r\n" + nome + "\r\n" + status + "\r\n";
-	}
 }

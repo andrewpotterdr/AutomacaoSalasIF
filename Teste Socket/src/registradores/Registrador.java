@@ -9,7 +9,7 @@ public class Registrador
 	{
 		Scanner input = new Scanner(System.in);
 		ColecaoInstituicoes colinst;
-		//Atualiza update = null;
+		Atualiza update = null;
 		colinst = new ColecaoInstituicoes();
 		try
 		{
@@ -19,15 +19,15 @@ public class Registrador
 		{
 			System.err.println(e.getMessage());
 		}
-		/*try
+		try
 		{
-			update = new Atualiza(colinst);
+			update = new Atualiza();
 			update.start();
 		}
 		catch(Exception e)
 		{
 			System.err.println(e.getMessage());
-		}*/
+		}
 		try
 		{
 			while(menu(input,colinst) != 1);

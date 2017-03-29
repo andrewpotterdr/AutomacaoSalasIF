@@ -57,6 +57,4 @@ public abstract class Instituicao implements Serializable
 		}
 		return false;
 	}
-	
-	public abstract String toConteudo();
 }

@@ -1,5 +1,6 @@
 package clientes;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -105,9 +107,31 @@ public class Cliente
 		{
 			System.err.println(e.getMessage());
 		}
+		
+		ServerSocket inServidor;
+		Socket inCliente;
+		DataInputStream entradaSinal;
+		try
+		{
+			inServidor = new ServerSocket(55555);
+			while(true)
+			{
+				inCliente = inServidor.accept();
+				entradaSinal = new DataInputStream(inCliente.getInputStream());
+				if(entradaSinal.readBoolean())
+				{
+					desligar();
+				}
+				entradaSinal.close();
+			}
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getMessage());
+		}
 	}
 	
-	public static void desligar(Boolean stat) throws IOException
+	public static void desligar() throws IOException
 	{
 		if (isWindows())
 		{

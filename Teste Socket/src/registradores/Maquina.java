@@ -74,10 +74,4 @@ public class Maquina implements Dispositivo, Serializable
 		}
 		return false;
 	}
-	
-	public String toConteudo()
-	{
-		return "MAQUINA\r\n" + this.nome + "\r\n" + this.MAC + "\r\n" + this.IP + "\r\n" + status + "\r\n";
-	}
-
 }

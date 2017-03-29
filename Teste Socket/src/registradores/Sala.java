@@ -45,15 +45,4 @@ public class Sala implements Serializable
 		}
 		return false;
 	}
-	
-	public String toConteudo()
-	{
-		String conteudo = "SALA " + this.nome + "\r\n<\r\n";
-		for(int i = 0; i < coldis.size(); i++)
-		{
-			conteudo += coldis.getDispositivo(i).toConteudo();
-		}
-		conteudo += ">\r\n";
-		return conteudo;
-	}
 }

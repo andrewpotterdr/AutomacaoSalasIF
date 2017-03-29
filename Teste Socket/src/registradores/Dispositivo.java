@@ -8,5 +8,4 @@ public interface Dispositivo
 	public void setStatus(boolean status);
 	public String toString();
 	public boolean equals(Dispositivo dispositivo);
-	public String toConteudo();
 }
