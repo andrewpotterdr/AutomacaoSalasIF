@@ -29,7 +29,7 @@ public class Atualiza extends Thread
 		Socket servidor = null;
 		try
 		{
-			updater = new ServerSocket(51007);
+			updater = new ServerSocket(51100);
 			servidor = updater.accept();
 			signin = new DataInputStream(servidor.getInputStream());
 			oout = new ObjectOutputStream(servidor.getOutputStream());

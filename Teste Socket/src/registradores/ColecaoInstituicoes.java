@@ -131,21 +131,21 @@ public class ColecaoInstituicoes implements Serializable
 	 */
 	@SuppressWarnings({ "unchecked" })
 	public void recuperaArquivo() throws Exception
-	
 	{
 		File file;
 		FileInputStream fin;
 		ObjectInputStream oin;
 		try
 		{
-			file = new File("D:/Pen-Card Amway/IFPB/Projeto AutomaÃ§Ã£o das Salas/AutomacaoSalasIF/Exemplo Dados Salvos em Texto/conteudo.dat");
+			file = new File("D:/Pen-Card Amway/IFPB/Projeto Automação das Salas/AutomacaoSalasIF/Exemplo Dados Salvos em Texto/conteudo.dat");
 			if(file.exists())
 			{
 				fin = new FileInputStream(file);
 				oin = new ObjectInputStream(fin);
-				if(oin.readObject() != null)
+				Vector<Instituicao> vector = (Vector<Instituicao>)oin.readObject();
+				if(vector != null)
 				{
-					instituicoes = (Vector<Instituicao>) oin.readObject();
+					instituicoes = vector;
 				}
 				else
 				{
@@ -157,7 +157,7 @@ public class ColecaoInstituicoes implements Serializable
 		}
 		catch(Exception e)
 		{
-			throw new Exception(e.getMessage());
+			throw new Exception("Deu merda");
 		}
 	}
 	
