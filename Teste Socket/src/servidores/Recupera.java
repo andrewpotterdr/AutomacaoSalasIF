@@ -32,14 +32,14 @@ public class Recupera extends Thread
 			while(true)
 			{
 				saidaSinal.writeBoolean(true);
-				saidaSinal.close();
+				//saidaSinal.close();
 				saidaObj.writeObject(new InstituicaoEnsino("ifpb","jp","jp"));
-				saidaObj.close();
+				//saidaObj.close();
 				saidaSinal.writeUTF("b");
 				saidaSinal.writeUTF("1");
-				saidaSinal.close();
+				//saidaSinal.close();
 				coldis = (ColecaoDispositivos) entradaCol.readObject();
-				entradaCol.close();
+				//entradaCol.close();
 			}
 		}
 		catch (Exception e)

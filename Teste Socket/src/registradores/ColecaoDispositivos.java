@@ -149,10 +149,10 @@ public class ColecaoDispositivos implements Serializable
 				colmaq.adicionaDispositivo(dispositivos.get(i));
 			}
 		}
-		if(colmaq.size() == 0)
+		/*if(colmaq.size() == 0)
 		{
 			return null;
-		}
+		}*/
 		return colmaq;
 	}
 	

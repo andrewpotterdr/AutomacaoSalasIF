@@ -21,7 +21,7 @@ public class Registrador
 		}
 		try
 		{
-			update = new Atualiza();
+			update = new Atualiza(colinst);
 			update.start();
 		}
 		catch(Exception e)
@@ -689,7 +689,7 @@ public class Registrador
 				System.out.println("Iniciado processo de registro de máquinas: ");
 				try
 				{
-					RegistraMaquinas regmaq = new RegistraMaquinas(colinst,sala.getColDis(), 60067);
+					RegistraMaquinas regmaq = new RegistraMaquinas(colinst,sala.getColDis(), 60069);
 					regmaq.start();
 				}
 				catch(Exception e)

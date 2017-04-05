@@ -94,25 +94,36 @@ public class ColecaoInstituicoes implements Serializable
 		try
 		{
 			file = new File("D:/Pen-Card Amway/IFPB/Projeto Automação das Salas/AutomacaoSalasIF/Exemplo Dados Salvos em Texto/conteudo.dat");
+			System.out.println("1");
 			if(file.exists())
 			{
+				System.out.println("2");
 				fin = new FileInputStream(file);
+				System.out.println("3");
 				oin = new ObjectInputStream(fin);
-				if(oin.readObject() != null)
+				System.out.println("4");
+				Vector<Instituicao> vector = (Vector<Instituicao>)oin.readObject();
+				System.out.println("5");
+				if(vector != null)
 				{
-					instituicoes = (Vector<Instituicao>) oin.readObject();
+					System.out.println("6");
+					instituicoes = vector;
+					System.out.println("7");
 				}
 				else
 				{
+					System.out.println("8");
 					instituicoes = new Vector<Instituicao>();
+					System.out.println("9");
 				}
+				System.out.println("10");
 				oin.close();
 				fin.close();
 			}
 		}
 		catch(Exception e)
 		{
-			throw new Exception(e.getMessage());
+			throw new Exception("Deu merda");
 		}
 	}
 	

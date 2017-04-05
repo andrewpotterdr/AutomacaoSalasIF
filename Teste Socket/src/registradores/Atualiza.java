@@ -8,11 +8,11 @@ import java.net.Socket;
 
 public class Atualiza extends Thread
 {
-	ColecaoInstituicoes colinst = null;
+	ColecaoInstituicoes colinst = new ColecaoInstituicoes();
 	
-	public Atualiza() throws Exception
+	public Atualiza(ColecaoInstituicoes colinst)
 	{
-		colinst.recuperaArquivo();
+		this.colinst = colinst;
 	}
 	
 	public void run()
@@ -24,15 +24,15 @@ public class Atualiza extends Thread
 		Socket servidor = null;
 		try
 		{
-			updater = new ServerSocket(51007);
+			updater = new ServerSocket(51064);
 			servidor = updater.accept();
 			signin = new DataInputStream(servidor.getInputStream());
-			oout = new ObjectOutputStream(servidor.getOutputStream());
 			oin = new ObjectInputStream(servidor.getInputStream());
+			oout = new ObjectOutputStream(servidor.getOutputStream());
 		}
 		catch(Exception e)
 		{
-			System.err.println(e.getMessage());
+			System.err.println("dsfd");
 		}
 		try
 		{
@@ -40,17 +40,25 @@ public class Atualiza extends Thread
 			{
 				if(signin.readBoolean())
 				{
-					signin.close();
+					System.err.println("sfds0");
+					//signin.close();
 					colinst.recuperaArquivo();
+					System.err.println("sfds1");
 					//ColecaoDispositivos coldis = colinst.procuraInst((Instituicao)(oin.readObject())).getColBlo().pesquisaPeloNome(signin.readUTF()).getColSal().pesquisaPeloNome(signin.readUTF()).getColDis();
-					Instituicao inst = colinst.procuraInst((Instituicao)(oin.readObject()));
-					oin.close();
+					Instituicao inst = colinst.procuraInst((InstituicaoEnsino)(oin.readObject()));
+					System.err.println("sfds2");
+					//oin.close();
+					System.out.println(inst);
 					Bloco bloco = inst.getColBlo().pesquisaPeloNome(signin.readUTF());
+					System.err.println("sfds3");
 					Sala sala = bloco.getColSal().pesquisaPeloNome(signin.readUTF());
-					signin.close();
+					System.err.println("sfds4");
+					//signin.close();
 					ColecaoDispositivos coldis = sala.getColDis();
+					System.err.println("sfds5");
 					oout.writeObject(coldis);
-					oout.close();
+					System.err.println("sfds6");
+					//oout.close();
 				}
 			}
 		}
