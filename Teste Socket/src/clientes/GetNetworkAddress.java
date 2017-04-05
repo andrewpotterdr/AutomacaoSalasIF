@@ -7,6 +7,10 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
 
+/**
+ * @author Pablo
+ * Classe destinada a captura do IP e do MAC da máquina
+ */
 public class GetNetworkAddress
 {
 
@@ -92,7 +96,11 @@ public class GetNetworkAddress
 
    }
 
-   private static String GetMacAddress(InetAddress ip)
+   /**
+ * @param ip
+ * @return retorna o endereço MAC.
+ */
+private static String GetMacAddress(InetAddress ip)
    {
        String address = null;
         try {

@@ -6,6 +6,11 @@ import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * @author Pablo Bezerra Guedes Lins de Albuquerque Michael Almeida da Franca Monteiro.
+ * Classe responsável pelo registro de máquinas.
+ *
+ */
 public class RegistraMaquinas extends Thread
 {	
 	
@@ -13,16 +18,27 @@ public class RegistraMaquinas extends Thread
 	ColecaoDispositivos coldis;
 	int porta;
 	
+	/**
+	 * Construtor de RegistraMaquinas.
+	 * @param colinst
+	 * @param coldis
+	 * @param porta
+	 */
 	public RegistraMaquinas(ColecaoInstituicoes colinst, ColecaoDispositivos coldis, int porta)
 	{
+		
 		this.colinst = colinst;
 		this.coldis = coldis;
 		this.porta = porta;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Thread#run()
+	 */
 	@SuppressWarnings("resource")
 	public void run()
 	{
+		
 		Maquina maquina = null;
 		ServerSocket servidor = null;
 		try

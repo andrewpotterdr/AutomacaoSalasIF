@@ -1,10 +1,13 @@
 package registradores;
 
+/**
+ * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro.
+ * Classe que especifica uma exceção com atributo número de retorno.
+ *
+ */
 public class ReturnException extends Exception 
 {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 6548203327430221985L;
 	private String msg;
 	private int ret;

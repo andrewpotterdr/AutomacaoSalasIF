@@ -2,19 +2,30 @@ package registradores;
 
 import java.io.Serializable;
 
+/**
+ * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro.
+ * Classe que faz abstração da Máquina.
+ *
+ */
 public class Maquina implements Dispositivo, Serializable
 {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 7632605201988475337L;
 	private String nome;
 	private String MAC;
 	private String IP;
 	private boolean status;
 	
+	/**
+	 * Construtor de Maquina.
+	 * @param nome
+	 * @param MAC
+	 * @param IP
+	 * @param status
+	 */
 	public Maquina(String nome, String MAC, String IP, boolean status) 
 	{
+		
 		this.nome = nome;
 		this.MAC = MAC;
 		this.IP = IP;
@@ -63,7 +74,7 @@ public class Maquina implements Dispositivo, Serializable
 	
 	public String toString() 
 	{
-		return "Máquina\nNome: " + this.nome + "\nMAC: " + MAC + "\nIP: " + IP + ",\nStatus: " + status;
+		return "MÃ¡quina\nNome: " + this.nome + "\nMAC: " + MAC + "\nIP: " + IP + ",\nStatus: " + status;
 	}
 	
 	public boolean equals(Dispositivo maquina)

@@ -12,14 +12,27 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
 import registradores.Maquina;
 
+/**
+ * @author Pablo e Michael
+ * Classe que representa o cliente, é aqui onde as informações das máquinas serão adiquiridas e passadas para o registrador
+ * essas informações são passadas via socket, também é na classe Cliente que o método referente ao desligamento é implementado.
+ */
 public class Cliente
 {
 	private static String OS = System.getProperty("os.name").toLowerCase();
+	/**
+	 * @param args
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 * O método main é encarregado de pegar os dados como MAC , IP e nome, uma variável boolean desligar é setada como true para ser passada no construtor do tipo Maquina,
+	 * dois arquivos com os Objects são criados, um que será gravado na máquina e um temporário, o qual caso haja alguma alteração em relação ao armazenado substituirá o antigo,
+	 * o main também manda o file para o registrador.
+	 */
 	public static void main(String[] args) throws UnknownHostException, IOException
 	{
+		
 		String MAC = GetNetworkAddress.GetAddress("mac");
 		String IP = GetNetworkAddress.GetAddress("ip");
 		String nome = null;
@@ -59,7 +72,7 @@ public class Cliente
 		}
 		try
 		{
-			cliente = new Socket("10.0.13.108", 60067);
+			cliente = new Socket("10.0.4.84", 60067);
 		}
 		catch(Exception e)
 		{
@@ -131,6 +144,10 @@ public class Cliente
 		}
 	}
 	
+	/**
+	 * @throws IOException
+	 * Método com finalidade de mandar os comandos de desligamento referente ao SO utilizado no cliente.
+	 */
 	public static void desligar() throws IOException
 	{
 		if (isWindows())
@@ -153,16 +170,29 @@ public class Cliente
 	    }
 	}
 	
+	/**
+	 * Verifica se o SO é Windows.
+	 * @return boolean
+	 */
 	public static boolean isWindows()
 	{
+		
 		return (OS.indexOf("win") >= 0);
 	}
 	
+	/**
+	 * Verifica se o SO é Mac.
+	 * @return boolean
+	 */
 	public static boolean isMac()
 	{
 		return (OS.indexOf("mac") >= 0);
 	}
 	
+	/**
+	 * Verifica se o SO é Unix.
+	 * @return boolean
+	 */
 	public static boolean isUnix()
 	{
     	return (OS.indexOf("nix") >= 0 || OS.indexOf("nux") >= 0 || OS.indexOf("aix") > 0 );

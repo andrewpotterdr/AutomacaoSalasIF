@@ -6,13 +6,18 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * @author Pablo e Michael
+ * Classe que cria uma thread para atualizar as coleções a partir dos objetos salvos no arquivo.
+ *
+ */
 public class Atualiza extends Thread
 {
-	ColecaoInstituicoes colinst = new ColecaoInstituicoes();
-	
-	public Atualiza(ColecaoInstituicoes colinst)
+	ColecaoInstituicoes colinst = null;
+	public Atualiza() throws Exception
 	{
-		this.colinst = colinst;
+		
+		colinst.recuperaArquivo();
 	}
 	
 	public void run()
@@ -24,15 +29,15 @@ public class Atualiza extends Thread
 		Socket servidor = null;
 		try
 		{
-			updater = new ServerSocket(51064);
+			updater = new ServerSocket(51007);
 			servidor = updater.accept();
 			signin = new DataInputStream(servidor.getInputStream());
-			oin = new ObjectInputStream(servidor.getInputStream());
 			oout = new ObjectOutputStream(servidor.getOutputStream());
+			oin = new ObjectInputStream(servidor.getInputStream());
 		}
 		catch(Exception e)
 		{
-			System.err.println("dsfd");
+			System.err.println(e.getMessage());
 		}
 		try
 		{
@@ -40,25 +45,17 @@ public class Atualiza extends Thread
 			{
 				if(signin.readBoolean())
 				{
-					System.err.println("sfds0");
-					//signin.close();
+					signin.close();
 					colinst.recuperaArquivo();
-					System.err.println("sfds1");
 					//ColecaoDispositivos coldis = colinst.procuraInst((Instituicao)(oin.readObject())).getColBlo().pesquisaPeloNome(signin.readUTF()).getColSal().pesquisaPeloNome(signin.readUTF()).getColDis();
-					Instituicao inst = colinst.procuraInst((InstituicaoEnsino)(oin.readObject()));
-					System.err.println("sfds2");
-					//oin.close();
-					System.out.println(inst);
+					Instituicao inst = colinst.procuraInst((Instituicao)(oin.readObject()));
+					oin.close();
 					Bloco bloco = inst.getColBlo().pesquisaPeloNome(signin.readUTF());
-					System.err.println("sfds3");
 					Sala sala = bloco.getColSal().pesquisaPeloNome(signin.readUTF());
-					System.err.println("sfds4");
-					//signin.close();
+					signin.close();
 					ColecaoDispositivos coldis = sala.getColDis();
-					System.err.println("sfds5");
 					oout.writeObject(coldis);
-					System.err.println("sfds6");
-					//oout.close();
+					oout.close();
 				}
 			}
 		}

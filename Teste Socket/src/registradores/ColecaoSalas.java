@@ -3,21 +3,33 @@ package registradores;
 import java.io.Serializable;
 import java.util.Vector;
 
+/**
+ * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro.
+ * Classe referente à coleção de objetos do tipo Sala.
+ *
+ */
 public class ColecaoSalas implements Serializable
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1454612525743607061L;
 	private Vector<Sala> salas;
 	
+	/**
+	 * Construtor de ColecaoSalas.
+	 */
 	public ColecaoSalas()
 	{
+		
 		salas = new Vector<Sala>();
 	}
 	
+	/**
+	 * adiciona um objeto do tipo Instituicao, retorna true se a operação der certo e false se houver falha.
+	 * @param sala
+	 * @return boolean.
+	 */
 	public boolean adicionaSala(Sala sala)
 	{
+		
 		for(int i = 0; i < salas.size(); i++)
 		{
 			if(salas.get(i).equals(sala))
