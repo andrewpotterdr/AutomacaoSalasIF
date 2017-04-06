@@ -7,7 +7,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * @authors Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
+ * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
  * @version 1.0
  * Classe que extende de Thread e é usada para atualizar sempre que for requisitado pelo servidor, a coleção atual de dispositivos de um ambiente.
  */

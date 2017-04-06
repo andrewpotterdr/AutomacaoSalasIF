@@ -15,7 +15,7 @@ import java.net.UnknownHostException;
 import registradores.Maquina;
 
 /**
- * @authors Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
+ * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
  * @version 1.0
  * Aplicação para operação de funções de uma máquina cliente.
  */
@@ -29,7 +29,7 @@ public class Cliente
 	
 	/**
 	 * Método principal de execução da aplicação, onde o cliente faz uma comunicação com o registrador via socket e após, abre um ServerSocket que fica à espera da conexão do socket que será rodado na aplicação do servidor.
-	 * @param args
+	 * @param args 
 	 * @throws UnknownHostException
 	 * @throws IOException
 	 */

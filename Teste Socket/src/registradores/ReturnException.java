@@ -1,7 +1,7 @@
 package registradores;
 
 /**
- * @authors Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
+ * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
  * @version 1.0
  * Classe que extende de Exception, utilizada para ter um campo adicional com um número inteiro usado para retorno.
  */

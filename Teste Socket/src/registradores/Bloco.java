@@ -3,7 +3,7 @@ package registradores;
 import java.io.Serializable;
 
 /**
- * @authors Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
+ * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
  * @version 1.0
  * Classe que representa um bloco de salas.
  */

@@ -12,7 +12,7 @@ import registradores.InstituicaoEnsino;
 import registradores.Maquina;
  
 /**
- * @authors Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
+ * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
  * @version 1.0
  * Aplicação para operação de funções de uma máquina servidor.
  */

@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Vector;
 
 /**
- * @authors Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
+ * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
  * @version 1.0
  * Classe que representa uma coleção de instituições.
  */
