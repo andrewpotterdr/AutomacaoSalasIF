@@ -3,10 +3,11 @@ package registradores;
 import java.io.Serializable;
 
 /**
- * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro.
- * Classe que faz a abstração de uma Instituição de ensino.
- *
+ * @authors Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
+ * @version 1.0
+ * Classe que representa uma instituição de ensino.
  */
+
 public class InstituicaoEnsino extends Instituicao implements Serializable
 {
 	
@@ -14,14 +15,14 @@ public class InstituicaoEnsino extends Instituicao implements Serializable
 	private String campus;
 	
 	/**
-	 * Construtor de InstituicaoEnsino.
+	 * Método construtor da classe.
 	 * @param nome
 	 * @param cidade
 	 * @param campus
 	 */
+	
 	public InstituicaoEnsino(String nome, String cidade, String campus)
 	{
-		
 		super(nome, cidade);
 		this.campus = campus;
 	}

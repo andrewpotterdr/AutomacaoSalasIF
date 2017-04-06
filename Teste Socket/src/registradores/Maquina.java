@@ -3,10 +3,11 @@ package registradores;
 import java.io.Serializable;
 
 /**
- * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro.
- * Classe que faz abstração da Máquina.
- *
+ * @authors Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
+ * @version 1.0
+ * Classe que representa uma máquina.
  */
+
 public class Maquina implements Dispositivo, Serializable
 {
 	
@@ -16,16 +17,8 @@ public class Maquina implements Dispositivo, Serializable
 	private String IP;
 	private boolean status;
 	
-	/**
-	 * Construtor de Maquina.
-	 * @param nome
-	 * @param MAC
-	 * @param IP
-	 * @param status
-	 */
 	public Maquina(String nome, String MAC, String IP, boolean status) 
 	{
-		
 		this.nome = nome;
 		this.MAC = MAC;
 		this.IP = IP;
@@ -74,7 +67,7 @@ public class Maquina implements Dispositivo, Serializable
 	
 	public String toString() 
 	{
-		return "MÃ¡quina\nNome: " + this.nome + "\nMAC: " + MAC + "\nIP: " + IP + ",\nStatus: " + status;
+		return "Máquina\nNome: " + this.nome + "\nMAC: " + MAC + "\nIP: " + IP + "\nStatus: " + status;
 	}
 	
 	public boolean equals(Dispositivo maquina)

@@ -7,18 +7,29 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * @author Pablo e Michael
- * Classe que cria uma thread para atualizar as coleções a partir dos objetos salvos no arquivo.
- *
+ * @authors Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
+ * @version 1.0
+ * Classe que extende de Thread e é usada para atualizar sempre que for requisitado pelo servidor, a coleção atual de dispositivos de um ambiente.
  */
+
 public class Atualiza extends Thread
-{
-	ColecaoInstituicoes colinst = null;
-	public Atualiza() throws Exception
+{	
+	
+	ColecaoInstituicoes colinst = new ColecaoInstituicoes();
+
+	/**
+	 * Método construtor da classe
+	 * @param colinst
+	 */
+	
+	public Atualiza(ColecaoInstituicoes colinst)
 	{
-		
-		colinst.recuperaArquivo();
+		this.colinst = colinst;
 	}
+	
+	/**
+	 * Método que contém o que será executado na Thread.
+	 */
 	
 	public void run()
 	{
@@ -29,15 +40,15 @@ public class Atualiza extends Thread
 		Socket servidor = null;
 		try
 		{
-			updater = new ServerSocket(51100);
+			updater = new ServerSocket(51122);
 			servidor = updater.accept();
 			signin = new DataInputStream(servidor.getInputStream());
-			oout = new ObjectOutputStream(servidor.getOutputStream());
 			oin = new ObjectInputStream(servidor.getInputStream());
+			oout = new ObjectOutputStream(servidor.getOutputStream());
 		}
 		catch(Exception e)
 		{
-			System.err.println(e.getMessage());
+			System.err.println("Porta em uso!");
 		}
 		try
 		{
@@ -45,23 +56,18 @@ public class Atualiza extends Thread
 			{
 				if(signin.readBoolean())
 				{
-					signin.close();
 					colinst.recuperaArquivo();
-					//ColecaoDispositivos coldis = colinst.procuraInst((Instituicao)(oin.readObject())).getColBlo().pesquisaPeloNome(signin.readUTF()).getColSal().pesquisaPeloNome(signin.readUTF()).getColDis();
-					Instituicao inst = colinst.procuraInst((Instituicao)(oin.readObject()));
-					oin.close();
+					Instituicao inst = colinst.procuraInst((InstituicaoEnsino)(oin.readObject()));
 					Bloco bloco = inst.getColBlo().pesquisaPeloNome(signin.readUTF());
 					Sala sala = bloco.getColSal().pesquisaPeloNome(signin.readUTF());
-					signin.close();
 					ColecaoDispositivos coldis = sala.getColDis();
 					oout.writeObject(coldis);
-					oout.close();
 				}
 			}
 		}
 		catch(Exception e)
 		{
-			System.err.println(e.getMessage());
+			System.out.println("Conexão encerrada com sucesso!");
 		}
 	}
 }

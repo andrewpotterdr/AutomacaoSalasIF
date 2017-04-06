@@ -12,59 +12,41 @@ import registradores.InstituicaoEnsino;
 import registradores.Maquina;
  
 /**
- * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro. 
- * Classe servidor, recebe o arquivo com a coleção referente aos dispositivos e chama o método menu. 
+ * @authors Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
+ * @version 1.0
+ * Aplicação para operação de funções de uma máquina servidor.
  */
+
 public class Servidor
 {	
 
+	/**
+	 * Método principal de execução da aplicação, onde o servidor abre uma conexão socket com o registrador e adquire a coleção de dispositivos atualmente registrada na sala corrente, logo após lista os dispositivos e dá ao usuário a opção de escoher se um dispositivo deve ser desligado ou não, desligando o dispositivo por meio de envio de uma flag via conexão socket ao cliente, se essa foi a opção escolhida.
+	 * @param args
+	 * @throws Exception
+	 */
+	
 	public static void main(String[] args) throws Exception
 	{
 		String IP = "10.0.4.148";
 		ColecaoDispositivos coldis = null;
 		Scanner input = new Scanner(System.in);
-		System.out.println("Wololo1");
 		Socket atualiza = null;
-		System.out.println("Wololo2");
 		DataOutputStream saidaSinal = null;
 		ObjectOutputStream saidaObj = null;
 		ObjectInputStream entradaCol = null;
 		try
 		{
-			System.out.println("Wololo3");
 			atualiza = new Socket(IP,51064);
-			System.out.println("Wololo4");
 			saidaSinal = new DataOutputStream(atualiza.getOutputStream());
-			System.out.println("Wololo5");
 			saidaObj = new ObjectOutputStream(atualiza.getOutputStream());
-			System.out.println("Wololo6");
 			entradaCol = new ObjectInputStream(atualiza.getInputStream());
-			System.out.println("Wololo7");
-			//while(true)
-			//{
-				saidaSinal.writeBoolean(true);
-				System.out.println("Wololo8");
-				//saidaSinal.close();
-				saidaObj.writeObject(new InstituicaoEnsino("ifpb","jp","jp"));
-				System.out.println("Wololo9");
-				//saidaObj.close();
-				saidaSinal.writeUTF("b");
-				System.out.println("Wololo10");
-				saidaSinal.writeUTF("1");
-				System.out.println("Wololo11");
-				//saidaSinal.close();
-				coldis = (ColecaoDispositivos) entradaCol.readObject();
-				System.out.println("Wololo12");
-				//entradaCol.close();
-			//}
+			saidaSinal.writeBoolean(true);
+			saidaObj.writeObject(new InstituicaoEnsino("ifpb","jp","jp"));
+			saidaSinal.writeUTF("b");
+			saidaSinal.writeUTF("1");
+			coldis = (ColecaoDispositivos) entradaCol.readObject();
 			atualiza.close();
-		/*Recupera update = null;
-		try
-		{
-			update = new Recupera(coldis);
-			update.start();
-			TimeUnit.SECONDS.sleep(5);
-		}*/
 		}
 		catch(Exception e)
 		{
@@ -75,13 +57,12 @@ public class Servidor
 	}
 	
 	/**
-	 * Lista os dispositivos e pede entrada para marcar os dispositivos a serem desligados ou não, e então o servidor 
-	 * abre uma conexão socket com cada cliente enviando um sinal de desligamento ou não, caso queira encerrar o menu retorna true
-	 * caso não, false.
+	 * Método menu que dá a opção de desligamento ou não dos dispositivos que serão listados neste método. Retorna true se o usuário decidir encerrar a aplicação, ou falso caso contrário.
 	 * @param input
 	 * @param coldis
 	 * @return boolean
 	 */
+	
 	private static boolean menu(Scanner input, ColecaoDispositivos coldis)
 	{
 		ColecaoDispositivos colmaq = coldis.getColMaq();
@@ -127,12 +108,13 @@ public class Servidor
 	}
 	
 	/**
-	 * Método que realiza o tratamento de entradas.
+	 * Método que garante validação da opção lida dentro do limite de números inteiros estabelecidos por parâmetro. Retorna a opção lida.
 	 * @param input
 	 * @param iniciall
 	 * @param finall
 	 * @return int
 	 */
+	
 	private static int lerOpcao(Scanner input, int iniciall, int finall)
 	{
 		
