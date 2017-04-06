@@ -34,7 +34,7 @@ public class InstituicaoEnsino extends Instituicao implements Serializable
 	
 	public String toString()
 	{
-		return super.toString() + "\nCampus: " + campus;
+		return super.toString() + "\nCampus: " + campus + "\n";
 	}
 	
 	public boolean equals(InstituicaoEnsino instituicaoEnsino)

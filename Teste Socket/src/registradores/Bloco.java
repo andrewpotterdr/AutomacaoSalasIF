@@ -48,7 +48,7 @@ public class Bloco implements Serializable
 	
 	public String toString()
 	{
-		return "Bloco de " + nome;
+		return "Bloco de " + nome + "\n";
 	}
 	
 	public boolean equals(Bloco bloco)

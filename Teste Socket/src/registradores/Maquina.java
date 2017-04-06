@@ -67,7 +67,7 @@ public class Maquina implements Dispositivo, Serializable
 	
 	public String toString() 
 	{
-		return "Máquina\nNome: " + this.nome + "\nMAC: " + MAC + "\nIP: " + IP + "\nStatus: " + status;
+		return "Máquina\nNome: " + this.nome + "\nMAC: " + MAC + "\nIP: " + IP + "\nStatus: " + status + "\n";
 	}
 	
 	public boolean equals(Dispositivo maquina)

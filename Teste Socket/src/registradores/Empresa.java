@@ -34,7 +34,7 @@ public class Empresa extends Instituicao implements Serializable
 	
 	public String toString()
 	{
-		return super.toString() + "\nCNPJ: " + CNPJ;
+		return super.toString() + "\nCNPJ: " + CNPJ + "\n";
 	}
 	
 	public boolean equals(Empresa empresa)

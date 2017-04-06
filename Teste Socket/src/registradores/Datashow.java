@@ -49,7 +49,7 @@ public class Datashow implements Dispositivo, Serializable
 
 	public String toString() 
 	{
-		return "Datashow\nStatus: " + status;
+		return "Datashow\nNome: " + nome + "\nStatus: " + status + "\n";
 	}
 	
 	public boolean equals(Dispositivo datashow)

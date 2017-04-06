@@ -53,7 +53,7 @@ public class Sala implements Serializable
 	
 	public String toString()
 	{
-		return "SALA\nNome: " + nome;
+		return "SALA\nNome: " + nome + "\n";
 	}
 	
 	public boolean equals(Sala sala)

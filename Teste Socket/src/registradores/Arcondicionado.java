@@ -49,7 +49,7 @@ public class Arcondicionado implements Dispositivo, Serializable
 
 	public String toString() 
 	{
-		return "Arcondicionado\nStatus: " + status;
+		return "Arcondicionado\nNome: " + nome + "\nStatus: " + status + "\n";
 	}
 	
 	public boolean equals(Dispositivo arc)

@@ -152,6 +152,6 @@ public class ColecaoSalas implements Serializable
 	public int atribuirPorta(Sala sala)
 	{
 		int i = pesquisaIndicePeloNome(sala.getNome());
-		return 60050 + i;
+		return 60051 + i;
 	}
 }
