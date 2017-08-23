@@ -3,11 +3,10 @@ package registradores;
 import java.io.Serializable;
 
 /**
- * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
- * @version 1.0
- * Classe que representa uma sala.
+ * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro.
+ * Classe que faz a abstração das salas.
+ *
  */
-
 public class Sala implements Serializable
 {
 	
@@ -16,12 +15,12 @@ public class Sala implements Serializable
 	private ColecaoDispositivos coldis = null;
 	
 	/**
-	 * Método construtor da classe.
+	 * Construtor de Sala.
 	 * @param nome
 	 */
-	
 	public Sala(String nome)
 	{
+		
 		this.nome = nome;
 		coldis = new ColecaoDispositivos();
 	}
@@ -31,29 +30,24 @@ public class Sala implements Serializable
 		return this.nome;
 	}
 	
-	/**
-	 * Método que retorna a coleção de dispositivos contida na sala corrente.
-	 * @return ColecaoDispositivos
-	 */
-	
 	public ColecaoDispositivos getColDis()
 	{
 		return this.coldis;
 	}
 	
 	/**
-	 * Método que retorna a quantidade de dispositivos existentes na sala.
+	 * Retorna a quantidade de Dispositivos.
 	 * @return int
 	 */
-	
 	public int qtdDispoitivos()
 	{
+		
 		return coldis.size();
 	}
 	
 	public String toString()
 	{
-		return "SALA\nNome: " + nome + "\n";
+		return "SALA\nNome: " + nome;
 	}
 	
 	public boolean equals(Sala sala)

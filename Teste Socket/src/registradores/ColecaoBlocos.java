@@ -4,34 +4,35 @@ import java.io.Serializable;
 import java.util.Vector;
 
 /**
- * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
- * @version 1.0
- * Classe que representa uma coleção de blocos de salas.
+ * @author Pablo e Michael
+ * Classe referente à coleção de objetos do tipo Bloco
+ *
  */
-
 public class ColecaoBlocos implements Serializable
 {
-	
+	/**
+	 * Var: private Vector<Bloco> blocos
+	 */
 	private static final long serialVersionUID = -5589748364330376619L;
 	private Vector<Bloco> blocos;
 	
 	/**
-	 * Método construtor da classe.
+	 * Construtor de ColecaoBlocos
 	 */
-	
 	public ColecaoBlocos()
 	{
+		
 		blocos = new Vector<Bloco>();
 	}
 	
 	/**
-	 * Método para adicionar um bloco à coleção de blocos, retorna true se a operação for executada com sucesso, ou false caso contrário.
+	 * adiciona um objeto do tipo Bloco retorna true se a operação der certo e false se houver falha.
 	 * @param bloco
-	 * @return boolean
+	 * @return boolean.
 	 */
-	
 	public boolean adicionabloco(Bloco bloco)
 	{
+		
 		for(int i = 0; i < blocos.size(); i++)
 		{
 			if(blocos.get(i).equals(bloco))
@@ -43,33 +44,27 @@ public class ColecaoBlocos implements Serializable
 		return true;
 	}
 	
-	/**
-	 * Método que retorna um bloco pelo seu índice na coleção.
-	 * @param i
-	 * @return Bloco
-	 */
-	
 	public Bloco getBloco(int i)
 	{
 		return blocos.get(i);
 	}
 	
 	/**
-	 * Método que atribui uma coleção vazia à coleção atual.
+	 * Seta a coleção como null limpando-a assim.
 	 */
-	
 	public void limparColecao()
 	{
-		blocos = new Vector<Bloco>();
+		
+		blocos = null;
 	}
 	
 	/**
-	 * Método que lista os blocos contidos na coleção. Retorna o número de blocos contidos na coleção.
-	 * @return int
+	 * Lista todos os blocos, retorna a quantidade de blocos.
+	 * @return int.
 	 */
-	
 	public int listagemblocos()
 	{
+		
 		int i;
 		System.out.println("BLOCOS");
 		for(i = 0; i < blocos.size(); i++)
@@ -80,13 +75,13 @@ public class ColecaoBlocos implements Serializable
 	}
 	
 	/**
-	 * Método para remover um bloco da coleção de blocos, retorna true se a operação for executada com sucesso, ou false caso contrário.
+	 *  remove o Bloco especificado retorna true se a operação der certo e false se houver falha.
 	 * @param bloco
-	 * @return boolean
+	 * @return boolean.
 	 */
-	
 	public boolean removebloco(Bloco bloco)
 	{
+		
 		for(int i = 0; i < blocos.size(); i++)
 		{
 			if(blocos.get(i).equals(bloco))
@@ -97,25 +92,25 @@ public class ColecaoBlocos implements Serializable
 		}
 		return false;
 	}
-	
-	/**
-	 * Método que retorna o tamanho da coleção, ou seja, o número de blocos dentro da mesma.
-	 * @return int
-	 */
 
+	/**
+	 * retorna o tamanho da coleção.
+	 * @return int.
+	 */
 	public int size()
 	{
+		
 		return blocos.size();
 	}
 	
 	/**
-	 * Método que retorna um bloco baseado na pesquisa pelo nome do mesmo.
+	 * pesquisa o Bloco pelo nome, retorna o bloco caso exista, caso não, retorna null.
 	 * @param nome
-	 * @return Bloco
+	 * @return Bloco.
 	 */
-	
 	public Bloco pesquisaPeloNome(String nome)
 	{
+		
 		int i, flag = -1;
 		for(i = 0; i < blocos.size(); i++)
 		{

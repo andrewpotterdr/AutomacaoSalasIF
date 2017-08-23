@@ -4,54 +4,41 @@ import java.io.Serializable;
 import java.util.Vector;
 
 /**
- * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
- * @version 1.0
- * Classe que representa uma coleção de dispositivos de uma sala.
+ * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro.
+ * Classe referente à coleção de objetos do tipo Dispositivos que é uma interface.
  */
-
 public class ColecaoDispositivos implements Serializable 
 {
-	
 	private static final long serialVersionUID = -2213523052812618945L;
 	private Vector<Dispositivo> dispositivos;
 	
 	/**
-	 * Método construtor da classe.
+	 * Construtor de ColecaoDispositivos
 	 */
-	
 	public ColecaoDispositivos()
 	{
+		
 		dispositivos = new Vector<Dispositivo> ();
 	}
 	
 	/**
-	 * Método para adicionar um dispositivo à coleção de dispositivos, retorna true se a operação for executada com sucesso, ou false caso contrário.
+	 * adiciona um objeto do tipo Dispositivo, retorna true se a operação der certo e false se houver falha.
 	 * @param dispositivo
-	 * @return boolean
+	 * @return boolean.
 	 */
-	
 	public boolean adicionaDispositivo(Dispositivo dispositivo)
 	{
 		for(int i = 0; i < dispositivos.size(); i++)
 		{
-			if(!isMaquina(i))
+			if(dispositivos.get(i).equals(dispositivo))
 			{
-				if(dispositivos.get(i).equals(dispositivo))
-				{
-					dispositivos.remove(i);
-					break;
-				}
+				dispositivos.remove(i);
+				break;
 			}
 		}
 		dispositivos.add(dispositivo);
 		return true;
 	}
-	
-	/**
-	 * Método que retorna um dispositivo pelo seu índice na coleção.
-	 * @param i
-	 * @return Dispositivo
-	 */
 	
 	public Dispositivo getDispositivo(int i)
 	{
@@ -59,33 +46,31 @@ public class ColecaoDispositivos implements Serializable
 	}
 	
 	/**
-	 * Método que atribui uma coleção vazia à coleção atual.
+	 * Seta a coleção como null limpando-a assim.
 	 */
-	
 	public void limparColecao()
 	{
-		dispositivos = new Vector<Dispositivo> ();
+		
+		dispositivos = null;
 	}
 	
 	/**
-	 * Método que remove todas as máquinas da coleção de dispositivos.
+	 * Remove um Dispositivo do tipo Maquina.
 	 */
-	
 	public void excluirMaquinas()
 	{
 		for(int i = dispositivos.size() - 1; i >= 0; i--)
 		{
-			if(isMaquina(i))
+			if(dispositivos.get(i) instanceof Maquina)
 			{
 				removeDispositivo(dispositivos.get(i));
 			}
 		}
 	}
 	
-	/**
-	 * Método que remove todos os ares-condicionados da coleção de dispositivos.
+	/** 
+	 * Remove um Dispositivo do tipo Arcondicionado 
 	 */
-	
 	public void excluirArcondicionados()
 	{
 		for(int i = dispositivos.size() - 1; i >= 0; i--)
@@ -98,11 +83,11 @@ public class ColecaoDispositivos implements Serializable
 	}
 	
 	/**
-	 * Método que remove todos os Data Shows da coleção de dispositivos.
+	 * Remove um Dispositivo do Tipo Datashow.
 	 */
-	
 	public void excluirDatashows()
 	{
+		
 		for(int i = dispositivos.size() - 1; i >= 0; i--)
 		{
 			if(dispositivos.get(i) instanceof Datashow)
@@ -113,14 +98,12 @@ public class ColecaoDispositivos implements Serializable
 	}
 	
 	/**
-	 * Método que lista os dispositivos contidos na coleção. Retorna o número de dispositivos contidos na coleção.
-	 * @return int
+	 * Lista todos os dispositivos, retorna a quantidade de Dispositivos.
+	 * @return int.
 	 */
-	
 	public int listagemDispositivos()
 	{
 		int i;
-		System.out.println("DISPOSITIVOS");
 		for(i = 0; i < dispositivos.size(); i++)
 		{
 			System.out.println(dispositivos.get(i).toString());
@@ -129,11 +112,10 @@ public class ColecaoDispositivos implements Serializable
 	}
 	
 	/**
-	 * Método para remover um dispositivo da coleção de dispositivos, retorna true se a operação for executada com sucesso, ou false caso contrário.
+	 * remove o Dispositivo especificado retorna true se a operação der certo e false se houver falha.
 	 * @param dispositivo
-	 * @return boolean
+	 * @return boolean.
 	 */
-	
 	public boolean removeDispositivo(Dispositivo dispositivo)
 	{
 		for(int i = 0; i < dispositivos.size(); i++)
@@ -148,16 +130,16 @@ public class ColecaoDispositivos implements Serializable
 	}
 	
 	/**
-	 * Método que retorna uma máquina após feita pesquisa pelo endereço MAC passado por parâmetro.
+	 * pesquisa Maquina pelo MAC, retorna Maquina caso exista ou null caso não exista.
 	 * @param MAC
-	 * @return Maquina
+	 * @return Maquina.
 	 */
-	
 	public Maquina pesquisaMaquina(String MAC)
 	{
+		
 		for(int i = 0; i < dispositivos.size(); i++)
 		{
-			if(isMaquina(i))
+			if(dispositivos.get(i) instanceof Maquina)
 			{
 				Maquina dispTemp = (Maquina)dispositivos.get(i);
 				if(dispTemp.getMAC().equals(MAC))
@@ -170,23 +152,23 @@ public class ColecaoDispositivos implements Serializable
 	}
 	
 	/**
-	 * Método que retorna o tamanho da coleção, ou seja, o número de dispositivos dentro da mesma.
-	 * @return int
+	 * retorna o tamanho da coleção.
+	 * @return int.
 	 */
-	
 	public int size()
 	{
+		
 		return dispositivos.size();
 	}
 	
 	/**
-	 * Método que retorna true se o índice passado por parâmetro for uma máquina, ou false caso contrário.
+	 * Verifica se o Dispositivo é Maquina.
 	 * @param i
-	 * @return boolean
+	 * @return Boolean
 	 */
-	
 	public boolean isMaquina(int i)
 	{
+		
 		if(dispositivos.get(i) instanceof Maquina)
 		{
 			return true;
@@ -195,12 +177,11 @@ public class ColecaoDispositivos implements Serializable
 	}
 	
 	/**
-	 * Método que retorna quantas máquinas há na coleção de dispositivos.
-	 * @return int
+	 * @return int.
 	 */
-	
 	public int sizeMaquina()
 	{
+		
 		int j = 0;
 		for(int i = 0; i < dispositivos.size(); i++)
 		{
@@ -213,12 +194,11 @@ public class ColecaoDispositivos implements Serializable
 	}
 	
 	/**
-	 * Método que retorna uma coleção de dispositivos com apenas as máquinas da coleção corrente.
-	 * @return ColecaoDispositivos
+	 * @return ColecaoDispositivos.
 	 */
-	
 	public ColecaoDispositivos getColMaq()
 	{
+		
 		ColecaoDispositivos colmaq = new ColecaoDispositivos();
 		for(int i = 0; i < dispositivos.size(); i++)
 		{
@@ -227,17 +207,21 @@ public class ColecaoDispositivos implements Serializable
 				colmaq.adicionaDispositivo(dispositivos.get(i));
 			}
 		}
+		if(colmaq.size() == 0)
+		{
+			return null;
+		}
 		return colmaq;
 	}
 	
 	/**
-	 * Método que retorna um dispositivo após pesquisa pelo nome passado por parâmetro.
+	 * Pesquisa o Dispositivo pelo nome, retorna um Dispositivo caso exista, caso não, retorna null.
 	 * @param nome
-	 * @return Dispositivo
+	 * @return Dispositivo.
 	 */
-	
 	public Dispositivo pesquisaPeloNome(String nome)
 	{
+		
 		for(int i = 0; i < dispositivos.size(); i++)
 		{
 			if(dispositivos.get(i).getNome().equals(nome))

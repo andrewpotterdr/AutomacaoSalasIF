@@ -3,26 +3,24 @@ package registradores;
 import java.io.Serializable;
 
 /**
- * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
- * @version 1.0
- * Classe que representa um data show.
+ * @author Michael Almeida da Frana Monteiro e Pablo Bezerra Guedes Lins de Albuquerque.
+ * Classe que faz  a abstração do datashow.
  */
-
 public class Datashow implements Dispositivo, Serializable
 {
-
 	private static final long serialVersionUID = 3878983661396577350L;
 	private String nome;
 	private boolean status;
 	
 	/**
-	 * Método construtor da classe.
+	 * Construtor que atribui os valores passados por parâmetros aos atributos locais.
 	 * @param nome
 	 * @param status
+	 * 
 	 */
-	
 	public Datashow(String nome, boolean status) 
 	{
+		
 		this.nome = nome;
 		this.status = status;
 	}
@@ -49,7 +47,7 @@ public class Datashow implements Dispositivo, Serializable
 
 	public String toString() 
 	{
-		return "Datashow\nNome: " + nome + "\nStatus: " + status + "\n";
+		return "Datashow\nStatus: " + status;
 	}
 	
 	public boolean equals(Dispositivo datashow)

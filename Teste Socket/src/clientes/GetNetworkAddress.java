@@ -7,30 +7,17 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
 
-/** 
- * @author Unknown
- * @version Unknown
- * Classe para adquirir os endereços IP e MAC do dispositivo corrente.
+/**
+ * @author Pablo
+ * Classe destinada a captura do IP e do MAC da máquina
  */
-
 public class GetNetworkAddress
 {
 
-	/**
-	 * Método principal de execução da classe.
-	 * @param args
-	 */
-	
    public static void main(String[] args)
    {
 	   
    }
-   
-   /**
-    * Método que adquire e retorna o IP ou MAC dependendo do parâmetro passado.
-    * @param addressType
-    * @return String
-    */
 
    public static String GetAddress(String addressType)
    {
@@ -108,14 +95,12 @@ public class GetNetworkAddress
        return address;
 
    }
-   
-   /**
-    * Método que retorna o endereço MAC da máquina.
-    * @param ip
-    * @return String
-    */
 
-   private static String GetMacAddress(InetAddress ip)
+   /**
+ * @param ip
+ * @return retorna o endereço MAC.
+ */
+private static String GetMacAddress(InetAddress ip)
    {
        String address = null;
         try {

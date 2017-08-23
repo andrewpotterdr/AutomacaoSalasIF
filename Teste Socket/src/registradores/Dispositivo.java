@@ -1,13 +1,13 @@
 package registradores;
 
 /**
- * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
- * @version 1.0
- * Interface que representa um dispositivo.
+ * @author Michael
+ * Interface Dispositivo, as classes Datashow, Arcondicionado e Maquina.
+ *
  */
-
 public interface Dispositivo 
 {	
+	
 	public String getNome();
 	public void setNome(String nome);
 	public boolean getStatus();

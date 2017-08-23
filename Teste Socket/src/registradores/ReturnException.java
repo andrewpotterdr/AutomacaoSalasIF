@@ -1,23 +1,16 @@
 package registradores;
 
 /**
- * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
- * @version 1.0
- * Classe que extende de Exception, utilizada para ter um campo adicional com um número inteiro usado para retorno.
+ * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro.
+ * Classe que especifica uma exceção com atributo número de retorno.
+ *
  */
-
 public class ReturnException extends Exception 
 {
 	
 	private static final long serialVersionUID = 6548203327430221985L;
 	private String msg;
 	private int ret;
-	
-	/**
-	 * Método construtor da classe.
-	 * @param msg
-	 * @param ret
-	 */
 	
 	public ReturnException(String msg, int ret)
 	{

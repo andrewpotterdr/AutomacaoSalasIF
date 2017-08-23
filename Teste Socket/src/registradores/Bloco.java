@@ -3,23 +3,20 @@ package registradores;
 import java.io.Serializable;
 
 /**
- * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
- * @version 1.0
- * Classe que representa um bloco de salas.
+ * @author Pablo e Michael
+ * Classe que faz abstração do Bloco.
+ *
  */
-
 public class Bloco implements Serializable
 {
-	
 	private static final long serialVersionUID = 4066449166305726761L;
 	private String nome;
 	private ColecaoSalas colsal = null;
 	
 	/**
-	 * Método construtor da classe.
 	 * @param nome
+	 * Construtor de Bloco.
 	 */
-	
 	public Bloco(String nome)
 	{
 		this.nome = nome;
@@ -36,11 +33,6 @@ public class Bloco implements Serializable
 		return this.colsal;
 	}
 	
-	/**
-	 * Método que retorna a quantidade de salas existentes no bloco.
-	 * @return int
-	 */
-	
 	public int qtdSalas()
 	{
 		return colsal.size();
@@ -48,7 +40,7 @@ public class Bloco implements Serializable
 	
 	public String toString()
 	{
-		return "Bloco de " + nome + "\n";
+		return "Bloco de " + nome;
 	}
 	
 	public boolean equals(Bloco bloco)

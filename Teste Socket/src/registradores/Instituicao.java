@@ -2,28 +2,26 @@ package registradores;
 
 import java.io.Serializable;
 
-/**
- * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
- * @version 1.0
- * Classe abstrata que representa uma instituição.
- */
 
+/**
+ * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro.
+ * Classe que faz  a abstração da instituição.
+ */
 public abstract class Instituicao implements Serializable
 {
-	
 	private static final long serialVersionUID = -793901709382791416L;
 	private String nome;
 	private String cidade;
 	private ColecaoBlocos colblo = null;
 	
 	/**
-	 * Método construtor da classe.
+	 * Construtor de Instituicao
 	 * @param nome
 	 * @param cidade
 	 */
-	
 	public Instituicao(String nome, String cidade)
 	{
+		
 		this.nome = nome;
 		this.cidade = cidade;
 		this.colblo = new ColecaoBlocos();
@@ -44,20 +42,10 @@ public abstract class Instituicao implements Serializable
 		return this.cidade;
 	}
 	
-	/**
-	 * Método que retorna a coleção de blocos de salas contida na instituição corrente.
-	 * @return ColecaoBlocos
-	 */
-	
 	public ColecaoBlocos getColBlo()
 	{
 		return this.colblo;
 	}
-	
-	/**
-	 * Método que retorna a quantidade de blocos de salas contidos na instituição corrente.
-	 * @return int
-	 */
 	
 	public int qtdBlocos()
 	{
@@ -66,7 +54,7 @@ public abstract class Instituicao implements Serializable
 	
 	public String toString()
 	{
-		return "INSTITUIÇÃO\nNome: " + nome + "\nCidade: " + cidade + "\n";
+		return "INSTITUIÃ‡ÃƒO\nNome: " + nome + "\nCidade" + cidade;
 	}
 	
 	public boolean equals(Instituicao instituicao)

@@ -3,26 +3,24 @@ package registradores;
 import java.io.Serializable;
 
 /**
- * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
- * @version 1.0
- * Classe que representa uma empresa.
+ * @author Michael Almeida da Franca Monteiro e Pablo Bezerra Guedes Lins de Albuquerque.
+ * Classe
  */
-
 public class Empresa extends Instituicao implements Serializable
 {
 	
 	private static final long serialVersionUID = 7215584323856933459L;
 	private String CNPJ;
-
+	
 	/**
-	 * Método construtor da classe.
+	 * Construtor de Empresa.
 	 * @param nome
 	 * @param cidade
 	 * @param CNPJ
 	 */
-	
 	public Empresa(String nome, String cidade, String CNPJ)
 	{
+		
 		super(nome, cidade);
 		this.CNPJ = CNPJ;
 	}
@@ -34,7 +32,7 @@ public class Empresa extends Instituicao implements Serializable
 	
 	public String toString()
 	{
-		return super.toString() + "\nCNPJ: " + CNPJ + "\n";
+		return super.toString() + "\nCNPJ: " + CNPJ;
 	}
 	
 	public boolean equals(Empresa empresa)

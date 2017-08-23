@@ -9,11 +9,10 @@ import java.io.Serializable;
 import java.util.Vector;
 
 /**
- * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
- * @version 1.0
- * Classe que representa uma coleção de instituições.
+ * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro.
+ * Classe referente à coleção de objetos do tipo Instituicao.
+ *
  */
-
 public class ColecaoInstituicoes implements Serializable 
 {
 	
@@ -21,22 +20,22 @@ public class ColecaoInstituicoes implements Serializable
 	private Vector<Instituicao> instituicoes;
 	
 	/**
-	 * Método construtor da classe.
+	 * Construtor de ColecaoInstituicoes.
 	 */
-	
 	public ColecaoInstituicoes()
 	{
+		
 		instituicoes = new Vector<Instituicao>();
 	}
 	
 	/**
-	 * Método para adicionar uma instituição à coleção de instituições, retorna true se a operação for executada com sucesso, ou false caso contrário.
+	 * adiciona um objeto do tipo Instituicao, retorna true se a operação der certo e false se houver falha.
 	 * @param inst
-	 * @return boolean
+	 * @return retorna verdadeiro caso o objeto seja adicionado com sucesso.
 	 */
-	
 	public boolean adicionaInstituicao(Instituicao inst)
 	{
+		
 		for(int i = 0; i < instituicoes.size(); i++)
 		{
 			if(instituicoes.get(i).equals(inst))
@@ -48,35 +47,29 @@ public class ColecaoInstituicoes implements Serializable
 		return true;
 	}
 	
-	/**
-	 * Método que retorna uma instituição pelo seu índice na coleção.
-	 * @param i
-	 * @return Instituicao
-	 */
-	
 	public Instituicao getInst(int i)
 	{
 		return instituicoes.get(i);
 	}
 	
 	/**
-	 * Método que atribui uma coleção vazia à coleção atual.
+	 * Seta a coleção como null limpando-a assim.
 	 */
-	
 	public void limparColecao()
 	{
-		instituicoes = new Vector<Instituicao>();
+		
+		instituicoes = null;
 	}
 	
 	/**
-	 * Método que lista as instituições contidas na coleção. Retorna o número de instituições contidas na coleção.
-	 * @return int
+	 * Lista todas as Instituioes, retorna a quantidade de instituições.
+	 * @return int.
 	 */
-	
 	public int listageminstituicoes()
 	{
+		
 		int i;
-		System.out.println("INSTITUIÇÕES");
+		System.out.println("INSTITUIÃ‡Ã•ES");
 		for(i = 0; i < instituicoes.size(); i++)
 		{
 			System.out.println(instituicoes.get(i).toString());
@@ -85,13 +78,13 @@ public class ColecaoInstituicoes implements Serializable
 	}
 	
 	/**
-	 * Método para remover uma instituição da coleção de instituições, retorna true se a operação for executada com sucesso, ou false caso contrário.
 	 * @param inst
-	 * @return boolean
+	 * remove a Instituicao especificado, retorna true se a operação der certo e false se houver falha.
+	 * @return boolean.
 	 */
-	
 	public boolean removeInstituicao(Instituicao inst)
 	{
+		
 		for(int i = 0; i < instituicoes.size(); i++)
 		{
 			if(instituicoes.get(i).equals(inst))
@@ -104,23 +97,23 @@ public class ColecaoInstituicoes implements Serializable
 	}
 	
 	/**
-	 * Método que retorna o tamanho da coleção, ou seja, o número de dispositivos dentro da mesma.
-	 * @return int
+	 * Retorna o tamanho da Coleção.
+	 * @return int.
 	 */
-	
 	public int size()
 	{
+		
 		return instituicoes.size();
 	}
 	
 	/**
-	 * Método que retorna uma instituição após pesquisa pela mesma passada por parâmetro dentro da coleção. 
+	 * Pesquisa a Instituição especificada, retorna a mesma caso exista e null caso não exista.
 	 * @param inst
-	 * @return Instituicao
+	 * @return Instituicao.
 	 */
-	
 	public Instituicao procuraInst(Instituicao inst)
 	{
+		
 		for(int i = 0; i < instituicoes.size(); i++)
 		{
 			if(instituicoes.get(i).equals(inst))
@@ -132,10 +125,10 @@ public class ColecaoInstituicoes implements Serializable
 	}
 	
 	/**
-	 * Método que recupera a coleção de instituições salvas num arquivo e atribui à coleção atual.
 	 * @throws Exception
+	 * Método que acessa o arquivo e atribui à coleção instituicoes a coleção presente no arquivo caso haja, caso não ele cria um Vector vazio
+	 * e atribui a coleção.
 	 */
-	
 	@SuppressWarnings({ "unchecked" })
 	public void recuperaArquivo() throws Exception
 	{
@@ -164,23 +157,23 @@ public class ColecaoInstituicoes implements Serializable
 		}
 		catch(Exception e)
 		{
-			throw new Exception("Problema na leitura de arquivo!\n");
+			throw new Exception("Deu merda");
 		}
 	}
 	
 	/**
-	 * Método que grava a coleção de instituições atual num arquivo.
 	 * @throws Exception
+	 * Método que escreve os objetos no arquivo.
 	 */
-	
 	public void gravaArquivo() throws Exception
 	{
+		
 		File file;
 		FileOutputStream fout;
 		ObjectOutputStream oout;
 		try
 		{
-			file = new File("D:/Pen-Card Amway/IFPB/Projeto Automação das Salas/AutomacaoSalasIF/Exemplo Dados Salvos em Texto/conteudo.dat");
+			file = new File("D:/Pen-Card Amway/IFPB/Projeto AutomaÃ§Ã£o das Salas/AutomacaoSalasIF/Exemplo Dados Salvos em Texto/conteudo.dat");
 			fout = new FileOutputStream(file);
 			oout = new ObjectOutputStream(fout);
 			file.createNewFile();

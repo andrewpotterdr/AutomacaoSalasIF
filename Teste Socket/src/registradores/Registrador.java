@@ -4,20 +4,12 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro
- * @version 1.0
- * Aplicação para operação de funções de uma máquina registradora.
+ * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro.
+ * Classe referente ao registrador, onde recupera o arquivo salvo e chama o método menu.
+ *
  */
-
 public class Registrador
 {
-	
-	/**
-	 * Método principal de execução da aplicação.
-	 * @param args
-	 * @throws IOException
-	 */
-	
 	public static void main(String[] args) throws IOException
 	{
 		Scanner input = new Scanner(System.in);
@@ -27,39 +19,49 @@ public class Registrador
 		try
 		{
 			colinst.recuperaArquivo();
-			update = new Atualiza(colinst);
-			update.start();
-			while(menu(input,colinst) != 1);
-		}
-		catch(ReturnException e)
-		{
-			System.out.println(e.getMessage());
-			System.exit(e.getReturn());
 		}
 		catch(Exception e)
 		{
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
+		}
+		
+		try
+		{
+			update = new Atualiza();
+			update.start();
+		}
+		catch(Exception e)
+		{
+			System.err.println("wololo");
+		}
+		try
+		{
+			while(menu(input,colinst) != 1);
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getMessage());
 		}
 	}
 	
 	/**
-	 * Método menu que permite a escolha de acesso para submenus. Retorna um número inteiro que valida seu estado.
+	 * Menu principal do registrador.
 	 * @param input
 	 * @param colinst
 	 * @return int
 	 * @throws Exception
 	 */
-	
 	public static int menu(Scanner input, ColecaoInstituicoes colinst) throws Exception
 	{
-		int res = -1;
-		System.out.println("|-------Escolha uma das opções abaixo----------------------------------------------------------------------|\n"
-						 + "|-------1 - Menu Instituições------------------------------------------------------------------------------|\n"
-						 + "|-------2 - Menu Blocos------------------------------------------------------------------------------------|\n"
-						 + "|-------3 - Menu Salas-------------------------------------------------------------------------------------|\n"
-						 + "|-------4 - Menu Dispositivos------------------------------------------------------------------------------|\n"
-						 + "|-------0 - Encerrar Aplicação-----------------------------------------------------------------------------|");
-		switch(lerOpcao(input,0,4))
+		
+		int res;
+		System.out.println("Escolha uma das opÃ§Ãµes abaixo: \n"
+						 + "1 - Menu InstituiÃ§Ãµes\n"
+						 + "2 - Menu Blocos\n"
+						 + "3 - Menu Salas\n"
+						 + "4 - Menu Dispositivos\n"
+						 + "5 - Encerrar AplicaÃ§Ã£o");
+		switch(lerOpcao(input,1,5))
 		{
 			case 1:
 				try
@@ -72,7 +74,7 @@ public class Registrador
 					{
 						res = ((ReturnException) e).getReturn();
 					}
-					System.err.println(e.getMessage());
+					throw new Exception(e.getMessage());
 				}
 				while(res != 2)
 				{
@@ -86,7 +88,7 @@ public class Registrador
 						{
 							res = ((ReturnException) e).getReturn();
 						}
-						System.err.println(e.getMessage());
+						throw new Exception(e.getMessage());
 					}
 				}
 			return 0;
@@ -101,7 +103,7 @@ public class Registrador
 					{
 						res = ((ReturnException) e).getReturn();
 					}
-					System.err.println(e.getMessage());
+					throw new Exception(e.getMessage());
 				}
 				while(res != 2)
 				{
@@ -115,7 +117,7 @@ public class Registrador
 						{
 							res = ((ReturnException) e).getReturn();
 						}
-						System.err.println(e.getMessage());
+						throw new Exception(e.getMessage());
 					}
 				}
 			return 0;
@@ -130,7 +132,7 @@ public class Registrador
 					{
 						res = ((ReturnException) e).getReturn();
 					}
-					System.err.println(e.getMessage());
+					throw new Exception(e.getMessage());
 				}
 				while(res != 2)
 				{
@@ -144,7 +146,7 @@ public class Registrador
 						{
 							res = ((ReturnException) e).getReturn();
 						}
-						System.err.println(e.getMessage());
+						throw new Exception(e.getMessage());
 					}
 				}
 			return 0;
@@ -159,7 +161,7 @@ public class Registrador
 					{
 						res = ((ReturnException) e).getReturn();
 					}
-					System.err.println(e.getMessage());
+					throw new Exception(e.getMessage());
 				}
 				while(res != 2)
 				{
@@ -173,53 +175,52 @@ public class Registrador
 						{
 							res = ((ReturnException) e).getReturn();
 						}
-						System.err.println(e.getMessage());
+						throw new Exception(e.getMessage());
 					}
 				}
 			return 0;
 		}
-		throw new ReturnException("Encerrado!", -1);
+		return 1;
 	}
 	
 	/**
-	 * Método menu que reúne as opções relacionadas à manipulação de instituições. Retorna um número inteiro que valida seu estado.
+	 * Menu referente as opções de manipular as instituições.
 	 * @param input
 	 * @param colinst
 	 * @return int
 	 * @throws Exception
 	 */
-	
 	public static int menuInstituicoes(Scanner input, ColecaoInstituicoes colinst) throws Exception
 	{
+		
 		int opcao;
 		Instituicao inst;
 		String nome;
 		String cidade;
-		System.out.println("|-------Escolha uma das opções abaixo----------------------------------------------------------------------|\n"
-						 + "|-------1 - Cadastrar Instituição de Ensino----------------------------------------------------------------|\n"
-						 + "|-------2 - Cadastrar Empresa------------------------------------------------------------------------------|\n"
-						 + "|-------3 - Alterar Nome da Instituição--------------------------------------------------------------------|\n"
-						 + "|-------4 - Desvincular Instituição------------------------------------------------------------------------|\n"
-						 + "|-------5 - Listar todas as Instituições-------------------------------------------------------------------|\n"
-						 + "|-------0 - Retornar ao Menu Anterior----------------------------------------------------------------------|");
-		switch(lerOpcao(input,0,5))
+		System.out.println("Escolha uma das opÃ§Ãµes abaixo\n"
+						 + "1 - Cadastrar Instituicao de Ensino\n"
+						 + "2 - Cadastrar Empresa\n"
+						 + "3 - Alterar Nome da InstituiÃ§Ã£o\n"
+						 + "4 - Desvincular instituiÃ§Ã£o\n"
+						 + "5 - Retornar ao Menu Anterior");
+		switch(lerOpcao(input,1,5))
 		{
 			case 1:
-				System.out.println("Digite o nome da instituição: ");
+				System.out.println("Digite o nome da instituiÃ§Ã£o: ");
 				nome = input.nextLine();
 				System.out.println("Digite o nome da cidade: ");
 				cidade = input.nextLine();
-				System.out.println("Digite a qual Campus pertence a Instituição: ");
+				System.out.println("Digite a qual Campus pertence a InstituiÃ§Ã£o: ");
 				String campus = input.nextLine();
 				inst = new InstituicaoEnsino(nome, cidade, campus);
 				if(!colinst.adicionaInstituicao(inst))
 				{
-					throw new Exception("A insituição já havia sido cadastrada!\n");
+					throw new Exception("A insituiÃ§Ã£o jÃ¡ havia sido cadastrada!");
 				}
-				System.out.println("Instituição de Ensino cadastrada com sucesso!");
+				System.out.println("InstituiÃ§Ã£o de Ensino cadastrada com sucesso!");
 			return 1;
 			case 2:
-				System.out.println("Digite o nome da instituição: ");
+				System.out.println("Digite o nome da instituiÃ§Ã£o: ");
 				nome = input.nextLine();
 				System.out.println("Digite o nome da cidade: ");
 				cidade = input.nextLine();
@@ -228,24 +229,24 @@ public class Registrador
 				inst = new Empresa(nome, cidade, CNPJ);
 				if(!colinst.adicionaInstituicao(inst))
 				{
-					throw new Exception("A instituição já havia sido cadastrada!\n");
+					throw new Exception("A instituiÃ§Ã£o jÃ¡ havia sido cadastrada!");
 				}
 				System.out.println("Empresa cadastrada com sucesso!");
 			return 1;
 			case 3:
 				if(colinst.size() == 0)
 				{
-					throw new Exception("Ainda não há uma instituição cadastrada!\n");
+					throw new Exception("Ainda nÃ£o hÃ¡ uma instituiÃ§Ã£o cadastrada!");
 				}
-				System.out.println("Digite o nome da instituição: ");
+				System.out.println("Digite o nome da instituiÃ§Ã£o: ");
 				nome = input.nextLine();
 				System.out.println("Digite o nome da cidade: ");
 				cidade = input.nextLine();
-				System.out.println("A instituição é uma Instituição de Ensino (0) ou uma Empresa (1)? (0 - Insituição de Ensino | 1 - Empresa)");
+				System.out.println("A instituiÃ§Ã£o Ã© uma InstituiÃ§Ã£o de Ensino (0) ou uma Empresa (1)? (0 - InsituiÃ§Ã£o de Ensino | 1 - Empresa)");
 				opcao = lerOpcao(input,0,1);
 				if(opcao == 0)
 				{
-					System.out.println("Digite o campus da instituição: ");
+					System.out.println("Digite o campus da instituiÃ§Ã£o: ");
 					campus = input.nextLine();
 					inst = colinst.procuraInst(new InstituicaoEnsino(nome,cidade,campus));
 				}
@@ -257,9 +258,9 @@ public class Registrador
 				}
 				if(inst == null)
 				{
-					throw new Exception("Instituição não cadastrada!\n");
+					throw new Exception("InstituiÃ§Ã£o nÃ£o cadastrada!");
 				}
-				System.out.println("Digite o nome para qual vai ser modificado a instituição: ");
+				System.out.println("Digite o nome para qual vai ser modificado a instituiÃ§Ã£o: ");
 				nome = input.nextLine();
 				inst.setNome(nome);
 				System.out.println("Nome alterado com sucesso!");
@@ -267,17 +268,17 @@ public class Registrador
 			case 4:
 				if(colinst.size() == 0)
 				{
-					throw new Exception("Ainda não há uma instituiçao cadastrada!\n");
+					throw new Exception("Ainda nÃ£o hÃ¡ uma instituiÃ§ao cadastrada!");
 				}
-				System.out.println("Digite o nome da instituição: ");
+				System.out.println("Digite o nome da instituiÃ§Ã£o: ");
 				nome = input.nextLine();
 				System.out.println("Digite o nome da cidade: ");
 				cidade = input.nextLine();
-				System.out.println("A instituição é uma Instituição de Ensino (0) ou uma Empresa (1)? (0 - Insituição de Ensino | 1 - Empresa)");
+				System.out.println("A instituiÃ§Ã£o Ã© uma InstituiÃ§Ã£o de Ensino (0) ou uma Empresa (1)? (0 - InsituiÃ§Ã£o de Ensino | 1 - Empresa)");
 				opcao = lerOpcao(input,0,1);
 				if(opcao == 0)
 				{
-					System.out.println("Digite o campus da instituição: ");
+					System.out.println("Digite o campus da instituiÃ§Ã£o: ");
 					campus = input.nextLine();
 					inst = colinst.procuraInst(new InstituicaoEnsino(nome,cidade,campus));
 				}
@@ -289,38 +290,35 @@ public class Registrador
 				}
 				if(inst != null)
 				{
-					System.out.println("Tem certeza que deseja desvincular a instituicao " + inst.getNome() + "? ('1' - Sim/'0' - Não)");
+					System.out.println("Tem certeza que deseja desvincular a instituicao " + inst.getNome() + "? ('1' - Sim/'0' - NÃ£o)");
 					if(lerOpcao(input,0,1) == 1)
 					{
 						colinst.removeInstituicao(inst);
-						System.out.println("Instituição desvinculada com sucesso!");
+						System.out.println("InstituiÃ§Ã£o desvinculada com sucesso!");
 					}
 				}
 				else
 				{
-					throw new Exception("Ainda não há uma instituição cadastrada!\n");
+					throw new Exception("Ainda nÃ£o hÃ¡ uma instituiÃ§Ã£o cadastrada!");
 				}
-			return 1;
-			case 5:
-				colinst.listageminstituicoes();
 			return 1;
 		}
 		return 2;
 	}
 	
 	/**
-	 * Método menu que reúne as opções relacionadas à manipulação de blocos. Retorna um número inteiro que valida seu estado.
+	 * Menu referente as opções de manipulação do bloco.
 	 * @param input
 	 * @param colinst
 	 * @return int
 	 * @throws Exception
 	 */
-	
 	public static int menuBlocos(Scanner input, ColecaoInstituicoes colinst) throws Exception
 	{
+		
 		if(colinst.size() == 0)
 		{
-			throw new ReturnException("Ainda não há uma instituição cadastrada!",2);
+			throw new ReturnException("Ainda nÃ£o hÃ¡ uma instituiÃ§Ã£o cadastrada!",2);
 		}
 		String nome;
 		String cidade;
@@ -329,24 +327,24 @@ public class Registrador
 		int opcao;
 		Instituicao inst = null;
 		Bloco bloco = null;
-		System.out.println("|-------Escolha uma das opções abaixo----------------------------------------------------------------------|\n"
-						 + "|-------1 - Adicionar Bloco--------------------------------------------------------------------------------|\n"
-						 + "|-------2 - Listar Blocos----------------------------------------------------------------------------------|\n"
-						 + "|-------3 - Remover Bloco----------------------------------------------------------------------------------|\n"
-						 + "|-------4 - Mostrar Quantidade de Blocos-------------------------------------------------------------------|\n"
-						 + "|-------0 - Retornar ao Menu Anterior----------------------------------------------------------------------|");
-		switch(lerOpcao(input,0,4))
+		System.out.println("Escolha uma das opÃ§Ãµes abaixo\n"
+				 + "1 - Adicionar Bloco\n"
+				 + "2 - Listar Blocos\n"
+				 + "3 - Remover Bloco\n"
+				 + "4 - Mostrar Quantidade de Blocos\n"
+				 + "5 - Retornar ao Menu Anterior");
+		switch(lerOpcao(input,1,5))
 		{
 			case 1:
-				System.out.println("Digite o nome da Instituição a ser cadastrado o bloco: ");
+				System.out.println("Digite o nome da InstituiÃ§Ã£o a ser cadastrado o bloco: ");
 				nome = input.nextLine();
-				System.out.println("Digite a cidade onde a Instituição se encontra: ");
+				System.out.println("Digite a cidade onde a InstituiÃ§Ã£o se encontra: ");
 				cidade = input.nextLine();
-				System.out.println("A instituição é uma Instituição de Ensino (0) ou uma Empresa (1)? (0 - Insituição de Ensino | 1 - Empresa)");
+				System.out.println("A instituiÃ§Ã£o Ã© uma InstituiÃ§Ã£o de Ensino (0) ou uma Empresa (1)? (0 - InsituiÃ§Ã£o de Ensino | 1 - Empresa)");
 				opcao = lerOpcao(input,0,1);
 				if(opcao == 0)
 				{
-					System.out.println("Digite o campus da instituição: ");
+					System.out.println("Digite o campus da instituiÃ§Ã£o: ");
 					campus = input.nextLine();
 					inst = colinst.procuraInst(new InstituicaoEnsino(nome,cidade,campus));
 				}
@@ -358,27 +356,27 @@ public class Registrador
 				}
 				if(inst == null)
 				{
-					throw new Exception("Esta instituição não foi cadastrada!\n");
+					throw new Exception("Esta instituiÃ§Ã£o nÃ£o foi cadastrada!");
 				}
 				System.out.println("Digite o nome do bloco a ser adicionado: ");
 				nome = input.nextLine();
 				bloco = new Bloco(nome);
 				if(!inst.getColBlo().adicionabloco(bloco))
 				{
-					throw new Exception("Este bloco já foi adicionado!\n");
+					throw new Exception("Este bloco jÃ¡ foi adicionado!");
 				}
 				System.out.println("Bloco adicionado com sucesso!");
 			return 1;
 			case 2:
-				System.out.println("Digite o nome da Instituição a ser listado os blocos: ");
+				System.out.println("Digite o nome da InstituiÃ§Ã£o a ser listado os blocos: ");
 				nome = input.nextLine();
-				System.out.println("Digite a cidade onde a Instituição se encontra: ");
+				System.out.println("Digite a cidade onde a InstituiÃ§Ã£o se encontra: ");
 				cidade = input.nextLine();
-				System.out.println("A instituição é uma Instituição de Ensino (0) ou uma Empresa (1)? (0 - Insituição de Ensino | 1 - Empresa)");
+				System.out.println("A instituiÃ§Ã£o Ã© uma InstituiÃ§Ã£o de Ensino (0) ou uma Empresa (1)? (0 - InsituiÃ§Ã£o de Ensino | 1 - Empresa)");
 				opcao = lerOpcao(input,0,1);
 				if(opcao == 0)
 				{
-					System.out.println("Digite o campus da instituição: ");
+					System.out.println("Digite o campus da instituiÃ§Ã£o: ");
 					campus = input.nextLine();
 					inst = colinst.procuraInst(new InstituicaoEnsino(nome,cidade,campus));
 				}
@@ -390,11 +388,11 @@ public class Registrador
 				}
 				if(inst == null)
 				{
-					throw new Exception("Esta instituição não foi cadastrada!\n");
+					throw new Exception("Esta instituiÃ§Ã£o nÃ£o foi cadastrada!");
 				}
 				if(inst.getColBlo().size() == 0)
 				{
-					throw new Exception("Ainda não há nenhum bloco cadastrado na instituição!\n");
+					throw new Exception("Ainda nÃ£o hÃ¡ nenhum bloco cadastrado na instituiÃ§Ã£o!");
 				}
 				else
 				{
@@ -402,15 +400,15 @@ public class Registrador
 				}
 			return 1;
 			case 3:
-				System.out.println("Digite o nome da Instituição a ser desvinculado o bloco: ");
+				System.out.println("Digite o nome da InstituiÃ§Ã£o a ser desvinculado o bloco: ");
 				nome = input.nextLine();
-				System.out.println("Digite a cidade onde a Instituição se encontra: ");
+				System.out.println("Digite a cidade onde a InstituiÃ§Ã£o se encontra: ");
 				cidade = input.nextLine();
-				System.out.println("A instituição é uma Instituição de Ensino (0) ou uma Empresa (1)? (0 - Insituição de Ensino | 1 - Empresa)");
+				System.out.println("A instituiÃ§Ã£o Ã© uma InstituiÃ§Ã£o de Ensino (0) ou uma Empresa (1)? (0 - InsituiÃ§Ã£o de Ensino | 1 - Empresa)");
 				opcao = lerOpcao(input,0,1);
 				if(opcao == 0)
 				{
-					System.out.println("Digite o campus da instituição: ");
+					System.out.println("Digite o campus da instituiÃ§Ã£o: ");
 					campus = input.nextLine();
 					inst = colinst.procuraInst(new InstituicaoEnsino(nome,cidade,campus));
 				}
@@ -422,14 +420,14 @@ public class Registrador
 				}
 				if(inst == null)
 				{
-					throw new Exception("Esta instituição não foi cadastrada!\n");
+					throw new Exception("Esta instituiÃ§Ã£o nÃ£o foi cadastrada!");
 				}
 				System.out.println("Digite o nome do bloco a ser desvinculado: ");
 				nome = input.nextLine();
 				bloco = inst.getColBlo().pesquisaPeloNome(nome);
 				if(bloco == null)
 				{
-					throw new Exception("Não há nenhum bloco cadastrado com esse nome!\n");
+					throw new Exception("NÃ£o hÃ¡ nenhum bloco cadastrado com esse nome!");
 				}
 				else
 				{
@@ -440,15 +438,15 @@ public class Registrador
 				}
 			return 1;
 			case 4:
-				System.out.println("Digite o nome da Instituição a ser cadastrado o bloco: ");
+				System.out.println("Digite o nome da InstituiÃ§Ã£o a ser cadastrado o bloco: ");
 				nome = input.nextLine();
-				System.out.println("Digite a cidade onde a Instituição se encontra: ");
+				System.out.println("Digite a cidade onde a InstituiÃ§Ã£o se encontra: ");
 				cidade = input.nextLine();
-				System.out.println("A instituição é uma Instituição de Ensino (0) ou uma Empresa (1)? (0 - Insituição de Ensino | 1 - Empresa)");
+				System.out.println("A instituiÃ§Ã£o Ã© uma InstituiÃ§Ã£o de Ensino (0) ou uma Empresa (1)? (0 - InsituiÃ§Ã£o de Ensino | 1 - Empresa)");
 				opcao = lerOpcao(input,0,1);
 				if(opcao == 0)
 				{
-					System.out.println("Digite o campus da instituição: ");
+					System.out.println("Digite o campus da instituiÃ§Ã£o: ");
 					campus = input.nextLine();
 					inst = colinst.procuraInst(new InstituicaoEnsino(nome,cidade,campus));
 				}
@@ -460,7 +458,7 @@ public class Registrador
 				}
 				if(inst == null)
 				{
-					throw new Exception("Esta instituição não foi cadastrada!\n");
+					throw new Exception("Esta instituiÃ§Ã£o nÃ£o foi cadastrada!");
 				}
 				System.out.println("Quantidade de blocos cadastrados: " + inst.getColBlo().size());
 			return 1;
@@ -469,18 +467,18 @@ public class Registrador
 	}
 	
 	/**
-	 * Método menu que reúne as opções relacionadas à manipulação de salas. Retorna um número inteiro que valida seu estado.
+	 * Menu referente as opções de manipulações da sala.
 	 * @param input
 	 * @param colinst
 	 * @return int
 	 * @throws Exception
 	 */
-	
 	public static int menuSalas(Scanner input, ColecaoInstituicoes colinst) throws Exception
 	{
+		
 		if(colinst.size() == 0)
 		{
-			throw new ReturnException("Ainda não há uma instituição cadastrada!",2);
+			throw new ReturnException("Ainda nÃ£o hÃ¡ uma instituiÃ§Ã£o cadastrada!",2);
 		}
 		String nome;
 		String cidade;
@@ -490,24 +488,24 @@ public class Registrador
 		Instituicao inst;
 		Sala sala = null;
 		Bloco bloco = null;
-		System.out.println("|-------Escolha uma das opções abaixo----------------------------------------------------------------------|\n"
-				 		 + "|-------1 - Adicionar Sala---------------------------------------------------------------------------------|\n"
-				 		 + "|-------2 - Listar Salas-----------------------------------------------------------------------------------|\n"
-				 		 + "|-------3 - Remover Sala-----------------------------------------------------------------------------------|\n"
-				 		 + "|-------4 - Mostrar Quantidade de Salas--------------------------------------------------------------------|\n"
-				 		 + "|-------0 - Retornar ao Menu Anterior----------------------------------------------------------------------|");
-		switch(lerOpcao(input,0,4))
+		System.out.println("Escolha uma das opÃ§Ãµes abaixo\n"
+				 		 + "1 - Adicionar Sala\n"
+				 		 + "2 - Listar Salas\n"
+				 		 + "3 - Remover Sala\n"
+				 		 + "4 - Mostrar Quantidade de Salas\n"
+				 		 + "5 - Retornar ao Menu Anterior");
+		switch(lerOpcao(input,1,5))
 		{
 			case 1:
-				System.out.println("Digite o nome da Instituição a ser cadastrado o bloco: ");
+				System.out.println("Digite o nome da InstituiÃ§Ã£o a ser cadastrado o bloco: ");
 				nome = input.nextLine();
-				System.out.println("Digite a cidade onde a Instituição se encontra: ");
+				System.out.println("Digite a cidade onde a InstituiÃ§Ã£o se encontra: ");
 				cidade = input.nextLine();
-				System.out.println("A instituição é uma Instituição de Ensino (0) ou uma Empresa (1)? (0 - Insituição de Ensino | 1 - Empresa)");
+				System.out.println("A instituiÃ§Ã£o Ã© uma InstituiÃ§Ã£o de Ensino (0) ou uma Empresa (1)? (0 - InsituiÃ§Ã£o de Ensino | 1 - Empresa)");
 				opcao = lerOpcao(input,0,1);
 				if(opcao == 0)
 				{
-					System.out.println("Digite o campus da instituição: ");
+					System.out.println("Digite o campus da instituiÃ§Ã£o: ");
 					campus = input.nextLine();
 					inst = colinst.procuraInst(new InstituicaoEnsino(nome,cidade,campus));
 				}
@@ -519,14 +517,14 @@ public class Registrador
 				}
 				if(inst == null)
 				{
-					throw new Exception("Esta instituição não foi cadastrada!\n");
+					throw new Exception("Esta instituiÃ§Ã£o nÃ£o foi cadastrada!");
 				}
 				System.out.println("Digite o nome do bloco da sala: ");
 				nome = input.nextLine();
 				bloco = inst.getColBlo().pesquisaPeloNome(nome);
 				if(bloco == null)
 				{
-					throw new Exception("Não há bloco cadastrado com esse nome!\n");
+					throw new Exception("NÃ£o hÃ¡ bloco cadastrado com esse nome!");
 				}
 				else
 				{
@@ -535,21 +533,21 @@ public class Registrador
 					sala = new Sala(nome);
 					if(!bloco.getColSal().adicionaSala(sala))
 					{
-						throw new Exception("Esta sala já foi cadastrada neste bloco!\n");
+						throw new Exception("Esta sala jÃ¡ foi cadastrada neste bloco: ");
 					}
 				}
 				System.out.println("Sala cadastrada com sucesso!");
 			return 1;
 			case 2:
-				System.out.println("Digite o nome da Instituição a ser cadastrado o bloco: ");
+				System.out.println("Digite o nome da InstituiÃ§Ã£o a ser cadastrado o bloco: ");
 				nome = input.nextLine();
-				System.out.println("Digite a cidade onde a Instituição se encontra: ");
+				System.out.println("Digite a cidade onde a InstituiÃ§Ã£o se encontra: ");
 				cidade = input.nextLine();
-				System.out.println("A instituição é uma Instituição de Ensino (0) ou uma Empresa (1)? (0 - Insituição de Ensino | 1 - Empresa)");
+				System.out.println("A instituiÃ§Ã£o Ã© uma InstituiÃ§Ã£o de Ensino (0) ou uma Empresa (1)? (0 - InsituiÃ§Ã£o de Ensino | 1 - Empresa)");
 				opcao = lerOpcao(input,0,1);
 				if(opcao == 0)
 				{
-					System.out.println("Digite o campus da instituição: ");
+					System.out.println("Digite o campus da instituiÃ§Ã£o: ");
 					campus = input.nextLine();
 					inst = colinst.procuraInst(new InstituicaoEnsino(nome,cidade,campus));
 				}
@@ -561,20 +559,20 @@ public class Registrador
 				}
 				if(inst == null)
 				{
-					throw new Exception("Esta instituição não foi cadastrada!\n");
+					throw new Exception("Esta instituiÃ§Ã£o nÃ£o foi cadastrada!");
 				}
 				System.out.println("Digite o nome do bloco a ser consultado: ");
 				nome = input.nextLine();
 				bloco = inst.getColBlo().pesquisaPeloNome(nome);
 				if(bloco == null)
 				{
-					throw new Exception("Não há bloco cadastrado com esse nome!\n");
+					throw new Exception("NÃ£o hÃ¡ bloco cadastrado com esse nome!");
 				}
 				else
 				{
 					if(bloco.getColSal().size() == 0)
 					{
-						throw new Exception("Ainda não há salas cadastradas nesse bloco!\n");
+						throw new Exception("Ainda nÃ£o hÃ¡ salas cadastradas nesse bloco!");
 					}
 					else
 					{
@@ -583,15 +581,15 @@ public class Registrador
 				}
 			return 1;
 			case 3:
-				System.out.println("Digite o nome da Instituição a ser cadastrado o bloco: ");
+				System.out.println("Digite o nome da InstituiÃ§Ã£o a ser cadastrado o bloco: ");
 				nome = input.nextLine();
-				System.out.println("Digite a cidade onde a Instituição se encontra: ");
+				System.out.println("Digite a cidade onde a InstituiÃ§Ã£o se encontra: ");
 				cidade = input.nextLine();
-				System.out.println("A instituição é uma Instituição de Ensino (0) ou uma Empresa (1)? (0 - Insituição de Ensino | 1 - Empresa)");
+				System.out.println("A instituiÃ§Ã£o Ã© uma InstituiÃ§Ã£o de Ensino (0) ou uma Empresa (1)? (0 - InsituiÃ§Ã£o de Ensino | 1 - Empresa)");
 				opcao = lerOpcao(input,0,1);
 				if(opcao == 0)
 				{
-					System.out.println("Digite o campus da instituição: ");
+					System.out.println("Digite o campus da instituiÃ§Ã£o: ");
 					campus = input.nextLine();
 					inst = colinst.procuraInst(new InstituicaoEnsino(nome,cidade,campus));
 				}
@@ -603,37 +601,37 @@ public class Registrador
 				}
 				if(inst == null)
 				{
-					throw new Exception("Esta instituição não foi cadastrada!");
+					throw new Exception("Esta instituiÃ§Ã£o nÃ£o foi cadastrada!");
 				}
 				System.out.println("Digite o nome do bloco a ser consultado: ");
 				nome = input.nextLine();
 				bloco = inst.getColBlo().pesquisaPeloNome(nome);
 				if(bloco == null)
 				{
-					throw new Exception("Não há bloco cadastrado com esse nome!\n");
+					throw new Exception("NÃ£o hÃ¡ bloco cadastrado com esse nome!");
 				}
 				else
 				{
 					System.out.println("Digite o nome da sala a ser desvinculada: ");
 					nome = input.nextLine();
 					sala = bloco.getColSal().pesquisaPeloNome(nome);
-					if(!bloco.getColSal().removeSala(sala))
+					if(bloco.getColSal().removeSala(sala))
 					{
-						throw new Exception("Ainda não há uma sala cadastrada com esse nome!\n");
+						throw new Exception("Ainda nÃ£o hÃ¡ uma sala cadastrada com esse nome!");
 					}
 				}
 				System.out.println("Sala desvinculada com sucesso!");
 			return 1;
 			case 4:
-				System.out.println("Digite o nome da Instituição a ser cadastrado o bloco: ");
+				System.out.println("Digite o nome da InstituiÃ§Ã£o a ser cadastrado o bloco: ");
 				nome = input.nextLine();
-				System.out.println("Digite a cidade onde a Instituição se encontra: ");
+				System.out.println("Digite a cidade onde a InstituiÃ§Ã£o se encontra: ");
 				cidade = input.nextLine();
-				System.out.println("A instituição é uma Instituição de Ensino (0) ou uma Empresa (1)? (0 - Insituição de Ensino | 1 - Empresa)");
+				System.out.println("A instituiÃ§Ã£o Ã© uma InstituiÃ§Ã£o de Ensino (0) ou uma Empresa (1)? (0 - InsituiÃ§Ã£o de Ensino | 1 - Empresa)");
 				opcao = lerOpcao(input,0,1);
 				if(opcao == 0)
 				{
-					System.out.println("Digite o campus da instituição: ");
+					System.out.println("Digite o campus da instituiÃ§Ã£o: ");
 					campus = input.nextLine();
 					inst = colinst.procuraInst(new InstituicaoEnsino(nome,cidade,campus));
 				}
@@ -645,18 +643,18 @@ public class Registrador
 				}
 				if(inst == null)
 				{
-					throw new Exception("Esta instituição não foi cadastrada!\n");
+					throw new Exception("Esta instituiÃ§Ã£o nÃ£o foi cadastrada!");
 				}
 				System.out.println("Digite o nome do bloco a ser consultado: ");
 				nome = input.nextLine();
 				bloco = inst.getColBlo().pesquisaPeloNome(nome);
 				if(bloco == null)
 				{
-					throw new Exception("Não há bloco cadastrado com esse nome!\n");
+					throw new Exception("NÃ£o hÃ¡ bloco cadastrado com esse nome!");
 				}
 				else
 				{
-					System.out.println("Número de salas cadastradas nesse bloco: " + bloco.getColSal().size());
+					System.out.println("NÃºmero de salas cadastradas nesse bloco: " + bloco.getColSal().size());
 				}
 			return 1;
 		}
@@ -664,15 +662,15 @@ public class Registrador
 	}
 	
 	/**
-	 * Método menu que reúne as opções relacionadas à manipulação de dispositivos. Retorna um número inteiro que valida seu estado.
+	 * Menu referente as opções de manipulações das salas.
 	 * @param input
 	 * @param colinst
 	 * @return int
 	 * @throws Exception
 	 */
-	
 	public static int menuDispositivos(Scanner input, ColecaoInstituicoes colinst) throws Exception
 	{
+		
 		Sala sala = null;
 		Bloco bloco = null;
 		String nome;
@@ -683,29 +681,28 @@ public class Registrador
 		Instituicao inst = null;
 		if(colinst.size() == 0)
 		{
-			throw new ReturnException("Ainda não há uma instituição cadastrada!",2);
+			throw new ReturnException("Ainda nÃ£o hÃ¡ uma instituiÃ§Ã£o cadastrada!",2);
 		}
 		int qtdarc;
 		int qtdpro;
-		System.out.println("|-------Escolha uma das opções abaixo----------------------------------------------------------------------|\n"
-		 		 		 + "|-------1 - Registrar Dispositivos de uma Sala-------------------------------------------------------------|\n"
-		 		 		 + "|-------2 - Remover todas as Máquinas de uma Sala----------------------------------------------------------|\n"
-		 		 		 + "|-------3 - Remover todos os Arcondicionados de uma Sala---------------------------------------------------|\n"
-		 		 		 + "|-------4 - Remover todos os Projetores de uma Sala--------------------------------------------------------|\n"
-		 		 		 + "|-------5 - Listar todas os dispositivos de uma Sala-------------------------------------------------------|\n"
-		 		 		 + "|-------0 - Retornar ao Menu Anterior----------------------------------------------------------------------|");
-		switch(lerOpcao(input,0,5))
+		System.out.println("Escolha uma das opÃ§Ãµes abaixo\n"
+		 		 		 + "1 - Registrar Dispositivos de uma Sala\n"
+		 		 		 + "2 - Remover todas as MÃ¡quinas de uma Sala\n"
+		 		 		 + "3 - Remover todos os Arcondicionados de uma Sala\n"
+		 		 		 + "4 - Remover todos os Projetores de uma Sala\n"
+		 		 		 + "5 - Retornar ao Menu Anterior");
+		switch(lerOpcao(input,1,5))
 		{
 			case 1:
-				System.out.println("Digite o nome da Instituição a ser cadastrado o bloco: ");
+				System.out.println("Digite o nome da InstituiÃ§Ã£o a ser cadastrado o bloco: ");
 				nome = input.nextLine();
-				System.out.println("Digite a cidade onde a Instituição se encontra: ");
+				System.out.println("Digite a cidade onde a InstituiÃ§Ã£o se encontra: ");
 				cidade = input.nextLine();
-				System.out.println("A instituição é uma Instituição de Ensino (0) ou uma Empresa (1)? (0 - Insituição de Ensino | 1 - Empresa)");
+				System.out.println("A instituiÃ§Ã£o Ã© uma InstituiÃ§Ã£o de Ensino (0) ou uma Empresa (1)? (0 - InsituiÃ§Ã£o de Ensino | 1 - Empresa)");
 				opcao = lerOpcao(input,0,1);
 				if(opcao == 0)
 				{
-					System.out.println("Digite o campus da instituição: ");
+					System.out.println("Digite o campus da instituiÃ§Ã£o: ");
 					campus = input.nextLine();
 					inst = colinst.procuraInst(new InstituicaoEnsino(nome,cidade,campus));
 				}
@@ -717,28 +714,28 @@ public class Registrador
 				}
 				if(inst == null)
 				{
-					throw new Exception("Esta instituição não foi cadastrada!\n");
+					throw new Exception("Esta instituiÃ§Ã£o nÃ£o foi cadastrada!");
 				}
 				System.out.println("Digite o nome do bloco da sala: ");
 				nome = input.nextLine();
 				bloco = inst.getColBlo().pesquisaPeloNome(nome);
 				if(bloco == null)
 				{
-					throw new Exception("Não há bloco cadastrado com esse nome!\n");
+					throw new Exception("NÃ£o hÃ¡ bloco cadastrado com esse nome!");
 				}
 				System.out.println("Digite o nome da sala onde se encontram os dispositivos a serem registrados: ");
 				nome = input.nextLine();
 				sala = bloco.getColSal().pesquisaPeloNome(nome);
 				if(sala == null)
 				{
-					throw new Exception("Sala não cadastrada!\n");
+					throw new Exception("Sala nÃ£o cadastrada!");
 				}
-				int porta = bloco.getColSal().atribuirPorta(sala);
-				System.out.println("Registrar Máquinas.");
-				System.out.println("Iniciado processo de registro de máquinas: ");
+				//int porta = bloco.getColSal().atribuirPorta(sala);
+				System.out.println("Registrar MÃ¡quinas.");
+				System.out.println("Iniciado processo de registro de mÃ¡quinas: ");
 				try
 				{
-					RegistraMaquinas regmaq = new RegistraMaquinas(colinst,sala.getColDis(), porta);
+					RegistraMaquinas regmaq = new RegistraMaquinas(colinst,sala.getColDis(), 60068);
 					regmaq.start();
 				}
 				catch(Exception e)
@@ -752,7 +749,7 @@ public class Registrador
 				{
 					nome = "ARC" + sala.getNome() + ":" + i;
 					boolean status = false;
-					Arcondicionado arc = new Arcondicionado(nome,status);
+					Dispositivo arc = new Arcondicionado(nome,status);
 					sala.getColDis().adicionaDispositivo(arc);
 				}
 				System.out.println("Registrar Projetores.");
@@ -762,21 +759,21 @@ public class Registrador
 				{
 					nome = "PRO" + sala.getNome() + ":" + i;
 					boolean status = false;
-					Datashow pro = new Datashow(nome,status);
+					Dispositivo pro = new Datashow(nome,status);
 					sala.getColDis().adicionaDispositivo(pro);
 				}
 				System.out.println("Dispositivos em Registro.");
 			return 1;
 			case 2:
-				System.out.println("Digite o nome da Instituição a ser cadastrado o bloco: ");
+				System.out.println("Digite o nome da InstituiÃ§Ã£o a ser cadastrado o bloco: ");
 				nome = input.nextLine();
-				System.out.println("Digite a cidade onde a Instituição se encontra: ");
+				System.out.println("Digite a cidade onde a InstituiÃ§Ã£o se encontra: ");
 				cidade = input.nextLine();
-				System.out.println("A instituição é uma Instituição de Ensino (0) ou uma Empresa (1)? (0 - Insituição de Ensino | 1 - Empresa)");
+				System.out.println("A instituiÃ§Ã£o Ã© uma InstituiÃ§Ã£o de Ensino (0) ou uma Empresa (1)? (0 - InsituiÃ§Ã£o de Ensino | 1 - Empresa)");
 				opcao = lerOpcao(input,0,1);
 				if(opcao == 0)
 				{
-					System.out.println("Digite o campus da instituição: ");
+					System.out.println("Digite o campus da instituiÃ§Ã£o: ");
 					campus = input.nextLine();
 					inst = colinst.procuraInst(new InstituicaoEnsino(nome,cidade,campus));
 				}
@@ -788,36 +785,36 @@ public class Registrador
 				}
 				if(inst == null)
 				{
-					throw new Exception("Esta instituição não foi cadastrada!\n");
+					throw new Exception("Esta instituiÃ§Ã£o nÃ£o foi cadastrada!");
 				}
 				System.out.println("Digite o nome do bloco da sala: ");
 				nome = input.nextLine();
 				bloco = inst.getColBlo().pesquisaPeloNome(nome);
 				if(bloco == null)
 				{
-					throw new Exception("Não há bloco cadastrado com esse nome!\n");
+					throw new Exception("NÃ£o hÃ¡ bloco cadastrado com esse nome!");
 				}
-				System.out.println("Digite o nome da sala onde se encontram as máquinas a serem removidas do sistema: ");
+				System.out.println("Digite o nome da sala onde se encontram as mÃ¡quinas a serem removidas do sistema: ");
 				nome = input.nextLine();
 				sala = bloco.getColSal().pesquisaPeloNome(nome);
 				if(sala == null)
 				{
-					throw new Exception("Sala não cadastrada!\n");
+					throw new Exception("Sala nÃ£o cadastrada!");
 				}
-				System.out.println("Apagando os registros de máquinas da sala " + sala.getNome() + "...");
+				System.out.println("Apagando os registros de mÃ¡quinas da sala " + sala.getNome() + "...");
 				sala.getColDis().excluirMaquinas();
 				System.out.println("Registros apagados com sucesso!");
 			return 1;
 			case 3:
-				System.out.println("Digite o nome da Instituição a ser cadastrado o bloco: ");
+				System.out.println("Digite o nome da InstituiÃ§Ã£o a ser cadastrado o bloco: ");
 				nome = input.nextLine();
-				System.out.println("Digite a cidade onde a Instituição se encontra: ");
+				System.out.println("Digite a cidade onde a InstituiÃ§Ã£o se encontra: ");
 				cidade = input.nextLine();
-				System.out.println("A instituição é uma Instituição de Ensino (0) ou uma Empresa (1)? (0 - Insituição de Ensino | 1 - Empresa)");
+				System.out.println("A instituiÃ§Ã£o Ã© uma InstituiÃ§Ã£o de Ensino (0) ou uma Empresa (1)? (0 - InsituiÃ§Ã£o de Ensino | 1 - Empresa)");
 				opcao = lerOpcao(input,0,1);
 				if(opcao == 0)
 				{
-					System.out.println("Digite o campus da instituição: ");
+					System.out.println("Digite o campus da instituiÃ§Ã£o: ");
 					campus = input.nextLine();
 					inst = colinst.procuraInst(new InstituicaoEnsino(nome,cidade,campus));
 				}
@@ -829,36 +826,36 @@ public class Registrador
 				}
 				if(inst == null)
 				{
-					throw new Exception("Esta instituição não foi cadastrada!\n");
+					throw new Exception("Esta instituiÃ§Ã£o nÃ£o foi cadastrada!");
 				}
 				System.out.println("Digite o nome do bloco da sala: ");
 				nome = input.nextLine();
 				bloco = inst.getColBlo().pesquisaPeloNome(nome);
 				if(bloco == null)
 				{
-					throw new Exception("Não há bloco cadastrado com esse nome!\n");
+					throw new Exception("NÃ£o hÃ¡ bloco cadastrado com esse nome!");
 				}
 				System.out.println("Digite o nome da sala onde se encontram os arcondicionados a serem removidos do sistema: ");
 				nome = input.nextLine();
 				sala = bloco.getColSal().pesquisaPeloNome(nome);
 				if(sala == null)
 				{
-					throw new Exception("Sala não cadastrada!\n");
+					throw new Exception("Sala nÃ£o cadastrada!");
 				}
 				System.out.println("Apagando os registros de arcondicionados da sala " + sala.getNome() + "...");
 				sala.getColDis().excluirArcondicionados();
 				System.out.println("Registros apagados com sucesso!");
 			return 1;
 			case 4:
-				System.out.println("Digite o nome da Instituição a ser cadastrado o bloco: ");
+				System.out.println("Digite o nome da InstituiÃ§Ã£o a ser cadastrado o bloco: ");
 				nome = input.nextLine();
-				System.out.println("Digite a cidade onde a Instituição se encontra: ");
+				System.out.println("Digite a cidade onde a InstituiÃ§Ã£o se encontra: ");
 				cidade = input.nextLine();
-				System.out.println("A instituição é uma Instituição de Ensino (0) ou uma Empresa (1)? (0 - Insituição de Ensino | 1 - Empresa)");
+				System.out.println("A instituiÃ§Ã£o Ã© uma InstituiÃ§Ã£o de Ensino (0) ou uma Empresa (1)? (0 - InsituiÃ§Ã£o de Ensino | 1 - Empresa)");
 				opcao = lerOpcao(input,0,1);
 				if(opcao == 0)
 				{
-					System.out.println("Digite o campus da instituição: ");
+					System.out.println("Digite o campus da instituiÃ§Ã£o: ");
 					campus = input.nextLine();
 					inst = colinst.procuraInst(new InstituicaoEnsino(nome,cidade,campus));
 				}
@@ -870,82 +867,43 @@ public class Registrador
 				}
 				if(inst == null)
 				{
-					throw new Exception("Esta instituição não foi cadastrada!\n");
+					throw new Exception("Esta instituiÃ§Ã£o nÃ£o foi cadastrada!");
 				}
 				System.out.println("Digite o nome do bloco da sala: ");
 				nome = input.nextLine();
 				bloco = inst.getColBlo().pesquisaPeloNome(nome);
 				if(bloco == null)
 				{
-					throw new Exception("Não há bloco cadastrado com esse nome!\n");
+					throw new Exception("NÃ£o hÃ¡ bloco cadastrado com esse nome!");
 				}
 				System.out.println("Digite o nome da sala onde se encontram os projetores a serem removidos do sistema: ");
 				nome = input.nextLine();
 				sala = bloco.getColSal().pesquisaPeloNome(nome);
 				if(sala == null)
 				{
-					throw new Exception("Sala não cadastrada!\n");
+					throw new Exception("Sala nÃ£o cadastrada!");
 				}
 				sala.getColDis().excluirDatashows();
 				System.out.println("Registros apagados com sucesso!");
-			return 1;
-			case 5:
-				System.out.println("Digite o nome da Instituição onde o bloco está cadastrado: ");
-				nome = input.nextLine();
-				System.out.println("Digite a cidade onde a Instituição se encontra: ");
-				cidade = input.nextLine();
-				System.out.println("A instituição é uma Instituição de Ensino (0) ou uma Empresa (1)? (0 - Insituição de Ensino | 1 - Empresa)");
-				opcao = lerOpcao(input,0,1);
-				if(opcao == 0)
-				{
-					System.out.println("Digite o campus da instituição: ");
-					campus = input.nextLine();
-					inst = colinst.procuraInst(new InstituicaoEnsino(nome,cidade,campus));
-				}
-				else
-				{
-					System.out.println("Digite o CNPJ da empresa: ");
-					CNPJ = input.nextLine();
-					inst = colinst.procuraInst(new Empresa(nome,cidade,CNPJ));
-				}
-				if(inst == null)
-				{
-					throw new Exception("Esta instituição não foi cadastrada!\n");
-				}
-				System.out.println("Digite o nome do bloco da sala: ");
-				nome = input.nextLine();
-				bloco = inst.getColBlo().pesquisaPeloNome(nome);
-				if(bloco == null)
-				{
-					throw new Exception("Não há bloco cadastrado com esse nome!\n");
-				}
-				System.out.println("Digite o nome da sala onde se encontram os dispositivos a serem listados: ");
-				nome = input.nextLine();
-				sala = bloco.getColSal().pesquisaPeloNome(nome);
-				if(sala == null)
-				{
-					throw new Exception("Sala não cadastrada!\n");
-				}
-				sala.getColDis().listagemDispositivos();
 			return 1;
 		}
 		return 2;
 	}
 	
 	/**
-	 * Método que garante validação da opção lida dentro do limite de números inteiros estabelecidos por parâmetro. Retorna a opção lida.
+	 * Método que faz um tratamento de entrada.
 	 * @param input
 	 * @param iniciall
 	 * @param finall
 	 * @return int
 	 */
-	
 	private static int lerOpcao(Scanner input, int iniciall, int finall)
 	{
+		
 		int opcao;
 		if(!input.hasNextInt())
 		{
-			System.out.printf("Digite um número válido: \n");
+			System.out.printf("Digite um nÃºmero vÃ¡lido: \n");
 			input.nextLine();
 			return lerOpcao(input,iniciall,finall);
 		}
@@ -953,7 +911,7 @@ public class Registrador
 		input.nextLine();
 		if(opcao < iniciall || opcao > finall)
 		{
-			System.out.printf("Digite um número entre '" + iniciall + "' e '" + finall + "' : \n");
+			System.out.printf("Digite um nÃºmero entre '" + iniciall + "' e '" + finall + "' : \n");
 			return lerOpcao(input,iniciall,finall);
 		}
 		return opcao;
