@@ -5,11 +5,18 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Arrays;
+import java.util.Base64;
+import java.util.Base64.Encoder;
 import java.util.Scanner;
+
+import org.apache.commons.io.FileUtils;
+
 import registradores.ColecaoDispositivos;
 import registradores.InstituicaoEnsino;
 import registradores.Maquina;
+import registradores.ScreenShot;
  
 /**
  * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro. 
@@ -69,25 +76,16 @@ public class Servidor
 	 * @param input
 	 * @param coldis
 	 * @return boolean
+	 * @throws Exception 
 	 */
-	private static boolean menu(Scanner input, ColecaoDispositivos coldis)
+	private static boolean menu(Scanner input, ColecaoDispositivos coldis) throws Exception
 	{
 		ColecaoDispositivos colmaq = coldis.getColMaq();
-		System.out.println("LISTA DE DISPOSITIVOS");
 		boolean[] desligandos = new boolean[colmaq.size()];
 		Arrays.fill(desligandos, Boolean.FALSE);
 		for(int i = 0; i < colmaq.size(); i++)
 		{
-			System.out.println(colmaq.getDispositivo(i).toString());
-			System.out.println("Deseja desligar este dispositivo? ('1' - Sim/'0' - NÃ£o)");
-			if(lerOpcao(input,0,1) == 1)
-			{
-				desligandos[i] = true;
-			}
-			else
-			{
-				desligandos[i] = false;
-			}
+			while(!menudisp(input, colmaq, desligandos));
 		}
 		Socket dispositivo = null;
 		DataOutputStream cmdOff = null;
@@ -110,6 +108,48 @@ public class Servidor
 		if(lerOpcao(input,0,1) == 1)
 		{
 			return true;
+		}
+		return false;
+	}
+	
+	private static boolean menudisp(Scanner input, ColecaoDispositivos colmaq, boolean [] desligandos) throws Exception
+	{
+		Socket screenGetShot = null;
+		String IP = null;
+		DataOutputStream saidaSinal = null;
+		ObjectInputStream oin = null;
+		ScreenShot shotScreen;
+		Encoder base64 = null;
+		System.out.println("Digite uma das opções abaixo:"
+						 + "0 - Encerrar Etapa"
+						 + "1 - Listar Máquinas"
+						 + "2 - Executar Sequência");
+		switch(lerOpcao(input,0,2))
+		{
+			case 0:
+			return true;
+			case 1:
+				for(int i = 0; i < colmaq.size(); i++)
+				{
+					System.out.println(colmaq.getDispositivo(i));
+					IP = ((Maquina)colmaq.getDispositivo(i)).getIP();
+					screenGetShot = new Socket(IP,48700);
+					saidaSinal = new DataOutputStream(screenGetShot.getOutputStream());
+					oin = new ObjectInputStream(screenGetShot.getInputStream());
+					saidaSinal.writeBoolean(true);
+					shotScreen = (ScreenShot) oin.readObject();
+					oin.close();
+					saidaSinal.close();
+					screenGetShot.close();
+					System.out.println(base64.encode(FileUtils.readFileToByteArray(shotScreen.getImg())));
+				}
+			return false;
+			case 2:
+				for(int i = 0; i < desligandos.length; i++)
+				{
+					desligandos[i] = lerOpcao(input, 0, 1) == 1? true: false;
+				}
+			return false;
 		}
 		return false;
 	}
