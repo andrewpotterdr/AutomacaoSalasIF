@@ -21,11 +21,9 @@ import registradores.Stringo;
 public class Servidor
 {	
 
-	private static boolean [] desligando;
-
 	public static void main(String[] args) throws Exception
 	{
-		desligando = null;
+		boolean [] desligando = new boolean [args.length];
 		for(int i = 1; i < args.length; i++)
 		{
 			desligando[i-1] = (args[i].equals("true")?true:false);
