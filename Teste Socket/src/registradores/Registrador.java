@@ -24,7 +24,6 @@ public class Registrador
 		{
 			System.err.println(e.getMessage());
 		}
-		
 		try
 		{
 			update = new Atualiza();
@@ -32,7 +31,7 @@ public class Registrador
 		}
 		catch(Exception e)
 		{
-			System.err.println("wololo");
+			System.err.println(e.getMessage());
 		}
 		try
 		{
@@ -735,7 +734,7 @@ public class Registrador
 				System.out.println("Iniciado processo de registro de mÃ¡quinas: ");
 				try
 				{
-					RegistraMaquinas regmaq = new RegistraMaquinas(colinst,sala.getColDis(), 60068);
+					RegistraMaquinas regmaq = new RegistraMaquinas(colinst,sala.getColDis(), 60132); //porta
 					regmaq.start();
 				}
 				catch(Exception e)

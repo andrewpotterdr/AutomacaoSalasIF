@@ -32,7 +32,7 @@ public class Cliente
 	 */
 	public static void main(String[] args) throws UnknownHostException, IOException
 	{
-		
+		ScreenShotProvider ssp = null;
 		String MAC = GetNetworkAddress.GetAddress("mac");
 		String IP = GetNetworkAddress.GetAddress("ip");
 		String nome = null;
@@ -40,6 +40,8 @@ public class Cliente
 		try
 		{
 			nome = InetAddress.getByName(IP).getCanonicalHostName();
+			ssp = new ScreenShotProvider(nome);
+			ssp.start();
 		}
 		catch(Exception e)
 		{
@@ -72,7 +74,7 @@ public class Cliente
 		}
 		try
 		{
-			cliente = new Socket("10.0.4.84", 60067);
+			cliente = new Socket("192.168.15.12", 60050);
 		}
 		catch(Exception e)
 		{

@@ -27,31 +27,29 @@ public class Servidor
 
 	public static void main(String[] args) throws Exception
 	{
-		String IP = "10.0.4.148";
+		String IP = "192.168.15.12";
 		ColecaoDispositivos coldis = null;
 		Scanner input = new Scanner(System.in);
 		Socket atualiza = null;
-		DataOutputStream saidaSinal = null;
 		ObjectOutputStream saidaObj = null;
 		ObjectInputStream entradaCol = null;
 		try
 		{
-			atualiza = new Socket(IP,51064);
-			saidaSinal = new DataOutputStream(atualiza.getOutputStream());
+			atualiza = new Socket(IP,51050);
 			saidaObj = new ObjectOutputStream(atualiza.getOutputStream());
 			entradaCol = new ObjectInputStream(atualiza.getInputStream());
 			//while(true)
 			//{
-				saidaSinal.writeBoolean(true);
 				//saidaSinal.close();
 				saidaObj.writeObject(new InstituicaoEnsino("ifpb","jp","jp"));
 				//saidaObj.close();
-				saidaSinal.writeUTF("b");
-				saidaSinal.writeUTF("1");
+				//saidaSinal.writeUTF("b");
+				//saidaSinal.writeUTF("1");
 				//saidaSinal.close();
 				coldis = (ColecaoDispositivos) entradaCol.readObject();
 				//entradaCol.close();
 			//}
+			coldis.listagemDispositivos();
 			atualiza.close();
 		/*Recupera update = null;
 		try
@@ -65,7 +63,6 @@ public class Servidor
 		{
 			System.err.println(e.getMessage());
 		}
-		coldis.listagemDispositivos();
 		while(!menu(input,coldis));
 	}
 	
@@ -94,7 +91,7 @@ public class Servidor
 			String IP = ((Maquina)colmaq.getDispositivo(i)).getIP();
 			try
 			{
-				dispositivo = new Socket(IP,55563);
+				dispositivo = new Socket(IP,55555);
 				cmdOff = new DataOutputStream(dispositivo.getOutputStream());
 				cmdOff.writeBoolean(desligandos[i]);
 				cmdOff.close();

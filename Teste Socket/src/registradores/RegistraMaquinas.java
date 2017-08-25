@@ -26,7 +26,6 @@ public class RegistraMaquinas extends Thread
 	 */
 	public RegistraMaquinas(ColecaoInstituicoes colinst, ColecaoDispositivos coldis, int porta)
 	{
-		
 		this.colinst = colinst;
 		this.coldis = coldis;
 		this.porta = porta;

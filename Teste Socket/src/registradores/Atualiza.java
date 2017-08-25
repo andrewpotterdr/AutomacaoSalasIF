@@ -1,6 +1,7 @@
 package registradores;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
@@ -13,11 +14,17 @@ import java.net.Socket;
  */
 public class Atualiza extends Thread
 {
-	ColecaoInstituicoes colinst = null;
+	ColecaoInstituicoes colinst = new ColecaoInstituicoes();
 	public Atualiza() throws Exception
 	{
-		
-		colinst.recuperaArquivo();
+		try
+		{
+			colinst.recuperaArquivo();
+		}
+		catch(Exception e)
+		{
+			throw new Exception(e.getMessage());
+		}
 	}
 	
 	public void run()
@@ -26,37 +33,32 @@ public class Atualiza extends Thread
 		ObjectOutputStream oout = null;
 		ObjectInputStream oin = null;
 		DataInputStream signin = null;
+		DataOutputStream signout = null;
 		Socket servidor = null;
-		try
-		{
-			updater = new ServerSocket(51100);
-			servidor = updater.accept();
-			signin = new DataInputStream(servidor.getInputStream());
-			oout = new ObjectOutputStream(servidor.getOutputStream());
-			oin = new ObjectInputStream(servidor.getInputStream());
-		}
-		catch(Exception e)
-		{
-			System.err.println(e.getMessage());
-		}
+		int porta = 51166;
 		try
 		{
 			while(true)
 			{
-				if(signin.readBoolean())
-				{
-					signin.close();
-					colinst.recuperaArquivo();
-					//ColecaoDispositivos coldis = colinst.procuraInst((Instituicao)(oin.readObject())).getColBlo().pesquisaPeloNome(signin.readUTF()).getColSal().pesquisaPeloNome(signin.readUTF()).getColDis();
-					Instituicao inst = colinst.procuraInst((Instituicao)(oin.readObject()));
-					oin.close();
-					Bloco bloco = inst.getColBlo().pesquisaPeloNome(signin.readUTF());
-					Sala sala = bloco.getColSal().pesquisaPeloNome(signin.readUTF());
-					signin.close();
-					ColecaoDispositivos coldis = sala.getColDis();
-					oout.writeObject(coldis);
-					oout.close();
-				}
+				updater = new ServerSocket(porta); //porta
+				servidor = updater.accept();
+				oin = new ObjectInputStream(servidor.getInputStream());
+				oout = new ObjectOutputStream(servidor.getOutputStream());
+				colinst.recuperaArquivo();
+				Instituicao inst = colinst.procuraInst((InstituicaoEnsino)(oin.readObject()));
+				System.out.println(inst);
+				/*oin.close();
+				signout.writeUTF("Não é que eu não consiga enviar alguma coisa, só não consigo enviar objetos");
+				//Instituicao inst = colinst.procuraInst(new InstituicaoEnsino(signin.readUTF()));
+				Bloco bloco = inst.getColBlo().pesquisaPeloNome(signin.readUTF());
+				System.out.println(bloco);
+				Sala sala = bloco.getColSal().pesquisaPeloNome(signin.readUTF());
+				System.out.println(sala);
+				ColecaoDispositivos coldis = sala.getColDis();
+				oout.writeObject(coldis);
+				//oout.close();*/
+				servidor.close();
+				porta++;
 			}
 		}
 		catch(Exception e)

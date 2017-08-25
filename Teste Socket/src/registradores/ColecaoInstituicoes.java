@@ -129,7 +129,7 @@ public class ColecaoInstituicoes implements Serializable
 	 * Método que acessa o arquivo e atribui à coleção instituicoes a coleção presente no arquivo caso haja, caso não ele cria um Vector vazio
 	 * e atribui a coleção.
 	 */
-	@SuppressWarnings({ "unchecked" })
+	//@SuppressWarnings({ "unchecked" })
 	public void recuperaArquivo() throws Exception
 	{
 		File file;
@@ -173,7 +173,7 @@ public class ColecaoInstituicoes implements Serializable
 		ObjectOutputStream oout;
 		try
 		{
-			file = new File("D:/Pen-Card Amway/IFPB/Projeto AutomaÃ§Ã£o das Salas/AutomacaoSalasIF/Exemplo Dados Salvos em Texto/conteudo.dat");
+			file = new File("D:\\Pen-Card Amway\\IFPB\\Projeto Automação das Salas\\AutomacaoSalasIF\\Exemplo Dados Salvos em Texto\\conteudo.dat");
 			fout = new FileOutputStream(file);
 			oout = new ObjectOutputStream(fout);
 			file.createNewFile();

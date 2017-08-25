@@ -15,7 +15,7 @@ import javax.imageio.ImageIO;
 
 import registradores.ScreenShot;
 
-public class ScreenShotProvider
+public class ScreenShotProvider extends Thread
 {
 	private static String OS = System.getProperty("os.name").toLowerCase();
 	String nomeMaquina;
