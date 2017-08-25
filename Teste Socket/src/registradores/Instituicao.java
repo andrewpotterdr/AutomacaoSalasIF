@@ -54,7 +54,7 @@ public abstract class Instituicao implements Serializable
 	
 	public String toString()
 	{
-		return "INSTITUIÃ‡ÃƒO\nNome: " + nome + "\nCidade" + cidade;
+		return "INSTITUIÇÃO\nNome: " + nome + "\nCidade: " + cidade;
 	}
 	
 	public boolean equals(Instituicao instituicao)

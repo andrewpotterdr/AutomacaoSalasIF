@@ -47,7 +47,7 @@ public class Sala implements Serializable
 	
 	public String toString()
 	{
-		return "SALA\nNome: " + nome;
+		return "Sala: " + nome;
 	}
 	
 	public boolean equals(Sala sala)

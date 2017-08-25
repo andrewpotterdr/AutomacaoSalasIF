@@ -30,7 +30,6 @@ public class ScreenShotProvider extends Thread
 		Socket inCliente;
 		DataInputStream entradaSinal;
 		ObjectOutputStream oout;
-		File img;
 		ScreenShot shotScreen;
 		try
 		{

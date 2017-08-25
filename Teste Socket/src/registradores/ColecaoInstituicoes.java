@@ -129,7 +129,7 @@ public class ColecaoInstituicoes implements Serializable
 	 * Método que acessa o arquivo e atribui à coleção instituicoes a coleção presente no arquivo caso haja, caso não ele cria um Vector vazio
 	 * e atribui a coleção.
 	 */
-	//@SuppressWarnings({ "unchecked" })
+	@SuppressWarnings({ "unchecked" })
 	public void recuperaArquivo() throws Exception
 	{
 		File file;
