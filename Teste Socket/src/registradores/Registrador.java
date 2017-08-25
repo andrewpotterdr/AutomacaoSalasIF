@@ -734,7 +734,7 @@ public class Registrador
 				System.out.println("Iniciado processo de registro de mÃ¡quinas: ");
 				try
 				{
-					RegistraMaquinas regmaq = new RegistraMaquinas(colinst,sala.getColDis(), 60062); //porta
+					RegistraMaquinas regmaq = new RegistraMaquinas(colinst,sala.getColDis(), 60084); //porta
 					regmaq.start();
 				}
 				catch(Exception e)

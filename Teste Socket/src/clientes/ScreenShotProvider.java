@@ -10,14 +10,18 @@ import java.io.File;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Base64.Encoder;
 
 import javax.imageio.ImageIO;
 
-import registradores.ScreenShot;
+import org.apache.commons.io.FileUtils;
+
+import registradores.Stringo;
 
 public class ScreenShotProvider extends Thread
 {
 	private static String OS = System.getProperty("os.name").toLowerCase();
+	Encoder base64;
 	String nomeMaquina;
 	public ScreenShotProvider(String nomeMaquina)
 	{
@@ -30,14 +34,14 @@ public class ScreenShotProvider extends Thread
 		Socket inCliente;
 		DataInputStream entradaSinal;
 		ObjectOutputStream oout;
-		ScreenShot shotScreen;
+		Stringo shotScreen;
 		try
 		{
 			inServidor = new ServerSocket(48700);
 			while(true)
 			{
 				inCliente = inServidor.accept();
-				shotScreen = new ScreenShot(printScreen()); 
+				shotScreen = new Stringo(base64.encode(FileUtils.readFileToByteArray(printScreen())).toString()); 
 				entradaSinal = new DataInputStream(inCliente.getInputStream());
 				oout = new ObjectOutputStream(inCliente.getOutputStream());
 				if(entradaSinal.readBoolean())
@@ -70,7 +74,7 @@ public class ScreenShotProvider extends Thread
 	}
 	
 	/**
-	 * Verifica se o SO é Windows.
+	 * Verifica se o SO Ã© Windows.
 	 * @return boolean
 	 */
 	public static boolean isWindows()

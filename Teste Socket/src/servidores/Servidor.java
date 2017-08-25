@@ -12,12 +12,11 @@ import registradores.ColecaoDispositivos;
 import registradores.InstituicaoEnsino;
 import registradores.Maquina;
 import registradores.Sala;
-import registradores.ScreenShot;
 import registradores.Stringo;
  
 /**
  * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro. 
- * Classe servidor, recebe o arquivo com a coleÃ§Ã£o referente aos dispositivos e chama o mÃ©todo menu. 
+ * Classe servidor, recebe o arquivo com a coleÃƒÂ§ÃƒÂ£o referente aos dispositivos e chama o mÃƒÂ©todo menu. 
  */
 public class Servidor
 {	
@@ -32,7 +31,7 @@ public class Servidor
 		ObjectInputStream entradaCol = null;
 		try
 		{
-			atualiza = new Socket(IP,51126);
+			atualiza = new Socket(IP,51148);
 			saidaObj = new ObjectOutputStream(atualiza.getOutputStream());
 			entradaCol = new ObjectInputStream(atualiza.getInputStream());
 			saidaObj.writeObject(new Stringo("true"));
@@ -51,9 +50,9 @@ public class Servidor
 	}
 	
 	/**
-	 * Lista os dispositivos e pede entrada para marcar os dispositivos a serem desligados ou nÃ£o, e entÃ£o o servidor 
-	 * abre uma conexÃ£o socket com cada cliente enviando um sinal de desligamento ou nÃ£o, caso queira encerrar o menu retorna true
-	 * caso nÃ£o, false.
+	 * Lista os dispositivos e pede entrada para marcar os dispositivos a serem desligados ou nÃƒÂ£o, e entÃƒÂ£o o servidor 
+	 * abre uma conexÃƒÂ£o socket com cada cliente enviando um sinal de desligamento ou nÃƒÂ£o, caso queira encerrar o menu retorna true
+	 * caso nÃƒÂ£o, false.
 	 * @param input
 	 * @param coldis
 	 * @return boolean
@@ -75,7 +74,7 @@ public class Servidor
 			String IP = ((Maquina)colmaq.getDispositivo(i)).getIP();
 			try
 			{
-				dispositivo = new Socket(IP,55557);
+				dispositivo = new Socket(IP,55590);
 				cmdOff = new DataOutputStream(dispositivo.getOutputStream());
 				cmdOff.writeBoolean(desligandos[i]);
 				cmdOff.close();
@@ -85,7 +84,7 @@ public class Servidor
 				System.err.println(e.getMessage());
 			}
 		}
-		System.out.println("Deseja encerrar o Gerenciador de Dispositivos? ('1' - Sim/'0' - NÃƒÂ£o)");
+		System.out.println("Deseja encerrar o Gerenciador de Dispositivos? ('1' - Sim/'0' - NÃƒÆ’Ã‚Â£o)");
 		if(lerOpcao(input,0,1) == 1)
 		{
 			return true;
@@ -99,11 +98,11 @@ public class Servidor
 		String IP = null;
 		DataOutputStream saidaSinal = null;
 		ObjectInputStream oin = null;
-		ScreenShot shotScreen;
-		System.out.println("Digite uma das opções abaixo:"
+		Stringo shotScreen;
+		System.out.println("Digite uma das opÃ§Ãµes abaixo:"
 						 + "0 - Encerrar Etapa\n"
-						 + "1 - Listar Máquinas\n"
-						 + "2 - Executar Sequência\n");
+						 + "1 - Listar MÃ¡quinas\n"
+						 + "2 - Executar SequÃªncia\n");
 		switch(lerOpcao(input,0,2))
 		{
 			case 0:
@@ -113,15 +112,15 @@ public class Servidor
 				{
 					System.out.println(colmaq.getDispositivo(i));
 					IP = ((Maquina)colmaq.getDispositivo(i)).getIP();
-					screenGetShot = new Socket(IP,48702);
+					screenGetShot = new Socket(IP,48726);
 					saidaSinal = new DataOutputStream(screenGetShot.getOutputStream());
 					oin = new ObjectInputStream(screenGetShot.getInputStream());
 					saidaSinal.writeBoolean(true);
-					shotScreen = (ScreenShot) oin.readObject();
+					shotScreen = (Stringo) oin.readObject();
 					oin.close();
 					saidaSinal.close();
 					screenGetShot.close();
-					System.out.println(shotScreen.getImg());
+					System.out.println(shotScreen.getStringo());
 				}
 			return false;
 			case 2:
@@ -135,7 +134,7 @@ public class Servidor
 	}
 	
 	/**
-	 * MÃ©todo que realiza o tratamento de entradas.
+	 * MÃƒÂ©todo que realiza o tratamento de entradas.
 	 * @param input
 	 * @param iniciall
 	 * @param finall
@@ -147,7 +146,7 @@ public class Servidor
 		int opcao;
 		if(!input.hasNextInt())
 		{
-			System.out.printf("Digite um nÃƒÂºmero vÃƒÂ¡lido: \n");
+			System.out.printf("Digite um nÃƒÆ’Ã‚Âºmero vÃƒÆ’Ã‚Â¡lido: \n");
 			input.nextLine();
 			return lerOpcao(input,iniciall,finall);
 		}
@@ -155,7 +154,7 @@ public class Servidor
 		input.nextLine();
 		if(opcao < iniciall || opcao > finall)
 		{
-			System.out.printf("Digite um nÃƒÂºmero entre '" + iniciall + "' e '" + finall + "' : \n");
+			System.out.printf("Digite um nÃƒÆ’Ã‚Âºmero entre '" + iniciall + "' e '" + finall + "' : \n");
 			return lerOpcao(input,iniciall,finall);
 		}
 		return opcao;
