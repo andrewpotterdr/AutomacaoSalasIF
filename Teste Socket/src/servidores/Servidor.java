@@ -38,7 +38,7 @@ public class Servidor
 		ObjectInputStream entradaCol = null;
 		try
 		{
-			atualiza = new Socket(IP,51196);
+			atualiza = new Socket(IP,51200);
 			saidaObj = new ObjectOutputStream(atualiza.getOutputStream());
 			entradaCol = new ObjectInputStream(atualiza.getInputStream());
 			saidaObj.writeObject(new Stringo("true"));
@@ -83,7 +83,7 @@ public class Servidor
 			String IP = ((Maquina)colmaq.getDispositivo(i)).getIP();
 			try
 			{
-				dispositivo = new Socket(IP,55646);
+				dispositivo = new Socket(IP,55650);
 				cmdOff = new DataOutputStream(dispositivo.getOutputStream());
 				cmdOff.writeBoolean(desligandos[i]);
 				cmdOff.close();
@@ -121,7 +121,7 @@ public class Servidor
 				{
 					System.out.println(colmaq.getDispositivo(i));
 					IP = ((Maquina)colmaq.getDispositivo(i)).getIP();
-					screenGetShot = new Socket(IP,48776);
+					screenGetShot = new Socket(IP,48780);
 					saidaSinal = new DataOutputStream(screenGetShot.getOutputStream());
 					oin = new ObjectInputStream(screenGetShot.getInputStream());
 					saidaSinal.writeBoolean(true);
