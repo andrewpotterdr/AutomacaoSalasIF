@@ -26,7 +26,7 @@ public class Servidor
 	public static void main(String[] args) throws Exception
 	{
 		desligando = null;
-		for(int i = 2; i < args.length; i++)
+		for(int i = 1; i < args.length; i++)
 		{
 			desligando[i-1] = (args[i].equals("true")?true:false);
 		}
@@ -53,7 +53,7 @@ public class Servidor
 		{
 			System.err.println(e.getMessage());
 		}
-		while(!menu(input,coldis,args[1],desligando));
+		while(!menu(input,coldis,args[0],desligando));
 	}
 	
 	/**
@@ -74,7 +74,7 @@ public class Servidor
 		Arrays.fill(desligandos, Boolean.FALSE);
 		for(int i = 0; i < colmaq.size(); i++)
 		{
-			while(!menudisp(input, colmaq, desligandos, args, desligando));
+			menudisp(input, colmaq, desligandos, args, desligando);
 		}
 		Socket dispositivo = null;
 		DataOutputStream cmdOff = null;
