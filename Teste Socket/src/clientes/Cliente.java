@@ -74,7 +74,7 @@ public class Cliente
 		}
 		try
 		{
-			cliente = new Socket("10.0.2.158", 60140);
+			cliente = new Socket("10.0.2.158", 60500);
 		}
 		catch(Exception e)
 		{
@@ -128,7 +128,7 @@ public class Cliente
 		DataInputStream entradaSinal;
 		try
 		{
-			inServidor = new ServerSocket(55650);
+			inServidor = new ServerSocket(55000);
 			while(true)
 			{
 				inCliente = inServidor.accept();

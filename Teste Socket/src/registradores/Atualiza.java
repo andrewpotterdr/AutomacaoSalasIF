@@ -31,7 +31,7 @@ public class Atualiza extends Thread
 		ObjectOutputStream oout = null;
 		ObjectInputStream oin = null;
 		Socket servidor = null;
-		int porta = 51200;
+		int porta = 51000;
 		try
 		{
 			while(true)

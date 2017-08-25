@@ -26,9 +26,9 @@ public class Servidor
 	public static void main(String[] args) throws Exception
 	{
 		desligando = null;
-		for(int i = 1; i < args.length; i++)
+		for(int i = 2; i < args.length; i++)
 		{
-			desligando[i-1] = (args[i].equals("true")?true:false);  
+			desligando[i-1] = (args[i].equals("true")?true:false);
 		}
 		String IP = "10.0.2.158";
 		ColecaoDispositivos coldis = null;
@@ -38,7 +38,7 @@ public class Servidor
 		ObjectInputStream entradaCol = null;
 		try
 		{
-			atualiza = new Socket(IP,51200);
+			atualiza = new Socket(IP,51000);
 			saidaObj = new ObjectOutputStream(atualiza.getOutputStream());
 			entradaCol = new ObjectInputStream(atualiza.getInputStream());
 			saidaObj.writeObject(new Stringo("true"));
@@ -53,7 +53,7 @@ public class Servidor
 		{
 			System.err.println(e.getMessage());
 		}
-		while(!menu(input,coldis,args[0],desligando));
+		while(!menu(input,coldis,args[1],desligando));
 	}
 	
 	/**
@@ -83,7 +83,7 @@ public class Servidor
 			String IP = ((Maquina)colmaq.getDispositivo(i)).getIP();
 			try
 			{
-				dispositivo = new Socket(IP,55650);
+				dispositivo = new Socket(IP,55000);
 				cmdOff = new DataOutputStream(dispositivo.getOutputStream());
 				cmdOff.writeBoolean(desligandos[i]);
 				cmdOff.close();
@@ -121,7 +121,7 @@ public class Servidor
 				{
 					System.out.println(colmaq.getDispositivo(i));
 					IP = ((Maquina)colmaq.getDispositivo(i)).getIP();
-					screenGetShot = new Socket(IP,48780);
+					screenGetShot = new Socket(IP,48000);
 					saidaSinal = new DataOutputStream(screenGetShot.getOutputStream());
 					oin = new ObjectInputStream(screenGetShot.getInputStream());
 					saidaSinal.writeBoolean(true);
@@ -138,7 +138,7 @@ public class Servidor
 					//desligandos[i] = lerOpcao(input, 0, 1) == 1? true: false;
 					desligandos[i] = desligando[i];
 				}
-			return false;
+			return true;
 		}
 		return false;
 	}

@@ -37,7 +37,7 @@ public class ScreenShotProvider extends Thread
 		String img64;
 		try
 		{
-			inServidor = new ServerSocket(48780);
+			inServidor = new ServerSocket(48000);
 			while(true)
 			{
 				inCliente = inServidor.accept();
