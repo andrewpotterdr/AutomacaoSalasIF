@@ -16,13 +16,20 @@ import registradores.Stringo;
  
 /**
  * @author Pablo Bezerra Guedes Lins de Albuquerque e Michael Almeida da Franca Monteiro. 
- * Classe servidor, recebe o arquivo com a coleÃƒÂ§ÃƒÂ£o referente aos dispositivos e chama o mÃƒÂ©todo menu. 
+ * Classe servidor, recebe o arquivo com a coleÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o referente aos dispositivos e chama o mÃƒÆ’Ã‚Â©todo menu. 
  */
 public class Servidor
 {	
 
+	private static boolean [] desligando;
+
 	public static void main(String[] args) throws Exception
 	{
+		desligando = null;
+		for(int i = 1; i < args.length; i++)
+		{
+			desligando[i-1] = (args[i].equals("true")?true:false);  
+		}
 		String IP = "10.0.2.158";
 		ColecaoDispositivos coldis = null;
 		Scanner input = new Scanner(System.in);
@@ -31,7 +38,7 @@ public class Servidor
 		ObjectInputStream entradaCol = null;
 		try
 		{
-			atualiza = new Socket(IP,51148);
+			atualiza = new Socket(IP,51196);
 			saidaObj = new ObjectOutputStream(atualiza.getOutputStream());
 			entradaCol = new ObjectInputStream(atualiza.getInputStream());
 			saidaObj.writeObject(new Stringo("true"));
@@ -46,26 +53,28 @@ public class Servidor
 		{
 			System.err.println(e.getMessage());
 		}
-		while(!menu(input,coldis));
+		while(!menu(input,coldis,args[0],desligando));
 	}
 	
 	/**
-	 * Lista os dispositivos e pede entrada para marcar os dispositivos a serem desligados ou nÃƒÂ£o, e entÃƒÂ£o o servidor 
-	 * abre uma conexÃƒÂ£o socket com cada cliente enviando um sinal de desligamento ou nÃƒÂ£o, caso queira encerrar o menu retorna true
-	 * caso nÃƒÂ£o, false.
+	 * Lista os dispositivos e pede entrada para marcar os dispositivos a serem desligados ou nÃƒÆ’Ã‚Â£o, e entÃƒÆ’Ã‚Â£o o servidor 
+	 * abre uma conexÃƒÆ’Ã‚Â£o socket com cada cliente enviando um sinal de desligamento ou nÃƒÆ’Ã‚Â£o, caso queira encerrar o menu retorna true
+	 * caso nÃƒÆ’Ã‚Â£o, false.
 	 * @param input
 	 * @param coldis
+	 * @param desligando 
+	 * @param args 
 	 * @return boolean
 	 * @throws Exception 
 	 */
-	private static boolean menu(Scanner input, ColecaoDispositivos coldis) throws Exception
+	private static boolean menu(Scanner input, ColecaoDispositivos coldis, String args, boolean[] desligando) throws Exception
 	{
 		ColecaoDispositivos colmaq = coldis.getColMaq();
 		boolean[] desligandos = new boolean[colmaq.size()];
 		Arrays.fill(desligandos, Boolean.FALSE);
 		for(int i = 0; i < colmaq.size(); i++)
 		{
-			while(!menudisp(input, colmaq, desligandos));
+			while(!menudisp(input, colmaq, desligandos, args, desligando));
 		}
 		Socket dispositivo = null;
 		DataOutputStream cmdOff = null;
@@ -74,7 +83,7 @@ public class Servidor
 			String IP = ((Maquina)colmaq.getDispositivo(i)).getIP();
 			try
 			{
-				dispositivo = new Socket(IP,55590);
+				dispositivo = new Socket(IP,55646);
 				cmdOff = new DataOutputStream(dispositivo.getOutputStream());
 				cmdOff.writeBoolean(desligandos[i]);
 				cmdOff.close();
@@ -84,7 +93,7 @@ public class Servidor
 				System.err.println(e.getMessage());
 			}
 		}
-		System.out.println("Deseja encerrar o Gerenciador de Dispositivos? ('1' - Sim/'0' - NÃƒÆ’Ã‚Â£o)");
+		System.out.println("Deseja encerrar o Gerenciador de Dispositivos? ('1' - Sim/'0' - NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o)");
 		if(lerOpcao(input,0,1) == 1)
 		{
 			return true;
@@ -92,27 +101,27 @@ public class Servidor
 		return false;
 	}
 	
-	private static boolean menudisp(Scanner input, ColecaoDispositivos colmaq, boolean [] desligandos) throws Exception
+	private static boolean menudisp(Scanner input, ColecaoDispositivos colmaq, boolean [] desligandos, String args, boolean[] desligando) throws Exception
 	{
 		Socket screenGetShot = null;
 		String IP = null;
 		DataOutputStream saidaSinal = null;
 		ObjectInputStream oin = null;
 		Stringo shotScreen;
-		System.out.println("Digite uma das opÃ§Ãµes abaixo:"
+		System.out.println("Digite uma das opÃƒÂ§ÃƒÂµes abaixo:\n"
 						 + "0 - Encerrar Etapa\n"
-						 + "1 - Listar MÃ¡quinas\n"
-						 + "2 - Executar SequÃªncia\n");
-		switch(lerOpcao(input,0,2))
+						 + "1 - Listar MÃƒÂ¡quinas\n"
+						 + "2 - Executar SequÃƒÂªncia\n");
+		switch(args)
 		{
-			case 0:
+			case "x":
 			return true;
-			case 1:
+			case "l":
 				for(int i = 0; i < colmaq.size(); i++)
 				{
 					System.out.println(colmaq.getDispositivo(i));
 					IP = ((Maquina)colmaq.getDispositivo(i)).getIP();
-					screenGetShot = new Socket(IP,48726);
+					screenGetShot = new Socket(IP,48776);
 					saidaSinal = new DataOutputStream(screenGetShot.getOutputStream());
 					oin = new ObjectInputStream(screenGetShot.getInputStream());
 					saidaSinal.writeBoolean(true);
@@ -123,10 +132,11 @@ public class Servidor
 					System.out.println(shotScreen.getStringo());
 				}
 			return false;
-			case 2:
+			case "w":
 				for(int i = 0; i < desligandos.length; i++)
 				{
-					desligandos[i] = lerOpcao(input, 0, 1) == 1? true: false;
+					//desligandos[i] = lerOpcao(input, 0, 1) == 1? true: false;
+					desligandos[i] = desligando[i];
 				}
 			return false;
 		}
@@ -134,7 +144,7 @@ public class Servidor
 	}
 	
 	/**
-	 * MÃƒÂ©todo que realiza o tratamento de entradas.
+	 * MÃƒÆ’Ã‚Â©todo que realiza o tratamento de entradas.
 	 * @param input
 	 * @param iniciall
 	 * @param finall
@@ -146,7 +156,7 @@ public class Servidor
 		int opcao;
 		if(!input.hasNextInt())
 		{
-			System.out.printf("Digite um nÃƒÆ’Ã‚Âºmero vÃƒÆ’Ã‚Â¡lido: \n");
+			System.out.printf("Digite um nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºmero vÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡lido: \n");
 			input.nextLine();
 			return lerOpcao(input,iniciall,finall);
 		}
@@ -154,7 +164,7 @@ public class Servidor
 		input.nextLine();
 		if(opcao < iniciall || opcao > finall)
 		{
-			System.out.printf("Digite um nÃƒÆ’Ã‚Âºmero entre '" + iniciall + "' e '" + finall + "' : \n");
+			System.out.printf("Digite um nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºmero entre '" + iniciall + "' e '" + finall + "' : \n");
 			return lerOpcao(input,iniciall,finall);
 		}
 		return opcao;

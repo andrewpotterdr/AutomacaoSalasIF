@@ -734,7 +734,7 @@ public class Registrador
 				System.out.println("Iniciado processo de registro de mÃ¡quinas: ");
 				try
 				{
-					RegistraMaquinas regmaq = new RegistraMaquinas(colinst,sala.getColDis(), 60084); //porta
+					RegistraMaquinas regmaq = new RegistraMaquinas(colinst,sala.getColDis(), 60138); //porta
 					regmaq.start();
 				}
 				catch(Exception e)
@@ -748,7 +748,7 @@ public class Registrador
 				{
 					nome = "ARC" + sala.getNome() + ":" + i;
 					boolean status = false;
-					Dispositivo arc = new Arcondicionado(nome,status);
+					Dispositivo arc = (Dispositivo) new Arcondicionado(nome,status);
 					sala.getColDis().adicionaDispositivo(arc);
 				}
 				System.out.println("Registrar Projetores.");
@@ -758,7 +758,7 @@ public class Registrador
 				{
 					nome = "PRO" + sala.getNome() + ":" + i;
 					boolean status = false;
-					Dispositivo pro = new Datashow(nome,status);
+					Dispositivo pro = (Dispositivo) new Datashow(nome,status);
 					sala.getColDis().adicionaDispositivo(pro);
 				}
 				System.out.println("Dispositivos em Registro.");
