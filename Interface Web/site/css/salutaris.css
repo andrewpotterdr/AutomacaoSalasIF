@@ -1,0 +1,95 @@
+#logo
+{
+	width: 500px;
+	position: absolute;
+	margin: auto;
+	display: inline-block;
+	align-content: center;
+}
+#divlogo
+{
+	margin: 0 auto;
+	width: 500px;
+	padding-top: 200px;
+}
+html{
+	height: 100%;
+}
+
+/*body {
+	text-align:left;
+	font-family: Verdana, Tahoma, Arial;
+	margin:0;
+	padding:0;
+	height:100%;
+	min-height: 100vh;
+}*/
+body
+{
+	 background: linear-gradient(to bottom, #3399ff 0%, #99ff66 100%);
+	 height: 100%;
+	 width: 100%;
+	 min-height: 100vh;
+}
+
+* {
+
+	list-style:none; 
+	padding:0px;
+	margin:0px;
+}
+#all{
+	height:100%;
+	width:100%;
+	margin:auto;
+}
+#divlogin
+{
+	width: 200px;
+	margin: 0 auto;
+	padding-top: 230px;
+	text-align: center;
+}
+#logar
+{
+	margin: 0 auto;
+	text-align: center;
+	padding-top: 50px;
+	padding-right: 200px;
+}
+
+/*Read more: http://www.linhadecodigo.com.br/artigo/3600/botao-com-css-3-como-criar-um-botao-sem-imagens.aspx#ixzz4qrKHmYjJ */
+}
+#botlogin
+{
+	 text-align: center;
+	 border-radius: 100px;
+}
+#cadastrar
+{
+	text-align: center;
+	padding-left: 10px;
+}
+#botcadastro
+{
+}
+a:link {
+	color: #1E7676; 
+}
+body {
+    background: linear-gradient(to bottom, #3399ff 0%, #99ff66 100%);
+}
+#botao{
+    color: black;
+    background-color: #f8f9fa;
+    border-color: #28a745;
+
+  }
+ #botao:hover
+ {
+ 	background-color: #598abb;
+ }
+ #login, #senha, #username, #e-mail, #confirmar
+ {
+ 	border-radius: 5px;
+ }
